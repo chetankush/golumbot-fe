@@ -7,16 +7,17 @@ import { useAuthStore } from '@/lib/store';
 import { assistantsApi, documentsApi } from '@/lib/api';
 import { ThemeToggle } from '@/components/ThemeProvider';
 
-type Tab = 'documents' | 'scraper';
+type Tab = 'documents' | 'scraper' | 'paste';
 
 interface Document {
   id: string;
   name: string;
-  type: 'file' | 'url';
+  type: 'file' | 'url' | 'text';
   sourceUrl?: string;
   metadata?: {
     fileSize?: number;
     wordCount?: number;
+    charCount?: number;
   };
   createdAt: string;
 }
@@ -37,6 +38,9 @@ export default function AdminPage() {
   const [uploading, setUploading] = useState(false);
   const [scraping, setScraping] = useState(false);
   const [scrapeUrl, setScrapeUrl] = useState('');
+  const [pasting, setPasting] = useState(false);
+  const [pasteName, setPasteName] = useState('');
+  const [pasteContent, setPasteContent] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -64,6 +68,12 @@ export default function AdminPage() {
         setSelectedAssistant(response.data.assistants[0].id);
       }
     } catch (err: any) {
+      // If token is invalid, logout and redirect
+      if (err.message === 'Invalid token' || err.message === 'Unauthorized') {
+        logout();
+        router.push('/login');
+        return;
+      }
       setError(err.message);
     } finally {
       setLoading(false);
@@ -117,6 +127,26 @@ export default function AdminPage() {
       setError(err.message);
     } finally {
       setScraping(false);
+    }
+  };
+
+  const handlePasteText = async () => {
+    if (!pasteName.trim() || !pasteContent.trim() || !selectedAssistant) return;
+
+    setPasting(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      await documentsApi.pasteText(token!, selectedAssistant, pasteName.trim(), pasteContent.trim());
+      setSuccess('Successfully added text content');
+      setPasteName('');
+      setPasteContent('');
+      loadDocuments();
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setPasting(false);
     }
   };
 
@@ -175,6 +205,18 @@ export default function AdminPage() {
               >
                 Knowledge Base
               </Link>
+              <Link
+                href="/conversations"
+                className="px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors"
+              >
+                Conversations
+              </Link>
+              <Link
+                href="/models"
+                className="px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors"
+              >
+                Models
+              </Link>
             </nav>
           </div>
           <div className="flex items-center gap-3">
@@ -230,7 +272,17 @@ export default function AdminPage() {
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
-            Upload Documents
+            Upload Files
+          </button>
+          <button
+            onClick={() => setActiveTab('paste')}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+              activeTab === 'paste'
+                ? 'bg-[var(--bg-secondary)] text-[var(--text-primary)] shadow-sm'
+                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            }`}
+          >
+            Paste Text
           </button>
           <button
             onClick={() => setActiveTab('scraper')}
@@ -296,6 +348,51 @@ export default function AdminPage() {
           </div>
         )}
 
+        {/* Paste Text Tab */}
+        {activeTab === 'paste' && (
+          <div className="card p-6">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
+                  Document Name
+                </label>
+                <input
+                  type="text"
+                  value={pasteName}
+                  onChange={(e) => setPasteName(e.target.value)}
+                  placeholder="e.g., Product FAQ, Pricing Info, Company Policies"
+                  className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
+                  Content
+                </label>
+                <textarea
+                  value={pasteContent}
+                  onChange={(e) => setPasteContent(e.target.value)}
+                  placeholder="Paste your text content here... FAQs, product information, policies, or any text you want your assistant to know about."
+                  rows={10}
+                  className="w-full px-4 py-3 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)] resize-none font-mono text-sm"
+                />
+                <p className="mt-2 text-xs text-[var(--text-muted)]">
+                  {pasteContent.length.toLocaleString()} characters • ~{pasteContent.trim().split(/\s+/).filter(w => w).length.toLocaleString()} words
+                </p>
+              </div>
+              <button
+                onClick={handlePasteText}
+                disabled={pasting || !pasteName.trim() || !pasteContent.trim() || !selectedAssistant}
+                className="px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-all disabled:opacity-50"
+              >
+                {pasting ? 'Saving...' : 'Add to Knowledge Base'}
+              </button>
+            </div>
+            <p className="mt-4 text-sm text-[var(--text-muted)]">
+              Directly paste text content like FAQs, product info, or policies without needing a file.
+            </p>
+          </div>
+        )}
+
         {/* Scraper Tab */}
         {activeTab === 'scraper' && (
           <div className="card p-6">
@@ -347,11 +444,17 @@ export default function AdminPage() {
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                       doc.type === 'url'
                         ? 'bg-purple-100 dark:bg-purple-900/30'
+                        : doc.type === 'text'
+                        ? 'bg-green-100 dark:bg-green-900/30'
                         : 'bg-blue-100 dark:bg-blue-900/30'
                     }`}>
                       {doc.type === 'url' ? (
                         <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                      ) : doc.type === 'text' ? (
+                        <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
                         </svg>
                       ) : (
                         <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -362,7 +465,7 @@ export default function AdminPage() {
                     <div>
                       <p className="text-sm font-medium text-[var(--text-primary)]">{doc.name}</p>
                       <p className="text-xs text-[var(--text-muted)]">
-                        {doc.type === 'url' ? doc.sourceUrl : formatFileSize(doc.metadata?.fileSize)}
+                        {doc.type === 'url' ? doc.sourceUrl : doc.type === 'text' ? 'Pasted text' : formatFileSize(doc.metadata?.fileSize)}
                         {doc.metadata?.wordCount && ` • ${doc.metadata.wordCount.toLocaleString()} words`}
                       </p>
                     </div>

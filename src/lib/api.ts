@@ -82,6 +82,24 @@ export const assistantsApi = {
     apiClient(`/api/assistants/${id}`, {
       method: 'DELETE',
     }, token),
+
+  models: (token: string) =>
+    apiClient<{ success: boolean; data: { models: any[] } }>('/api/assistants/models', {}, token),
+
+  uploadIcon: async (token: string, assistantId: string, file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch(`${API_URL}/api/assistants/${assistantId}/icon`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: formData,
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error?.message || 'Upload failed');
+    return data;
+  },
 };
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
@@ -114,6 +132,12 @@ export const documentsApi = {
     apiClient('/api/documents/scrape', {
       method: 'POST',
       body: JSON.stringify({ assistantId, url }),
+    }, token),
+
+  pasteText: (token: string, assistantId: string, name: string, content: string) =>
+    apiClient('/api/documents/paste', {
+      method: 'POST',
+      body: JSON.stringify({ assistantId, name, content }),
     }, token),
 
   list: (token: string, assistantId: string) =>
@@ -203,4 +227,55 @@ export const creditsApi = {
       method: 'POST',
       body: JSON.stringify({ packageId }),
     }, token),
+};
+
+// Plans API
+export const plansApi = {
+  list: () =>
+    apiClient<{ success: boolean; data: { plans: any[] } }>('/api/plans', {}),
+
+  current: (token: string) =>
+    apiClient<{ success: boolean; data: { plan: any } }>('/api/plans/current', {}, token),
+};
+
+// Conversations API
+export const conversationsApi = {
+  list: (token: string, page = 1, limit = 20) =>
+    apiClient<{
+      success: boolean;
+      data: {
+        conversations: any[];
+        pagination: { page: number; limit: number; total: number; totalPages: number };
+      };
+    }>(`/api/conversations?page=${page}&limit=${limit}`, {}, token),
+
+  get: (token: string, id: string) =>
+    apiClient<{ success: boolean; data: { conversation: any } }>(`/api/conversations/${id}`, {}, token),
+
+  delete: (token: string, id: string) =>
+    apiClient(`/api/conversations/${id}`, { method: 'DELETE' }, token),
+
+  generateSummary: (token: string, id: string) =>
+    apiClient<{ success: boolean; data: { summary: any; cached: boolean } }>(
+      `/api/conversations/${id}/summary`,
+      { method: 'POST' },
+      token
+    ),
+
+  getSummary: (token: string, id: string) =>
+    apiClient<{ success: boolean; data: { summary: any } }>(`/api/conversations/${id}/summary`, {}, token),
+
+  bulkSummarize: (token: string) =>
+    apiClient<{ success: boolean; data: { generated: number; total: number } }>(
+      '/api/conversations/summaries/bulk',
+      { method: 'POST' },
+      token
+    ),
+
+  getSummaryUsage: (token: string) =>
+    apiClient<{ success: boolean; data: { used: number; limit: number; planName: string } }>(
+      '/api/conversations/summaries/usage',
+      {},
+      token
+    ),
 };

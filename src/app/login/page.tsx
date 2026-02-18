@@ -81,7 +81,7 @@ export default function LoginPage() {
           {/* Card */}
           <div className="card p-8">
             {/* Auth Method Tabs */}
-            <div className="flex gap-1 p-1 bg-[var(--bg-tertiary)] rounded-lg mb-6">
+            <div className="flex gap-1 p-1 bg-[var(--bg-tertiary)] rounded-lg mb-6" suppressHydrationWarning>
               <button
                 type="button"
                 onClick={() => {
@@ -94,6 +94,7 @@ export default function LoginPage() {
                     ? 'bg-[var(--bg-secondary)] text-[var(--text-primary)] shadow-sm'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
+                suppressHydrationWarning
               >
                 Password
               </button>
@@ -108,6 +109,7 @@ export default function LoginPage() {
                     ? 'bg-[var(--bg-secondary)] text-[var(--text-primary)] shadow-sm'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
+                suppressHydrationWarning
               >
                 Magic Link
               </button>
@@ -121,7 +123,7 @@ export default function LoginPage() {
 
             {/* Password Login Form */}
             {authMethod === 'password' && (
-              <form onSubmit={handlePasswordLogin} className="space-y-4">
+              <form onSubmit={handlePasswordLogin} className="space-y-4" suppressHydrationWarning>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
                     Email
@@ -134,6 +136,7 @@ export default function LoginPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
                     placeholder="you@example.com"
+                    suppressHydrationWarning
                   />
                 </div>
 
@@ -149,6 +152,7 @@ export default function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
                     placeholder="••••••••"
+                    suppressHydrationWarning
                   />
                 </div>
 
@@ -156,6 +160,7 @@ export default function LoginPage() {
                   type="submit"
                   disabled={loading}
                   className="w-full py-2.5 px-4 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-primary-500/25"
+                  suppressHydrationWarning
                 >
                   {loading ? 'Signing in...' : 'Sign in'}
                 </button>
@@ -164,7 +169,7 @@ export default function LoginPage() {
 
             {/* Magic Link Form */}
             {authMethod === 'magic-link' && !magicLinkSent && (
-              <form onSubmit={handleMagicLink} className="space-y-4">
+              <form onSubmit={handleMagicLink} className="space-y-4" suppressHydrationWarning>
                 <div>
                   <label htmlFor="magic-email" className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
                     Email
@@ -177,6 +182,7 @@ export default function LoginPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
                     placeholder="you@example.com"
+                    suppressHydrationWarning
                   />
                 </div>
 
@@ -188,6 +194,7 @@ export default function LoginPage() {
                   type="submit"
                   disabled={loading}
                   className="w-full py-2.5 px-4 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-primary-500/25"
+                  suppressHydrationWarning
                 >
                   {loading ? 'Sending...' : 'Send Magic Link'}
                 </button>

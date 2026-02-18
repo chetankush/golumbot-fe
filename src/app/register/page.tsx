@@ -75,7 +75,7 @@ export default function RegisterPage() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4" suppressHydrationWarning>
               <div>
                 <label htmlFor="companyName" className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
                   Company / Project Name
@@ -88,6 +88,7 @@ export default function RegisterPage() {
                   onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                   className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
                   placeholder="Acme Inc"
+                  suppressHydrationWarning
                 />
               </div>
 
@@ -102,6 +103,7 @@ export default function RegisterPage() {
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
                   placeholder="John Doe"
+                  suppressHydrationWarning
                 />
               </div>
 
@@ -117,6 +119,7 @@ export default function RegisterPage() {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
                   placeholder="you@example.com"
+                  suppressHydrationWarning
                 />
               </div>
 
@@ -133,6 +136,7 @@ export default function RegisterPage() {
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
                   placeholder="••••••••"
+                  suppressHydrationWarning
                 />
                 <p className="mt-1 text-xs text-[var(--text-muted)]">Minimum 6 characters</p>
               </div>
@@ -141,6 +145,7 @@ export default function RegisterPage() {
                 type="submit"
                 disabled={loading}
                 className="w-full py-2.5 px-4 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-primary-500/25 mt-2"
+                suppressHydrationWarning
               >
                 {loading ? 'Creating account...' : 'Create account'}
               </button>

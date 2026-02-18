@@ -379,7 +379,7 @@ export default function LandingPage() {
           </div>
           <div className="pt-8 border-t border-[var(--border-color)] flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-[var(--text-muted)]">
-              © 2024 Golum. All rights reserved.
+              © {new Date().getFullYear()} Golum. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               <a href="#" className="text-[var(--text-muted)] hover:text-[var(--text-primary)]">
