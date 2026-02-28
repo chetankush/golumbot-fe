@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
 import { assistantsApi } from '@/lib/api';
 import { ThemeToggle } from '@/components/ThemeProvider';
+import { GolumIcon } from '@/components/Logo';
 
 interface ModelInfo {
   id: string;
@@ -137,10 +138,11 @@ export default function ModelsPage() {
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-20 bg-[var(--bg-secondary)]/80 backdrop-blur-md border-b border-[var(--border-color)]">
+      <header className="sticky top-0 z-20 bg-[var(--bg-secondary)]/95 backdrop-blur-sm border-b border-[var(--border-color)]">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="font-display text-xl font-semibold text-[var(--text-primary)]">
+            <Link href="/dashboard" className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]">
+              <GolumIcon size={24} />
               Golum
             </Link>
             <nav className="hidden md:flex items-center gap-1">
@@ -171,7 +173,7 @@ export default function ModelsPage() {
       <main className="max-w-6xl mx-auto px-6 py-8 animate-fade-in">
         {/* Page Header */}
         <div className="mb-6">
-          <h1 className="font-display text-2xl font-semibold text-[var(--text-primary)]">AI Models</h1>
+          <h1 className="text-xl font-semibold text-[var(--text-primary)]">AI Models</h1>
           <p className="text-[var(--text-secondary)] mt-1">Choose the AI model that powers your assistant</p>
         </div>
 
@@ -208,7 +210,7 @@ export default function ModelsPage() {
             {grouped.free.length > 0 && (
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <h2 className="font-display text-lg font-semibold text-[var(--text-primary)]">Free Models</h2>
+                  <h2 className="text-base font-semibold text-[var(--text-primary)]">Free Models</h2>
                   <span className="px-2 py-0.5 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">No cost</span>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -231,7 +233,7 @@ export default function ModelsPage() {
             {grouped.budget.length > 0 && (
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <h2 className="font-display text-lg font-semibold text-[var(--text-primary)]">Budget Models</h2>
+                  <h2 className="text-base font-semibold text-[var(--text-primary)]">Budget Models</h2>
                   <span className="px-2 py-0.5 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full">Low cost</span>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -254,7 +256,7 @@ export default function ModelsPage() {
             {grouped.premium.length > 0 && (
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <h2 className="font-display text-lg font-semibold text-[var(--text-primary)]">Premium Models</h2>
+                  <h2 className="text-base font-semibold text-[var(--text-primary)]">Premium Models</h2>
                   <span className="px-2 py-0.5 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full">Best quality</span>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

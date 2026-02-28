@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Black circle face -->
+  <circle cx="32" cy="32" r="30" fill="#1a1a1a"/>
+  <!-- Left eye white -->
+  <ellipse cx="22" cy="28" rx="7" ry="8" fill="white"/>
+  <!-- Left pupil -->
+  <circle cx="24" cy="28" r="3.5" fill="#1a1a1a"/>
+  <!-- Left eye glint -->
+  <circle cx="25.5" cy="26" r="1.2" fill="white"/>
+  <!-- Right eye white -->
+  <ellipse cx="42" cy="28" rx="7" ry="8" fill="white"/>
+  <!-- Right pupil -->
+  <circle cx="44" cy="28" r="3.5" fill="#1a1a1a"/>
+  <!-- Right eye glint -->
+  <circle cx="45.5" cy="26" r="1.2" fill="white"/>
+</svg>

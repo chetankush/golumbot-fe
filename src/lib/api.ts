@@ -1,12 +1,32 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
+// Map technical error messages to user-friendly ones
+function getUserFriendlyError(status: number, message: string): string {
+  // Auth errors
+  if (status === 401) return 'Your session has expired. Please sign in again.';
+  if (status === 403) return 'You don\'t have permission to do that.';
+  if (status === 429) return 'Too many requests. Please wait a moment and try again.';
+  if (status === 402) return 'Insufficient credits. Please purchase more credits to continue.';
+  if (status === 503) return 'This feature is currently unavailable. Please try again later.';
+
+  // If the server sent a clear message, use it
+  if (message && !message.includes('ECONNREFUSED') && !message.includes('fetch failed')) {
+    return message;
+  }
+
+  // Generic fallbacks
+  if (status >= 500) return 'Something went wrong on our end. Please try again later.';
+  if (status >= 400) return 'There was a problem with your request. Please try again.';
+  return 'Something went wrong. Please try again.';
+}
+
 export async function apiClient<T>(
   endpoint: string,
   options: RequestInit = {},
   token?: string | null
 ): Promise<T> {
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
+    ...(options.body ? { 'Content-Type': 'application/json' } : {}),
     ...options.headers,
   };
 
@@ -14,15 +34,29 @@ export async function apiClient<T>(
     (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_URL}${endpoint}`, {
-    ...options,
-    headers,
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_URL}${endpoint}`, {
+      ...options,
+      headers,
+    });
+  } catch (err) {
+    throw new Error('Unable to connect to the server. Please check your internet connection.');
+  }
 
-  const data = await response.json();
+  let data: any;
+  try {
+    data = await response.json();
+  } catch {
+    if (!response.ok) {
+      throw new Error(getUserFriendlyError(response.status, ''));
+    }
+    return {} as T;
+  }
 
   if (!response.ok) {
-    throw new Error(data.error?.message || 'Request failed');
+    const rawMessage = data?.error?.message || '';
+    throw new Error(getUserFriendlyError(response.status, rawMessage));
   }
 
   return data;
@@ -51,10 +85,10 @@ export const authApi = {
       body: JSON.stringify({ email }),
     }),
 
-  verifyMagicLink: (token: string) =>
+  verifyMagicLink: (accessToken: string) =>
     apiClient('/api/auth/verify-magic-link', {
       method: 'POST',
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ access_token: accessToken }),
     }),
 };
 
@@ -102,8 +136,6 @@ export const assistantsApi = {
   },
 };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
-
 // Documents API
 export const documentsApi = {
   upload: async (token: string, assistantId: string, files: File[]) => {
@@ -113,7 +145,7 @@ export const documentsApi = {
       formData.append('files', file);
     });
 
-    const response = await fetch(`${API_BASE}/api/documents/upload`, {
+    const response = await fetch(`${API_URL}/api/documents/upload`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -235,7 +267,7 @@ export const plansApi = {
     apiClient<{ success: boolean; data: { plans: any[] } }>('/api/plans', {}),
 
   current: (token: string) =>
-    apiClient<{ success: boolean; data: { plan: any } }>('/api/plans/current', {}, token),
+    apiClient<{ success: boolean; data: { plan: any; assistantUsage: { current: number; limit: number; devMode?: boolean } } }>('/api/plans/current', {}, token),
 };
 
 // Conversations API

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
 import { assistantsApi, creditsApi, plansApi } from '@/lib/api';
 import { ThemeToggle } from '@/components/ThemeProvider';
+import { GolumIcon } from '@/components/Logo';
 
 interface WidgetConfig {
   primaryColor: string;
@@ -44,7 +45,17 @@ export default function DashboardPage() {
   const [copied, setCopied] = useState(false);
   const [credits, setCredits] = useState<{ balance: number; lowBalance: boolean; devMode?: boolean } | null>(null);
   const [currentPlan, setCurrentPlan] = useState<{ name: string; slug: string } | null>(null);
+  const [assistantUsage, setAssistantUsage] = useState<{ current: number; limit: number } | null>(null);
+  const [selectedEmbedAssistant, setSelectedEmbedAssistant] = useState<string>('');
   const [showToast, setShowToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  // Auto-dismiss toasts
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => setShowToast(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
 
   useEffect(() => {
     // Check for purchase success
@@ -52,7 +63,7 @@ export default function DashboardPage() {
     const creditsAdded = searchParams.get('credits');
 
     if (purchaseStatus === 'success' && creditsAdded) {
-      setShowToast({ type: 'success', message: `Payment successful! ${creditsAdded} credits added to your account.` });
+      setShowToast({ type: 'success', message: `Payment successful! ${Number(creditsAdded).toLocaleString()} credits added to your account.` });
       router.replace('/dashboard');
     }
 
@@ -73,15 +84,15 @@ export default function DashboardPage() {
         devMode: (response.data as any).devMode,
       });
     } catch (error: any) {
-      console.error('Failed to load credits:', error);
-      // If token is invalid, logout and redirect
-      if (error.message === 'Invalid token' || error.message === 'Unauthorized') {
+      // If session expired, logout and redirect
+      if (error.message?.includes('session has expired')) {
         logout();
         router.push('/login');
         return;
       }
-      // Set dev mode credits if API fails for other reasons
-      setCredits({ balance: 999999, lowBalance: false, devMode: true });
+      // Show error state instead of fake credits
+      console.error('Failed to load credits:', error.message);
+      setCredits({ balance: 0, lowBalance: true, devMode: false });
     }
   };
 
@@ -90,6 +101,9 @@ export default function DashboardPage() {
     try {
       const response = await plansApi.current(token);
       setCurrentPlan(response.data.plan);
+      if (response.data.assistantUsage) {
+        setAssistantUsage(response.data.assistantUsage);
+      }
     } catch {
       setCurrentPlan({ name: 'Free', slug: 'free' });
     }
@@ -132,30 +146,26 @@ export default function DashboardPage() {
     <div className="min-h-screen">
       {/* Toast Notification */}
       {showToast && (
-        <div className={`fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg animate-fade-in ${
+        <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-3 rounded-lg shadow-lg animate-fade-in flex items-center gap-3 text-sm ${
           showToast.type === 'success'
-            ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800'
-            : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800'
+            ? 'bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124]'
+            : 'bg-red-600 dark:bg-red-500 text-white'
         }`}>
-          <div className="flex items-center gap-3">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          <span>{showToast.message}</span>
+          <button onClick={() => setShowToast(null)} className="ml-1 hover:opacity-70 flex-shrink-0">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
-            <span>{showToast.message}</span>
-            <button onClick={() => setShowToast(null)} className="ml-2 hover:opacity-70">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+          </button>
         </div>
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-20 bg-[var(--bg-secondary)]/80 backdrop-blur-md border-b border-[var(--border-color)]">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-20 bg-[var(--bg-secondary)]/95 backdrop-blur-sm border-b border-[var(--border-color)]">
+        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="font-display text-xl font-semibold text-[var(--text-primary)]">
+            <Link href="/dashboard" className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]">
+              <GolumIcon size={24} />
               Golum
             </Link>
             <nav className="hidden md:flex items-center gap-1">
@@ -206,14 +216,14 @@ export default function DashboardPage() {
           <div className={`card p-5 ${credits?.lowBalance ? 'border-orange-400 dark:border-orange-600' : ''}`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                   credits?.devMode
-                    ? 'bg-blue-100 dark:bg-blue-900/30'
+                    ? 'bg-primary-50 dark:bg-primary-500/10'
                     : credits?.lowBalance
-                    ? 'bg-orange-100 dark:bg-orange-900/30'
-                    : 'bg-gradient-to-br from-purple-500 to-pink-500'
+                    ? 'bg-orange-50 dark:bg-orange-900/20'
+                    : 'bg-primary-50 dark:bg-primary-500/10'
                 }`}>
-                  <svg className={`w-5 h-5 ${credits?.devMode ? 'text-blue-600 dark:text-blue-400' : credits?.lowBalance ? 'text-orange-600 dark:text-orange-400' : 'text-white'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className={`w-5 h-5 ${credits?.devMode ? 'text-[var(--accent)]' : credits?.lowBalance ? 'text-orange-500' : 'text-[var(--accent)]'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -231,7 +241,7 @@ export default function DashboardPage() {
                       </span>
                     )}
                   </div>
-                  <p className="text-2xl font-bold gradient-text">
+                  <p className="text-2xl font-bold text-[var(--text-primary)]">
                     {credits?.devMode ? '∞' : credits?.balance?.toLocaleString() ?? '...'}
                   </p>
                 </div>
@@ -295,13 +305,33 @@ export default function DashboardPage() {
 
         {/* Assistants Section */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-display text-2xl font-semibold text-[var(--text-primary)]">Assistants</h2>
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-all hover:shadow-lg hover:shadow-primary-500/25"
-          >
-            Create Assistant
-          </button>
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl font-semibold text-[var(--text-primary)]">Assistants</h2>
+            {assistantUsage && (
+              <span className="px-2.5 py-1 text-xs font-medium bg-[var(--bg-tertiary)] text-[var(--text-secondary)] rounded-full">
+                {assistantUsage.current}/{assistantUsage.limit === -1 ? '\u221e' : assistantUsage.limit}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-3">
+            {assistantUsage && assistantUsage.limit !== -1 && assistantUsage.current >= assistantUsage.limit && (
+              <Link
+                href="/pricing"
+                className="text-sm text-primary-500 hover:text-primary-600 font-medium"
+              >
+                Upgrade to create more
+              </Link>
+            )}
+            <button
+              onClick={() => setShowCreateModal(true)}
+              disabled={assistantUsage !== null && assistantUsage.limit !== -1 && assistantUsage.current >= assistantUsage.limit}
+              className="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-all hover:shadow-lg hover:shadow-primary-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none"
+            >
+              {assistantUsage && assistantUsage.limit !== -1 && assistantUsage.current >= assistantUsage.limit
+                ? `Limit Reached (${assistantUsage.current}/${assistantUsage.limit})`
+                : 'Create Assistant'}
+            </button>
+          </div>
         </div>
 
         {loading ? (
@@ -330,7 +360,7 @@ export default function DashboardPage() {
               <AssistantCard
                 key={assistant.id}
                 assistant={assistant}
-                onUpdate={loadAssistants}
+                onUpdate={() => { loadAssistants(); loadPlan(); }}
                 onCustomize={() => setShowCustomizeModal(assistant)}
                 token={token!}
               />
@@ -341,8 +371,25 @@ export default function DashboardPage() {
         {/* Widget Code Section */}
         {assistants.length > 0 && (
           <div className="mt-12">
-            <h2 className="font-display text-2xl font-semibold text-[var(--text-primary)] mb-4">Embed Widget</h2>
+            <h2 className="text-xl font-semibold text-[var(--text-primary)] mb-4">Embed Widget</h2>
             <div className="card p-6">
+              {assistants.length > 1 && (
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
+                    Select Assistant for Embed Code
+                  </label>
+                  <select
+                    value={selectedEmbedAssistant}
+                    onChange={(e) => setSelectedEmbedAssistant(e.target.value)}
+                    className="w-full max-w-xs px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] text-sm"
+                  >
+                    <option value="">Default (first active)</option>
+                    {assistants.map((a) => (
+                      <option key={a.id} value={a.id}>{a.name}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <p className="text-[var(--text-secondary)] mb-4">
                 Add this code before the closing <code className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-sm">&lt;/body&gt;</code> tag:
               </p>
@@ -350,7 +397,7 @@ export default function DashboardPage() {
 {`<script>
   window.GOLUM_CONFIG = {
     apiKey: '${apiKey}',
-    apiUrl: '${process.env.NEXT_PUBLIC_API_URL || 'YOUR_API_URL_HERE'}'
+    apiUrl: '${process.env.NEXT_PUBLIC_API_URL || 'YOUR_API_URL_HERE'}'${selectedEmbedAssistant ? `,\n    assistantId: '${selectedEmbedAssistant}'` : ''}
   };
 </script>
 <script src="${process.env.NEXT_PUBLIC_WIDGET_URL || 'YOUR_WIDGET_URL_HERE'}/widget.js"></script>`}
@@ -368,6 +415,7 @@ export default function DashboardPage() {
           onCreated={() => {
             setShowCreateModal(false);
             loadAssistants();
+            loadPlan();
           }}
         />
       )}
@@ -528,7 +576,7 @@ function CreateAssistantModal({
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="card max-w-lg w-full p-6 animate-fade-in">
-        <h2 className="font-display text-xl font-semibold text-[var(--text-primary)] mb-6">Create Assistant</h2>
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-6">Create Assistant</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
@@ -760,7 +808,7 @@ function CustomizeWidgetModal({
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="card max-w-2xl w-full p-6 animate-fade-in max-h-[90vh] overflow-y-auto">
-        <h2 className="font-display text-xl font-semibold text-[var(--text-primary)] mb-6">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-6">
           Customize Widget - {assistant.name}
         </h2>
 

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
 import { conversationsApi } from '@/lib/api';
 import { ThemeToggle } from '@/components/ThemeProvider';
+import { GolumIcon } from '@/components/Logo';
 
 interface ConversationItem {
   id: string;
@@ -48,6 +49,14 @@ export default function ConversationsPage() {
   const [bulkSummarizing, setBulkSummarizing] = useState(false);
   const [showToast, setShowToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
+  // Auto-dismiss toasts
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => setShowToast(null), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
+
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/login');
@@ -65,7 +74,7 @@ export default function ConversationsPage() {
       setConversations(response.data.conversations);
       setPagination(response.data.pagination);
     } catch (error: any) {
-      if (error.message === 'Invalid token' || error.message === 'Unauthorized') {
+      if (error.message?.includes('session has expired')) {
         logout();
         router.push('/login');
         return;
@@ -112,10 +121,8 @@ export default function ConversationsPage() {
         setExpandedConvo(null);
       }
       setShowToast({ type: 'success', message: 'Conversation deleted' });
-      setTimeout(() => setShowToast(null), 3000);
     } catch (error: any) {
-      setShowToast({ type: 'error', message: error.message || 'Failed to delete' });
-      setTimeout(() => setShowToast(null), 3000);
+      setShowToast({ type: 'error', message: error.message || 'Failed to delete conversation' });
     }
   };
 
@@ -132,11 +139,9 @@ export default function ConversationsPage() {
         setExpandedConvo({ ...expandedConvo, summary: response.data.summary });
       }
       loadSummaryUsage();
-      setShowToast({ type: 'success', message: response.data.cached ? 'Summary loaded (cached)' : 'Summary generated' });
-      setTimeout(() => setShowToast(null), 3000);
+      setShowToast({ type: 'success', message: response.data.cached ? 'Summary loaded' : 'Summary generated successfully' });
     } catch (error: any) {
       setShowToast({ type: 'error', message: error.message || 'Failed to generate summary' });
-      setTimeout(() => setShowToast(null), 3000);
     } finally {
       setSummarizing(null);
     }
@@ -148,11 +153,9 @@ export default function ConversationsPage() {
       const response = await conversationsApi.bulkSummarize(token!);
       loadConversations(pagination.page);
       loadSummaryUsage();
-      setShowToast({ type: 'success', message: `Generated ${response.data.generated} summaries` });
-      setTimeout(() => setShowToast(null), 3000);
+      setShowToast({ type: 'success', message: `${response.data.generated} summaries generated successfully` });
     } catch (error: any) {
-      setShowToast({ type: 'error', message: error.message || 'Failed to bulk summarize' });
-      setTimeout(() => setShowToast(null), 3000);
+      setShowToast({ type: 'error', message: error.message || 'Failed to generate summaries' });
     } finally {
       setBulkSummarizing(false);
     }
@@ -172,27 +175,26 @@ export default function ConversationsPage() {
     <div className="min-h-screen">
       {/* Toast */}
       {showToast && (
-        <div className={`fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg animate-fade-in ${
+        <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-3 rounded-lg shadow-lg animate-fade-in flex items-center gap-3 text-sm ${
           showToast.type === 'success'
-            ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800'
-            : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800'
+            ? 'bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124]'
+            : 'bg-red-600 dark:bg-red-500 text-white'
         }`}>
-          <div className="flex items-center gap-3">
-            <span>{showToast.message}</span>
-            <button onClick={() => setShowToast(null)} className="ml-2 hover:opacity-70">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+          <span>{showToast.message}</span>
+          <button onClick={() => setShowToast(null)} className="ml-1 hover:opacity-70 flex-shrink-0">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-20 bg-[var(--bg-secondary)]/80 backdrop-blur-md border-b border-[var(--border-color)]">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-20 bg-[var(--bg-secondary)]/95 backdrop-blur-sm border-b border-[var(--border-color)]">
+        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="font-display text-xl font-semibold text-[var(--text-primary)]">
+            <Link href="/dashboard" className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]">
+              <GolumIcon size={24} />
               Golum
             </Link>
             <nav className="hidden md:flex items-center gap-1">
@@ -224,7 +226,7 @@ export default function ConversationsPage() {
         {/* Page Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="font-display text-2xl font-semibold text-[var(--text-primary)]">Conversations</h1>
+            <h1 className="text-xl font-semibold text-[var(--text-primary)]">Conversations</h1>
             <p className="text-[var(--text-secondary)] mt-1">View and manage all chat conversations</p>
           </div>
           <div className="flex items-center gap-3">

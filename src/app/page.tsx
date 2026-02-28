@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
 import { ThemeToggle } from '@/components/ThemeProvider';
+import { GolumIcon } from '@/components/Logo';
 
 export default function LandingPage() {
   const { isAuthenticated } = useAuthStore();
@@ -22,38 +23,32 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen overflow-hidden">
-      {/* Floating gradient orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="gradient-orb gradient-orb-1" />
-        <div className="gradient-orb gradient-orb-2" />
-        <div className="gradient-orb gradient-orb-3" />
-      </div>
-
+    <div className="min-h-screen">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="font-display text-2xl font-bold gradient-text">
+            <Link href="/" className="flex items-center gap-2 text-xl font-semibold text-[var(--text-primary)]">
+              <GolumIcon size={28} />
               Golum
             </Link>
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] animated-underline transition-colors">
+              <a href="#features" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                 Features
               </a>
-              <Link href="/pricing" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] animated-underline transition-colors">
+              <Link href="/pricing" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                 Pricing
               </Link>
-              <a href="#faq" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] animated-underline transition-colors">
+              <a href="#faq" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                 FAQ
               </a>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <ThemeToggle />
               {isAuthenticated ? (
                 <Link
                   href="/dashboard"
-                  className="px-5 py-2.5 gradient-bg text-white font-medium rounded-full hover:opacity-90 transition-all hover:shadow-lg hover:shadow-purple-500/25"
+                  className="px-4 py-2 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-hover)] transition-colors"
                 >
                   Dashboard
                 </Link>
@@ -61,13 +56,13 @@ export default function LandingPage() {
                 <>
                   <Link
                     href="/login"
-                    className="hidden sm:block text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                    className="hidden sm:block text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                   >
                     Sign in
                   </Link>
                   <Link
                     href="/register"
-                    className="px-5 py-2.5 gradient-bg text-white font-medium rounded-full hover:opacity-90 transition-all hover:shadow-lg hover:shadow-purple-500/25"
+                    className="px-4 py-2 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-hover)] transition-colors"
                   >
                     Get Started
                   </Link>
@@ -79,68 +74,296 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-sm font-medium mb-8">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-            </span>
+      <section className="relative pt-28 pb-16 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 dark:bg-primary-500/10 text-primary-500 dark:text-primary-300 text-sm font-medium mb-6">
             AI-Powered Customer Support
           </div>
 
-          <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Build Intelligent
-            <span className="gradient-text block">AI Assistants</span>
-            for Your Website
+          <h1 className="text-4xl md:text-6xl font-bold mb-5 leading-tight tracking-tight">
+            Build intelligent
+            <span className="text-[var(--accent)] block">AI assistants</span>
+            for your website
           </h1>
 
-          <p className="text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto mb-8 leading-relaxed">
             Create custom AI chatbots trained on your content. Provide instant, accurate support to your visitors 24/7 without writing a single line of code.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/register"
-              className="w-full sm:w-auto px-8 py-4 gradient-bg text-white font-semibold rounded-full text-lg hover:opacity-90 transition-all hover:shadow-xl hover:shadow-purple-500/30 hover:-translate-y-1"
+              className="w-full sm:w-auto px-6 py-3 bg-[var(--accent)] text-white font-medium rounded-lg text-base hover:bg-[var(--accent-hover)] transition-colors"
             >
-              Start Free Trial
+              Start free trial
             </Link>
             <a
               href="#features"
-              className="w-full sm:w-auto px-8 py-4 bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] font-semibold rounded-full text-lg hover:border-purple-400 transition-all hover:-translate-y-1"
+              className="w-full sm:w-auto px-6 py-3 bg-[var(--bg-tertiary)] border border-[var(--border-color)] text-[var(--text-primary)] font-medium rounded-lg text-base hover:bg-[var(--border-color)] transition-colors"
             >
-              See How It Works
+              See how it works
             </a>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto mt-16 pt-10 border-t border-[var(--border-color)]">
+          <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto mt-14 pt-8 border-t border-[var(--border-color)]">
             <div>
-              <div className="font-display text-3xl md:text-4xl font-bold gradient-text">99%</div>
-              <div className="text-sm text-[var(--text-muted)] mt-1">Response Accuracy</div>
+              <div className="text-2xl md:text-3xl font-bold text-[var(--text-primary)]">99%</div>
+              <div className="text-xs text-[var(--text-muted)] mt-1">Response Accuracy</div>
             </div>
             <div>
-              <div className="font-display text-3xl md:text-4xl font-bold gradient-text">24/7</div>
-              <div className="text-sm text-[var(--text-muted)] mt-1">Always Available</div>
+              <div className="text-2xl md:text-3xl font-bold text-[var(--text-primary)]">24/7</div>
+              <div className="text-xs text-[var(--text-muted)] mt-1">Always Available</div>
             </div>
             <div>
-              <div className="font-display text-3xl md:text-4xl font-bold gradient-text">5min</div>
-              <div className="text-sm text-[var(--text-muted)] mt-1">Setup Time</div>
+              <div className="text-2xl md:text-3xl font-bold text-[var(--text-primary)]">5min</div>
+              <div className="text-xs text-[var(--text-muted)] mt-1">Setup Time</div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* MacBook Demo Section */}
+      <section className="pb-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          {/* MacBook Frame */}
+          <div className="relative">
+            {/* Screen lid */}
+            <div className="relative bg-[#0d0d0d] rounded-[12px] md:rounded-[16px] p-[6px] md:p-[8px] pt-[28px] md:pt-[32px] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)]">
+              {/* Camera notch */}
+              <div className="absolute top-[10px] md:top-[12px] left-1/2 -translate-x-1/2 w-[6px] h-[6px] rounded-full bg-[#1c1c1e] ring-1 ring-[#2a2a2c]"></div>
+
+              {/* Screen with inner bezel shadow */}
+              <div className="relative bg-white rounded-[4px] md:rounded-[6px] overflow-hidden shadow-[inset_0_0_0_1px_rgba(0,0,0,0.2)]" style={{ aspectRatio: '16 / 10' }}>
+                {/* Browser address bar */}
+                <div className="bg-[#f2f2f2] border-b border-[#e0e0e0] px-3 py-1.5 flex items-center gap-2">
+                  <div className="flex gap-[5px]">
+                    <div className="w-[10px] h-[10px] rounded-full bg-[#ff5f57]"></div>
+                    <div className="w-[10px] h-[10px] rounded-full bg-[#febc2e]"></div>
+                    <div className="w-[10px] h-[10px] rounded-full bg-[#28c840]"></div>
+                  </div>
+                  <div className="flex-1 max-w-xs mx-auto">
+                    <div className="bg-white border border-[#ddd] rounded-md px-3 py-[3px] text-[10px] text-[#666] text-center flex items-center justify-center gap-1">
+                      <svg className="w-2.5 h-2.5 text-[#4caf50]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" /></svg>
+                      brewandco.com
+                    </div>
+                  </div>
+                  <div className="w-[52px]"></div>
+                </div>
+
+                {/* Website content — uses flex-col to fill the aspect-ratio box */}
+                <div className="absolute inset-0 top-[30px] flex flex-col bg-[#fafaf9]">
+                  {/* Website nav */}
+                  <div className="bg-white border-b border-[#eee] px-4 md:px-5 py-2.5 flex items-center justify-between flex-shrink-0">
+                    <div className="flex items-center gap-4 md:gap-6">
+                      <span className="text-[11px] md:text-sm font-bold text-[#1a1a1a] tracking-tight">Brew & Co.</span>
+                      <div className="hidden md:flex gap-4">
+                        <span className="text-[9px] text-[#888] font-medium hover:text-[#1a1a1a] cursor-pointer transition-colors">Menu</span>
+                        <span className="text-[9px] text-[#888] font-medium hover:text-[#1a1a1a] cursor-pointer transition-colors">Locations</span>
+                        <span className="text-[9px] text-[#888] font-medium hover:text-[#1a1a1a] cursor-pointer transition-colors">About</span>
+                        <span className="text-[9px] text-[#888] font-medium hover:text-[#1a1a1a] cursor-pointer transition-colors">Contact</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <span className="hidden md:block text-[9px] text-[#888] font-medium cursor-pointer hover:text-[#1a1a1a] transition-colors">Sign in</span>
+                      <div className="px-2.5 py-1 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold cursor-pointer hover:bg-[#4a3020] transition-colors">Order Now</div>
+                    </div>
+                  </div>
+
+                  {/* Scrollable body area */}
+                  <div className="relative flex-1 min-h-0 overflow-hidden">
+                    <div className="h-full overflow-y-auto">
+                      {/* Hero section */}
+                      <div className="flex flex-col md:flex-row items-center gap-0 md:gap-4 px-4 md:px-5 py-5 md:py-7">
+                        {/* Text side */}
+                        <div className="flex-1">
+                          <div className="inline-block px-2 py-0.5 bg-[#f0ebe3] rounded text-[7px] text-[#8b7355] font-semibold tracking-wide uppercase mb-2">Fresh Daily</div>
+                          <h2 className="text-[16px] md:text-[20px] font-extrabold text-[#1a1a1a] leading-[1.15] mb-2">Craft coffee,{' '}<br className="hidden md:block" />delivered fresh</h2>
+                          <p className="text-[8px] md:text-[9px] text-[#777] leading-relaxed mb-3 max-w-[200px]">Premium single-origin beans roasted locally every morning. Subscribe and save 15% on every order.</p>
+                          <div className="flex gap-2">
+                            <div className="px-3 py-1.5 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold cursor-pointer hover:bg-[#4a3020] transition-colors">Shop Beans</div>
+                            <div className="px-3 py-1.5 bg-white border border-[#ddd] rounded-md text-[8px] text-[#333] font-semibold cursor-pointer hover:bg-[#f5f5f5] transition-colors">Our Story</div>
+                          </div>
+                        </div>
+
+                        {/* Hero image */}
+                        <div className="hidden md:block w-[45%] rounded-xl overflow-hidden flex-shrink-0 h-[160px] shadow-sm">
+                          <img src="/c5.avif" alt="Coffee shop interior" className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+
+                      {/* Best Sellers section */}
+                      <div className="hidden md:block px-4 md:px-5 pb-3">
+                        <p className="text-[12px] font-bold text-[#1a1a1a] mb-2">Best Sellers</p>
+                        <div className="grid grid-cols-3 gap-2">
+                          <div className="bg-white border border-[#eee] rounded-lg overflow-hidden">
+                            <div className="w-full h-36 overflow-hidden"><img src="/cofi1.jpg" alt="Ethiopian" className="w-full h-full object-cover" /></div>
+                            <div className="p-1.5">
+                              <p className="text-[7px] font-semibold text-[#1a1a1a]">Ethiopian Yirga</p>
+                              <p className="text-[6px] text-[#5c3d2e] font-semibold">$18.99</p>
+                            </div>
+                          </div>
+                          <div className="bg-white border border-[#eee] rounded-lg overflow-hidden">
+                            <div className="w-full h-36 overflow-hidden"><img src="/cofi2.avif" alt="Colombian" className="w-full h-full object-cover" /></div>
+                            <div className="p-1.5">
+                              <p className="text-[7px] font-semibold text-[#1a1a1a]">Colombian Dark</p>
+                              <p className="text-[6px] text-[#5c3d2e] font-semibold">$16.99</p>
+                            </div>
+                          </div>
+                          <div className="bg-white border border-[#eee] rounded-lg overflow-hidden">
+                            <div className="w-full h-36 overflow-hidden"><img src="/cofi3.avif" alt="House Blend" className="w-full h-full object-cover" /></div>
+                            <div className="p-1.5">
+                              <p className="text-[7px] font-semibold text-[#1a1a1a]">House Blend</p>
+                              <p className="text-[6px] text-[#5c3d2e] font-semibold">$14.99</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* About / Story section */}
+                      <div className="hidden md:block px-4 md:px-5 pb-4">
+                        <div className="bg-white border border-[#eee] rounded-lg overflow-hidden flex">
+                          <div className="w-[40%] flex-shrink-0 overflow-hidden">
+                            <img src="/c4.jpg" alt="Our roastery" className="w-full h-full object-cover" />
+                          </div>
+                          <div className="p-4 flex-1">
+                            <p className="text-[7px] font-semibold text-[#5c3d2e] uppercase tracking-wider mb-1">About Us</p>
+                            <p className="text-[13px] font-bold text-[#1a1a1a] mb-2 leading-tight">Our Story</p>
+                            <p className="text-[9px] text-[#555] leading-relaxed">Founded in 2019, Brew & Co. started with a simple idea: everyone deserves freshly roasted, ethically sourced coffee. We work directly with farmers in Ethiopia, Colombia, and Guatemala to bring you the finest single-origin beans at fair prices.</p>
+                            <p className="text-[9px] text-[#555] leading-relaxed mt-1.5">Every batch is roasted locally each morning for peak freshness. From bean to cup, we obsess over quality so you don&apos;t have to.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Gallery section */}
+                      <div className="hidden md:block px-4 md:px-5 pb-3">
+                        <p className="text-[12px] font-bold text-[#1a1a1a] mb-2">From Our Roastery</p>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          <div className="h-14 rounded-lg overflow-hidden"><img src="/c6.jpeg" alt="Latte art" className="w-full h-full object-cover" /></div>
+                          <div className="h-14 rounded-lg overflow-hidden"><img src="/c1.avif" alt="Coffee beans" className="w-full h-full object-cover" /></div>
+                        </div>
+                      </div>
+
+                      {/* Footer */}
+                      <div className="hidden md:block px-4 md:px-5 py-2 border-t border-[#eee] bg-white">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[6px] text-[#bbb]">&copy; 2026 Brew & Co. All rights reserved.</span>
+                          <div className="flex gap-2">
+                            <span className="text-[6px] text-[#bbb]">Privacy</span>
+                            <span className="text-[6px] text-[#bbb]">Terms</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Golum Chat Widget — matches real widget UI */}
+                    <div className="absolute bottom-2 md:bottom-3 right-2 md:right-3 w-[180px] md:w-[220px] bg-white rounded-[10px] md:rounded-[14px] shadow-[0_8px_40px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
+                      {/* Header — clean white with border like real widget */}
+                      <div className="px-2 md:px-2.5 py-1.5 md:py-2 flex items-center gap-1.5 border-b border-[#f1f5f9] bg-white">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[#0f172a] text-[9px] md:text-[10px] font-semibold leading-tight">Brew & Co.</p>
+                          <p className="text-[#5c3d2e] text-[6px] md:text-[7px] font-medium leading-tight">The team can also help</p>
+                        </div>
+                        <div className="flex items-center gap-0.5">
+                          <div className="w-3.5 h-3.5 md:w-4 md:h-4 rounded flex items-center justify-center text-[#94a3b8] hover:bg-[#f1f5f9]">
+                            <svg className="w-2 h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                          </div>
+                          <div className="w-3.5 h-3.5 md:w-4 md:h-4 rounded-full bg-[#f1f5f9] flex items-center justify-center text-[#64748b]">
+                            <svg className="w-2 h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Subtitle */}
+                      <div className="bg-[#fafbfc] border-b border-[#f1f5f9] px-2 py-1 text-center">
+                        <p className="text-[6px] md:text-[7px] text-[#94a3b8]">Ask us anything, or share your feedback.</p>
+                      </div>
+                      {/* Chat messages — matches real widget styling */}
+                      <div className="p-1.5 md:p-2.5 space-y-1.5 md:space-y-2 bg-white flex-1">
+                        {/* Assistant message */}
+                        <div className="flex flex-col gap-0.5">
+                          <div className="self-start bg-[#f1f5f9] rounded-sm rounded-tr-xl rounded-br-xl rounded-bl-xl px-1.5 md:px-2 py-1 md:py-1.5 text-[7px] md:text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
+                            Welcome to Brew & Co! Ask me anything about our beans or brewing tips ☕
+                          </div>
+                        </div>
+                        {/* User message */}
+                        <div className="flex flex-col gap-0.5">
+                          <div className="self-end bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl rounded-tr-xl rounded-bl-xl rounded-br-sm px-1.5 md:px-2 py-1 md:py-1.5 text-[7px] md:text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
+                            Which blend is best for cold brew?
+                          </div>
+                        </div>
+                        {/* Assistant reply */}
+                        <div className="flex flex-col gap-0.5">
+                          <div className="self-start bg-[#f1f5f9] rounded-sm rounded-tr-xl rounded-br-xl rounded-bl-xl px-1.5 md:px-2 py-1 md:py-1.5 text-[7px] md:text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
+                            Our <span className="font-semibold">Colombian Dark Roast</span> is perfect! Smooth, low acidity, with chocolate notes. Steep 12-18hrs 🤎
+                          </div>
+                          {/* Action button like real widget */}
+                          <div className="self-start mt-0.5">
+                            <div className="inline-flex items-center gap-1 px-1.5 md:px-2 py-0.5 md:py-1 bg-[#1e293b] text-white rounded-xl text-[6px] md:text-[7px] font-medium">
+                              <svg className="w-1.5 h-1.5 md:w-2 md:h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                              </svg>
+                              Book a Call
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Input — matches real widget input box */}
+                      <div className="px-1.5 md:px-2 py-1 md:py-1.5 bg-white">
+                        <div className="border-2 border-[#e2e8f0] rounded-lg md:rounded-xl px-1.5 md:px-2 py-1 md:py-1.5">
+                          <p className="text-[6px] md:text-[7px] text-[#94a3b8] mb-0.5">Type a message...</p>
+                          <div className="flex items-center justify-between">
+                            <div className="w-3 h-3 md:w-3.5 md:h-3.5 rounded text-[#94a3b8] flex items-center justify-center">
+                              <svg className="w-2 h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><line x1="9" y1="9" x2="9.01" y2="9" /><line x1="15" y1="9" x2="15.01" y2="9" />
+                              </svg>
+                            </div>
+                            <div className="w-3.5 h-3.5 md:w-4 md:h-4 bg-[#5c3d2e] rounded-full flex items-center justify-center flex-shrink-0">
+                              <svg className="w-1.5 h-1.5 md:w-2 md:h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* MacBook hinge */}
+            <div className="relative mx-auto" style={{ width: '90%' }}>
+              <div className="h-[6px] bg-gradient-to-b from-[#272727] to-[#1a1a1a] rounded-b-sm"></div>
+            </div>
+            {/* MacBook base */}
+            <div className="relative mx-auto" style={{ width: '100%' }}>
+              <div className="h-[10px] bg-gradient-to-b from-[#333] to-[#2a2a2a] rounded-b-xl shadow-[0_2px_8px_rgba(0,0,0,0.15)]">
+                {/* Trackpad indent */}
+                <div className="absolute top-[2px] left-1/2 -translate-x-1/2 w-14 h-[4px] bg-[#2a2a2a] rounded-b-sm border-t border-[#3a3a3a]"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Caption */}
+          <p className="text-center text-sm text-[var(--text-muted)] mt-8">
+            Fully customizable — matches your brand colors and answers using your content
+          </p>
         </div>
       </section>
 
       {/* Features Section */}
       <section id="features" className="section px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-              Everything You Need
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Everything you need
             </h2>
-            <p className="text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
-              Powerful features to build and deploy intelligent AI assistants in minutes
+            <p className="text-lg text-[var(--text-secondary)] max-w-xl mx-auto">
+              Powerful features to build and deploy AI assistants in minutes
             </p>
           </div>
 
@@ -186,13 +409,13 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="section px-6 bg-gradient-to-b from-transparent via-purple-50/50 to-transparent dark:via-purple-900/10">
+      <section className="section px-6 bg-[var(--bg-tertiary)]">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-              Up and Running in Minutes
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Up and running in minutes
             </h2>
-            <p className="text-xl text-[var(--text-secondary)]">
+            <p className="text-lg text-[var(--text-secondary)]">
               Three simple steps to transform your customer support
             </p>
           </div>
@@ -220,26 +443,23 @@ export default function LandingPage() {
       {/* Pricing Section */}
       <section id="pricing" className="section px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-              Pay As You Go
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Pay as you go
             </h2>
-            <p className="text-xl text-[var(--text-secondary)] mb-4">
+            <p className="text-lg text-[var(--text-secondary)] mb-3">
               Buy credits, use them anytime. No subscriptions, no commitments.
             </p>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-              </svg>
-              100 free credits for new users!
-            </div>
+            <p className="text-sm text-[var(--text-secondary)]">
+              100 free credits for new users
+            </p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             <CreditCard
               name="Basic"
               credits={500}
-              price={5}
+              price={10}
               href="/pricing"
             />
             <CreditCard
@@ -278,11 +498,11 @@ export default function LandingPage() {
       {/* FAQ Section */}
       <section id="faq" className="section px-6">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-              Frequently Asked Questions
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Frequently asked questions
             </h2>
-            <p className="text-xl text-[var(--text-secondary)]">
+            <p className="text-lg text-[var(--text-secondary)]">
               Everything you need to know about Golum
             </p>
           </div>
@@ -318,24 +538,21 @@ export default function LandingPage() {
 
       {/* CTA Section */}
       <section className="section px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl gradient-bg p-12 md:p-16 text-center text-white">
-            <div className="absolute inset-0 bg-black/10" />
-            <div className="relative z-10">
-              <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
-                Ready to Transform Your Support?
-              </h2>
-              <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-                Join thousands of businesses using AI to deliver exceptional customer experiences.
-              </p>
-              <Link
-                href="/register"
-                className="inline-block px-8 py-4 bg-white text-purple-700 font-semibold rounded-full text-lg hover:bg-opacity-90 transition-all hover:shadow-xl hover:-translate-y-1"
-              >
-                Start Your Free Trial
-              </Link>
-              <p className="mt-4 text-sm opacity-75">No credit card required</p>
-            </div>
+        <div className="max-w-3xl mx-auto">
+          <div className="rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-10 md:p-14 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              Ready to transform your support?
+            </h2>
+            <p className="text-[var(--text-secondary)] mb-6 max-w-lg mx-auto">
+              Join businesses using AI to deliver exceptional customer experiences.
+            </p>
+            <Link
+              href="/register"
+              className="inline-block px-6 py-3 bg-[var(--accent)] text-white font-medium rounded-lg hover:bg-[var(--accent-hover)] transition-colors"
+            >
+              Start free trial
+            </Link>
+            <p className="mt-3 text-sm text-[var(--text-muted)]">No credit card required</p>
           </div>
         </div>
       </section>
@@ -345,11 +562,12 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <Link href="/" className="font-display text-2xl font-bold gradient-text">
+              <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]">
+                <GolumIcon size={22} />
                 Golum
               </Link>
-              <p className="text-[var(--text-secondary)] mt-4 text-sm">
-                AI-powered assistants for modern businesses. Transform your customer support today.
+              <p className="text-[var(--text-secondary)] mt-3 text-sm">
+                AI-powered assistants for modern businesses.
               </p>
             </div>
             <div>
@@ -363,17 +581,15 @@ export default function LandingPage() {
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                <li><a href="#" className="hover:text-[var(--text-primary)]">About</a></li>
-                <li><a href="#" className="hover:text-[var(--text-primary)]">Blog</a></li>
-                <li><a href="#" className="hover:text-[var(--text-primary)]">Careers</a></li>
+                <li><a href="/privacy" className="hover:text-[var(--text-primary)]">About</a></li>
+                <li><a href="mailto:support@golum.ai" className="hover:text-[var(--text-primary)]">Contact</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Legal</h4>
               <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                <li><a href="#" className="hover:text-[var(--text-primary)]">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-[var(--text-primary)]">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-[var(--text-primary)]">Cookie Policy</a></li>
+                <li><a href="/privacy" className="hover:text-[var(--text-primary)]">Privacy Policy</a></li>
+                <li><a href="/terms" className="hover:text-[var(--text-primary)]">Terms of Service</a></li>
               </ul>
             </div>
           </div>
@@ -400,14 +616,14 @@ export default function LandingPage() {
 }
 
 // Feature Card Component
-function FeatureCard({ icon, title, description, gradient }: { icon: React.ReactNode; title: string; description: string; gradient: string }) {
+function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string; gradient?: string }) {
   return (
-    <div className="feature-card group">
-      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform`}>
+    <div className="feature-card">
+      <div className="w-10 h-10 rounded-lg bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center text-[var(--accent)] mb-3">
         {icon}
       </div>
-      <h3 className="font-display text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-[var(--text-secondary)]">{description}</p>
+      <h3 className="text-base font-semibold mb-1.5">{title}</h3>
+      <p className="text-sm text-[var(--text-secondary)]">{description}</p>
     </div>
   );
 }
@@ -416,11 +632,11 @@ function FeatureCard({ icon, title, description, gradient }: { icon: React.React
 function StepCard({ number, title, description }: { number: string; title: string; description: string }) {
   return (
     <div className="text-center">
-      <div className="w-16 h-16 rounded-full gradient-bg text-white text-2xl font-bold flex items-center justify-center mx-auto mb-4">
+      <div className="w-12 h-12 rounded-full bg-[var(--accent)] text-white text-lg font-semibold flex items-center justify-center mx-auto mb-3">
         {number}
       </div>
-      <h3 className="font-display text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-[var(--text-secondary)]">{description}</p>
+      <h3 className="text-base font-semibold mb-1.5">{title}</h3>
+      <p className="text-sm text-[var(--text-secondary)]">{description}</p>
     </div>
   );
 }
@@ -437,32 +653,32 @@ function CreditCard({ name, credits, price, savings, popular, href }: {
   return (
     <div className={`pricing-card text-center ${popular ? 'popular' : ''}`}>
       {popular && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 gradient-bg text-white text-sm font-medium rounded-full">
-          Best Value
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[var(--accent)] text-white text-xs font-medium rounded-full">
+          Best value
         </div>
       )}
       {savings && (
-        <div className="absolute top-4 right-4 px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">
+        <div className="absolute top-3 right-3 px-2 py-0.5 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-xs font-medium rounded">
           Save {savings}
         </div>
       )}
-      <h3 className="font-display text-lg font-semibold mb-2">{name}</h3>
-      <div className="mb-4">
-        <span className="font-display text-3xl font-bold">${price}</span>
+      <h3 className="text-base font-semibold mb-1">{name}</h3>
+      <div className="mb-3">
+        <span className="text-3xl font-bold">${price}</span>
       </div>
-      <div className="py-4 mb-4 rounded-xl bg-[var(--bg-tertiary)]">
-        <p className="text-2xl font-bold gradient-text">{credits.toLocaleString()}</p>
-        <p className="text-sm text-[var(--text-secondary)]">credits</p>
+      <div className="py-3 mb-3 rounded-lg bg-[var(--bg-tertiary)]">
+        <p className="text-xl font-bold text-[var(--accent)]">{credits.toLocaleString()}</p>
+        <p className="text-xs text-[var(--text-secondary)]">credits</p>
       </div>
       <Link
         href={href}
-        className={`block w-full py-3 rounded-xl font-medium text-center transition-all ${
+        className={`block w-full py-2.5 rounded-lg text-sm font-medium text-center transition-colors ${
           popular
-            ? 'gradient-bg text-white hover:opacity-90 hover:shadow-lg hover:shadow-purple-500/25'
+            ? 'bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)]'
             : 'bg-[var(--bg-tertiary)] text-[var(--text-primary)] hover:bg-[var(--border-color)]'
         }`}
       >
-        Buy Now
+        Buy now
       </Link>
     </div>
   );
