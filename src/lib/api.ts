@@ -1,12 +1,32 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
+// Map technical error messages to user-friendly ones
+function getUserFriendlyError(status: number, message: string): string {
+  // Auth errors
+  if (status === 401) return 'Your session has expired. Please sign in again.';
+  if (status === 403) return 'You don\'t have permission to do that.';
+  if (status === 429) return 'Too many requests. Please wait a moment and try again.';
+  if (status === 402) return 'Insufficient credits. Please purchase more credits to continue.';
+  if (status === 503) return 'This feature is currently unavailable. Please try again later.';
+
+  // If the server sent a clear message, use it
+  if (message && !message.includes('ECONNREFUSED') && !message.includes('fetch failed')) {
+    return message;
+  }
+
+  // Generic fallbacks
+  if (status >= 500) return 'Something went wrong on our end. Please try again later.';
+  if (status >= 400) return 'There was a problem with your request. Please try again.';
+  return 'Something went wrong. Please try again.';
+}
+
 export async function apiClient<T>(
   endpoint: string,
   options: RequestInit = {},
   token?: string | null
 ): Promise<T> {
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
+    ...(options.body ? { 'Content-Type': 'application/json' } : {}),
     ...options.headers,
   };
 
@@ -14,15 +34,29 @@ export async function apiClient<T>(
     (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_URL}${endpoint}`, {
-    ...options,
-    headers,
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_URL}${endpoint}`, {
+      ...options,
+      headers,
+    });
+  } catch (err) {
+    throw new Error('Unable to connect to the server. Please check your internet connection.');
+  }
 
-  const data = await response.json();
+  let data: any;
+  try {
+    data = await response.json();
+  } catch {
+    if (!response.ok) {
+      throw new Error(getUserFriendlyError(response.status, ''));
+    }
+    return {} as T;
+  }
 
   if (!response.ok) {
-    throw new Error(data.error?.message || 'Request failed');
+    const rawMessage = data?.error?.message || '';
+    throw new Error(getUserFriendlyError(response.status, rawMessage));
   }
 
   return data;
@@ -51,10 +85,10 @@ export const authApi = {
       body: JSON.stringify({ email }),
     }),
 
-  verifyMagicLink: (token: string) =>
+  verifyMagicLink: (accessToken: string) =>
     apiClient('/api/auth/verify-magic-link', {
       method: 'POST',
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ access_token: accessToken }),
     }),
 };
 
@@ -82,9 +116,25 @@ export const assistantsApi = {
     apiClient(`/api/assistants/${id}`, {
       method: 'DELETE',
     }, token),
-};
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+  models: (token: string) =>
+    apiClient<{ success: boolean; data: { models: any[] } }>('/api/assistants/models', {}, token),
+
+  uploadIcon: async (token: string, assistantId: string, file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch(`${API_URL}/api/assistants/${assistantId}/icon`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: formData,
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error?.message || 'Upload failed');
+    return data;
+  },
+};
 
 // Documents API
 export const documentsApi = {
@@ -95,7 +145,7 @@ export const documentsApi = {
       formData.append('files', file);
     });
 
-    const response = await fetch(`${API_BASE}/api/documents/upload`, {
+    const response = await fetch(`${API_URL}/api/documents/upload`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -114,6 +164,12 @@ export const documentsApi = {
     apiClient('/api/documents/scrape', {
       method: 'POST',
       body: JSON.stringify({ assistantId, url }),
+    }, token),
+
+  pasteText: (token: string, assistantId: string, name: string, content: string) =>
+    apiClient('/api/documents/paste', {
+      method: 'POST',
+      body: JSON.stringify({ assistantId, name, content }),
     }, token),
 
   list: (token: string, assistantId: string) =>
@@ -203,4 +259,55 @@ export const creditsApi = {
       method: 'POST',
       body: JSON.stringify({ packageId }),
     }, token),
+};
+
+// Plans API
+export const plansApi = {
+  list: () =>
+    apiClient<{ success: boolean; data: { plans: any[] } }>('/api/plans', {}),
+
+  current: (token: string) =>
+    apiClient<{ success: boolean; data: { plan: any; assistantUsage: { current: number; limit: number; devMode?: boolean } } }>('/api/plans/current', {}, token),
+};
+
+// Conversations API
+export const conversationsApi = {
+  list: (token: string, page = 1, limit = 20) =>
+    apiClient<{
+      success: boolean;
+      data: {
+        conversations: any[];
+        pagination: { page: number; limit: number; total: number; totalPages: number };
+      };
+    }>(`/api/conversations?page=${page}&limit=${limit}`, {}, token),
+
+  get: (token: string, id: string) =>
+    apiClient<{ success: boolean; data: { conversation: any } }>(`/api/conversations/${id}`, {}, token),
+
+  delete: (token: string, id: string) =>
+    apiClient(`/api/conversations/${id}`, { method: 'DELETE' }, token),
+
+  generateSummary: (token: string, id: string) =>
+    apiClient<{ success: boolean; data: { summary: any; cached: boolean } }>(
+      `/api/conversations/${id}/summary`,
+      { method: 'POST' },
+      token
+    ),
+
+  getSummary: (token: string, id: string) =>
+    apiClient<{ success: boolean; data: { summary: any } }>(`/api/conversations/${id}/summary`, {}, token),
+
+  bulkSummarize: (token: string) =>
+    apiClient<{ success: boolean; data: { generated: number; total: number } }>(
+      '/api/conversations/summaries/bulk',
+      { method: 'POST' },
+      token
+    ),
+
+  getSummaryUsage: (token: string) =>
+    apiClient<{ success: boolean; data: { used: number; limit: number; planName: string } }>(
+      '/api/conversations/summaries/usage',
+      {},
+      token
+    ),
 };

@@ -3,8 +3,24 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
-  title: 'Golum - AI Web Assistant',
-  description: 'Create AI assistants for your website',
+  title: 'Golum - AI Chat Assistant for Your Website',
+  description: 'Build and deploy custom AI chat assistants in minutes. No coding required. Train with your content, embed with one line of code.',
+  keywords: ['AI chatbot', 'website chat assistant', 'customer support AI', 'no-code chatbot'],
+  openGraph: {
+    title: 'Golum - AI Chat Assistant for Your Website',
+    description: 'Build and deploy custom AI chat assistants in minutes. No coding required.',
+    type: 'website',
+    siteName: 'Golum',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Golum - AI Chat Assistant for Your Website',
+    description: 'Build and deploy custom AI chat assistants in minutes. No coding required.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -16,10 +32,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
         <ThemeProvider>
-          <div className="dot-pattern fixed inset-0 pointer-events-none opacity-50" />
-          <div className="relative z-10">
-            {children}
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
