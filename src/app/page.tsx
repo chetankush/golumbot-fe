@@ -231,8 +231,8 @@ export default function LandingPage() {
             See it in action — your AI assistant, on any device
           </p>
 
-          {/* Devices — stacked on mobile, side-by-side on md+ */}
-          <div className="flex flex-col md:flex-row items-center md:items-end justify-center md:gap-6 lg:gap-8">
+          {/* Devices — MacBook on top (mobile) or left (desktop), phones beside it */}
+          <div className="flex flex-col md:flex-row items-center md:items-end justify-center md:gap-4 lg:gap-6">
 
             {/* ===== MacBook ===== */}
             <div className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none md:w-[620px] lg:w-[680px] flex-shrink-0">
@@ -379,8 +379,11 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* ===== iPhone Mockup ===== */}
-            <div className="mt-10 md:mt-0 md:-ml-6 lg:-ml-4 flex-shrink-0 z-10 md:mb-4 lg:mb-6">
+            {/* ===== Phone Mockups ===== */}
+            <div className="flex items-end gap-3 sm:gap-4 md:gap-3 lg:gap-4 mt-8 md:mt-0 md:-ml-4 lg:-ml-2 flex-shrink-0">
+
+            {/* iPhone 1 — Site with launcher */}
+            <div className="flex-shrink-0 z-10 md:mb-4 lg:mb-6">
               {/* Phone Frame */}
               <div className="relative bg-[#0d0d0d] rounded-[24px] sm:rounded-[28px] md:rounded-[32px] p-[4px] sm:p-[5px] md:p-[6px] shadow-[0_12px_40px_-8px_rgba(0,0,0,0.4)]" style={{ width: 'clamp(140px, 35vw, 200px)' }}>
                 {/* Dynamic Island */}
@@ -474,6 +477,163 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
+
+            {/* iPhone 2 — Open Chatbot */}
+            <div className="flex-shrink-0 z-20 md:mb-4 lg:mb-6">
+              <div className="relative bg-[#0d0d0d] rounded-[24px] sm:rounded-[28px] md:rounded-[32px] p-[4px] sm:p-[5px] md:p-[6px] shadow-[0_12px_40px_-8px_rgba(0,0,0,0.4)]" style={{ width: 'clamp(140px, 35vw, 200px)' }}>
+                {/* Dynamic Island */}
+                <div className="absolute top-[8px] sm:top-[10px] left-1/2 -translate-x-1/2 w-[40px] sm:w-[50px] md:w-[60px] h-[12px] sm:h-[14px] md:h-[16px] bg-[#0d0d0d] rounded-full z-20"></div>
+                {/* Side buttons */}
+                <div className="absolute -right-[2px] top-[55px] sm:top-[65px] md:top-[70px] w-[2px] sm:w-[3px] h-[18px] sm:h-[22px] md:h-[24px] bg-[#1a1a1a] rounded-r-sm"></div>
+                <div className="absolute -left-[2px] top-[48px] sm:top-[55px] md:top-[60px] w-[2px] sm:w-[3px] h-[12px] sm:h-[14px] md:h-[16px] bg-[#1a1a1a] rounded-l-sm"></div>
+                <div className="absolute -left-[2px] top-[68px] sm:top-[78px] md:top-[90px] w-[2px] sm:w-[3px] h-[20px] sm:h-[24px] md:h-[28px] bg-[#1a1a1a] rounded-l-sm"></div>
+
+                {/* Phone Screen — full chatbot UI */}
+                <div className="relative bg-white rounded-[20px] sm:rounded-[23px] md:rounded-[26px] overflow-hidden" style={{ aspectRatio: '9 / 19.5' }}>
+                  {/* Status bar */}
+                  <div className="bg-white px-3 sm:px-4 pt-2 sm:pt-3 pb-0.5 sm:pb-1 flex items-center justify-between">
+                    <span className="text-[5px] sm:text-[6px] md:text-[7px] font-semibold text-[#1a1a1a]">9:41</span>
+                    <div className="flex items-center gap-0.5">
+                      <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#1a1a1a]" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 8a1 1 0 011-1h2a1 1 0 011 1v8a1 1 0 01-1 1H9a1 1 0 01-1-1V8zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" /></svg>
+                      <svg className="w-2.5 h-2 sm:w-3 sm:h-2.5 text-[#1a1a1a]" fill="currentColor" viewBox="0 0 24 16"><rect x="0" y="2" width="20" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" /><rect x="21" y="5" width="2" height="6" rx="1" /><rect x="2" y="4" width="14" height="8" rx="1" fill="currentColor" /></svg>
+                    </div>
+                  </div>
+
+                  {/* Chatbot Panel — takes full screen */}
+                  <div className="flex flex-col bg-white" style={{ height: 'calc(100% - 28px)' }}>
+                    {/* Chat header */}
+                    <div className="px-2 sm:px-2.5 md:px-3 py-1.5 sm:py-2 md:py-2.5 flex items-center gap-1.5 sm:gap-2 border-b border-[#f1f5f9]">
+                      <div className="w-[18px] sm:w-[22px] md:w-[26px] h-[18px] sm:h-[22px] md:h-[26px] rounded-full bg-[#5c3d2e] flex items-center justify-center flex-shrink-0">
+                        <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[6px] sm:text-[7px] md:text-[9px] font-semibold text-[#0f172a] leading-tight">Brew & Co.</p>
+                        <p className="text-[4px] sm:text-[5px] md:text-[6px] text-[#5c3d2e] font-medium leading-tight">Online now</p>
+                      </div>
+                      <div className="flex items-center gap-0.5">
+                        <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 rounded flex items-center justify-center text-[#94a3b8]">
+                          <svg className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                          </svg>
+                        </div>
+                        <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 rounded-full bg-[#f1f5f9] flex items-center justify-center text-[#64748b]">
+                          <svg className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Greeting bar */}
+                    <div className="bg-[#fafbfc] border-b border-[#f1f5f9] px-2 sm:px-2.5 py-0.5 sm:py-1 text-center">
+                      <p className="text-[4px] sm:text-[5px] md:text-[6px] text-[#94a3b8]">Ask us anything about our coffee</p>
+                    </div>
+
+                    {/* Messages area */}
+                    <div className="flex-1 p-1.5 sm:p-2 md:p-2.5 space-y-1.5 sm:space-y-2 md:space-y-2.5 overflow-y-auto bg-white">
+                      {/* Bot welcome */}
+                      <div className="flex gap-1 sm:gap-1.5 items-start">
+                        <div className="w-[12px] sm:w-[14px] md:w-[18px] h-[12px] sm:h-[14px] md:h-[18px] rounded-full bg-[#5c3d2e] flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg className="w-[6px] h-[6px] sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                          </svg>
+                        </div>
+                        <div className="bg-[#f1f5f9] rounded-lg rounded-tl-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-[#1e293b] max-w-[80%] leading-relaxed">
+                          Hey! Welcome to Brew & Co. How can I help you today?
+                        </div>
+                      </div>
+
+                      {/* Quick reply buttons */}
+                      <div className="flex flex-wrap gap-0.5 sm:gap-1 pl-4 sm:pl-5 md:pl-6">
+                        <div className="px-1.5 sm:px-2 py-0.5 sm:py-1 border border-[#e2e8f0] rounded-full text-[4px] sm:text-[5px] md:text-[6px] text-[#475569] font-medium">What do you offer?</div>
+                        <div className="px-1.5 sm:px-2 py-0.5 sm:py-1 border border-[#e2e8f0] rounded-full text-[4px] sm:text-[5px] md:text-[6px] text-[#475569] font-medium">Pricing</div>
+                      </div>
+
+                      {/* User message */}
+                      <div className="flex justify-end">
+                        <div className="bg-[#5c3d2e] rounded-lg rounded-tr-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-white max-w-[80%] leading-relaxed">
+                          Which blend is best for cold brew?
+                        </div>
+                      </div>
+
+                      {/* Bot reply */}
+                      <div className="flex gap-1 sm:gap-1.5 items-start">
+                        <div className="w-[12px] sm:w-[14px] md:w-[18px] h-[12px] sm:h-[14px] md:h-[18px] rounded-full bg-[#5c3d2e] flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg className="w-[6px] h-[6px] sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                          </svg>
+                        </div>
+                        <div className="max-w-[80%]">
+                          <div className="bg-[#f1f5f9] rounded-lg rounded-tl-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-[#1e293b] leading-relaxed">
+                            Great choice! Our <span className="font-semibold">Colombian Dark Roast</span> is the best for cold brew — smooth, low acidity, rich chocolate notes. Steep 12-18 hours for best results.
+                          </div>
+                          {/* Action buttons */}
+                          <div className="flex gap-0.5 sm:gap-1 mt-0.5 sm:mt-1">
+                            <div className="inline-flex items-center gap-0.5 px-1.5 sm:px-2 py-0.5 sm:py-1 bg-[#1e293b] text-white rounded-full text-[4px] sm:text-[5px] md:text-[6px] font-medium">
+                              <svg className="w-1.5 h-1.5 sm:w-2 sm:h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                              </svg>
+                              Book a Call
+                            </div>
+                            <div className="inline-flex items-center gap-0.5 px-1.5 sm:px-2 py-0.5 sm:py-1 bg-[#25D366] text-white rounded-full text-[4px] sm:text-[5px] md:text-[6px] font-medium">
+                              <svg className="w-1.5 h-1.5 sm:w-2 sm:h-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                              </svg>
+                              WhatsApp
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* User follow-up */}
+                      <div className="flex justify-end">
+                        <div className="bg-[#5c3d2e] rounded-lg rounded-tr-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-white max-w-[80%] leading-relaxed">
+                          How much is it?
+                        </div>
+                      </div>
+
+                      {/* Bot price reply */}
+                      <div className="flex gap-1 sm:gap-1.5 items-start">
+                        <div className="w-[12px] sm:w-[14px] md:w-[18px] h-[12px] sm:h-[14px] md:h-[18px] rounded-full bg-[#5c3d2e] flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg className="w-[6px] h-[6px] sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                          </svg>
+                        </div>
+                        <div className="bg-[#f1f5f9] rounded-lg rounded-tl-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-[#1e293b] max-w-[80%] leading-relaxed">
+                          The Colombian Dark Roast is <span className="font-semibold">$16.99</span> for a 12oz bag. We also offer a subscription — save 15% on every order!
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Chat input */}
+                    <div className="px-1.5 sm:px-2 md:px-2.5 py-1 sm:py-1.5 md:py-2 bg-white border-t border-[#f1f5f9]">
+                      <div className="flex items-center gap-1 border border-[#e2e8f0] rounded-lg sm:rounded-xl px-1.5 sm:px-2 py-1 sm:py-1.5">
+                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 rounded text-[#94a3b8] flex items-center justify-center">
+                          <svg className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><line x1="9" y1="9" x2="9.01" y2="9" /><line x1="15" y1="9" x2="15.01" y2="9" />
+                          </svg>
+                        </div>
+                        <p className="flex-1 text-[4px] sm:text-[5px] md:text-[6px] text-[#94a3b8]">Type a message...</p>
+                        <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 bg-[#5c3d2e] rounded-full flex items-center justify-center flex-shrink-0">
+                          <svg className="w-1.5 h-1.5 sm:w-2 sm:h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" />
+                          </svg>
+                        </div>
+                      </div>
+                      {/* Powered by badge */}
+                      <p className="text-center text-[3px] sm:text-[4px] md:text-[5px] text-[#c0c0c0] mt-0.5 sm:mt-1">Powered by Golum</p>
+                    </div>
+                  </div>
+
+                  {/* Home indicator */}
+                  <div className="absolute bottom-[3px] sm:bottom-[4px] left-1/2 -translate-x-1/2 w-[35%] h-[2px] sm:h-[3px] bg-[#1a1a1a] rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            </div>{/* end phones wrapper */}
 
           </div>
         </div>
