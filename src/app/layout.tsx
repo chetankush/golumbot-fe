@@ -34,6 +34,12 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
         </ThemeProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.GOLUM_CONFIG = { apiKey: 'pk_WtOK_KVO5GhBuVv8ikS3xEXpH8DGMnYL', apiUrl: 'https://golum-be.onrender.com' };`,
+          }}
+        />
+        <script src="https://golum-widget.netlify.app/widget.js" async />
       </body>
     </html>
   );
