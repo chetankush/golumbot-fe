@@ -279,8 +279,8 @@ export default function LandingPage() {
                       </div>
                     </div>
 
-                    <div className="relative flex-1 min-h-0 overflow-hidden">
-                      <div className="h-full overflow-y-auto no-scrollbar">
+                    <div className="relative flex-1 min-h-0 overflow-hidden mockup-autoscroll" style={{ '--scroll-distance': '-280px', '--scroll-duration': '16s' } as React.CSSProperties}>
+                      <div className="no-scrollbar">
                         {/* Hero */}
                         <div className="flex flex-row items-center gap-2 sm:gap-3 md:gap-4 px-2.5 sm:px-4 md:px-5 py-3 sm:py-5 md:py-7">
                           <div className="flex-1 min-w-0">
@@ -317,6 +317,55 @@ export default function LandingPage() {
                           </div>
                         </div>
 
+                        {/* Why Us strip */}
+                        <div className="px-2.5 sm:px-4 md:px-5 py-2 sm:py-3 md:py-4 bg-[#f0ebe3]">
+                          <p className="text-[7px] sm:text-[9px] md:text-[11px] font-bold text-[#3d2b1f] mb-1.5 sm:mb-2 text-center">Why Brew & Co?</p>
+                          <div className="grid grid-cols-3 gap-1 sm:gap-1.5 md:gap-2">
+                            {[
+                              { icon: '🚚', label: 'Free Shipping', desc: 'On orders $35+' },
+                              { icon: '☕', label: 'Fresh Roasted', desc: 'Roasted every morning' },
+                              { icon: '🌱', label: 'Fair Trade', desc: '100% ethically sourced' },
+                            ].map((item) => (
+                              <div key={item.label} className="bg-white rounded-md sm:rounded-lg p-1 sm:p-1.5 md:p-2 text-center">
+                                <span className="text-[8px] sm:text-[12px] md:text-[14px]">{item.icon}</span>
+                                <p className="text-[5px] sm:text-[6px] md:text-[7px] font-semibold text-[#1a1a1a] mt-0.5">{item.label}</p>
+                                <p className="text-[4px] sm:text-[5px] md:text-[6px] text-[#888]">{item.desc}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Testimonial */}
+                        <div className="px-2.5 sm:px-4 md:px-5 py-2 sm:py-3 md:py-4 bg-white">
+                          <div className="flex items-start gap-1.5 sm:gap-2 md:gap-3">
+                            <div className="w-[18px] sm:w-[28px] md:w-[36px] h-[18px] sm:h-[28px] md:h-[36px] rounded-full bg-[#f0ebe3] flex items-center justify-center flex-shrink-0">
+                              <span className="text-[7px] sm:text-[10px] md:text-[14px]">👤</span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex gap-0.5 text-[6px] sm:text-[8px] md:text-[10px] text-[#d4a574] mb-0.5">★★★★★</div>
+                              <p className="text-[5px] sm:text-[7px] md:text-[8px] text-[#333] leading-relaxed italic">&ldquo;Best subscription coffee I&rsquo;ve ever tried. The cold brew blend is incredible!&rdquo;</p>
+                              <p className="text-[4px] sm:text-[5px] md:text-[6px] text-[#999] mt-0.5 font-medium">— Sarah M., Portland</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Visit section */}
+                        <div className="px-2.5 sm:px-4 md:px-5 py-2 sm:py-3 md:py-4 bg-[#fafaf9]">
+                          <p className="text-[7px] sm:text-[9px] md:text-[11px] font-bold text-[#1a1a1a] mb-1 sm:mb-1.5">Visit Our Roastery</p>
+                          <div className="flex items-center gap-1.5 sm:gap-2">
+                            <div className="w-[40%] h-[30px] sm:h-[50px] md:h-[60px] rounded-md overflow-hidden bg-[#e8e0d8]">
+                              <div className="w-full h-full bg-gradient-to-br from-[#d4a574] to-[#8b7355] flex items-center justify-center">
+                                <span className="text-[10px] sm:text-[16px] md:text-[20px]">📍</span>
+                              </div>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[5px] sm:text-[7px] md:text-[8px] text-[#333] font-medium">123 Roast Ave, Portland</p>
+                              <p className="text-[4px] sm:text-[5px] md:text-[6px] text-[#888]">Mon-Sat 7am-6pm</p>
+                              <div className="mt-1 px-1.5 sm:px-2 py-0.5 bg-[#5c3d2e] rounded text-[4px] sm:text-[5px] md:text-[6px] text-white font-semibold w-fit">Get Directions</div>
+                            </div>
+                          </div>
+                        </div>
+
                         {/* Footer */}
                         <div className="px-2.5 sm:px-4 md:px-5 py-1.5 sm:py-2 border-t border-[#eee] bg-white">
                           <div className="flex items-center justify-between">
@@ -329,7 +378,7 @@ export default function LandingPage() {
                         </div>
                       </div>
 
-                      {/* Chat Widget */}
+                      {/* Chat Widget — stays fixed, outside scroll */}
                       <div className="absolute bottom-1.5 sm:bottom-2 md:bottom-3 right-1.5 sm:right-2 md:right-3 w-[120px] sm:w-[170px] md:w-[220px] bg-white rounded-[8px] sm:rounded-[12px] md:rounded-[14px] shadow-[0_4px_20px_rgba(0,0,0,0.1),0_1px_4px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
                         <div className="px-1.5 sm:px-2 md:px-2.5 py-1 sm:py-1.5 md:py-2 flex items-center gap-1 border-b border-[#f1f5f9] bg-white">
                           <div className="flex-1 min-w-0">
@@ -424,8 +473,8 @@ export default function LandingPage() {
                       </div>
                     </div>
 
-                    <div className="relative flex-1 min-h-0 overflow-hidden">
-                      <div className="h-full overflow-y-auto no-scrollbar">
+                    <div className="relative flex-1 min-h-0 overflow-hidden mockup-autoscroll" style={{ '--scroll-distance': '-120px', '--scroll-duration': '14s' } as React.CSSProperties}>
+                      <div className="no-scrollbar">
                         {/* Mobile Hero */}
                         <div className="px-2 sm:px-2.5 py-2 sm:py-3">
                           <div className="inline-block px-1 sm:px-1.5 py-0.5 bg-[#f0ebe3] rounded text-[4px] sm:text-[5px] text-[#8b7355] font-semibold tracking-wide uppercase mb-1 sm:mb-1.5">Fresh Daily</div>
@@ -461,6 +510,30 @@ export default function LandingPage() {
                               </div>
                             ))}
                           </div>
+                        </div>
+
+                        {/* Mobile Why Us */}
+                        <div className="px-2 sm:px-2.5 py-1.5 sm:py-2 bg-[#f0ebe3]">
+                          <p className="text-[5px] sm:text-[6px] md:text-[7px] font-bold text-[#3d2b1f] mb-1 text-center">Why Brew & Co?</p>
+                          <div className="flex gap-1 sm:gap-1.5">
+                            {[
+                              { icon: '🚚', label: 'Free Ship' },
+                              { icon: '☕', label: 'Fresh' },
+                              { icon: '🌱', label: 'Fair Trade' },
+                            ].map((item) => (
+                              <div key={item.label} className="bg-white rounded-sm sm:rounded-md p-0.5 sm:p-1 text-center flex-1">
+                                <span className="text-[6px] sm:text-[8px]">{item.icon}</span>
+                                <p className="text-[3px] sm:text-[4px] font-semibold text-[#1a1a1a]">{item.label}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Mobile Review */}
+                        <div className="px-2 sm:px-2.5 py-1.5 sm:py-2 bg-white">
+                          <div className="flex gap-0.5 text-[5px] sm:text-[6px] text-[#d4a574]">★★★★★</div>
+                          <p className="text-[4px] sm:text-[5px] text-[#333] italic leading-relaxed mt-0.5">&ldquo;Best coffee subscription ever!&rdquo;</p>
+                          <p className="text-[3px] sm:text-[4px] text-[#999] mt-0.5">— Sarah M.</p>
                         </div>
                       </div>
 
@@ -533,7 +606,8 @@ export default function LandingPage() {
                     </div>
 
                     {/* Messages area */}
-                    <div className="flex-1 p-1.5 sm:p-2 md:p-2.5 space-y-1.5 sm:space-y-2 md:space-y-2.5 overflow-y-auto no-scrollbar bg-white">
+                    <div className="flex-1 overflow-hidden mockup-autoscroll bg-white" style={{ '--scroll-distance': '-80px', '--scroll-duration': '16s' } as React.CSSProperties}>
+                      <div className="p-1.5 sm:p-2 md:p-2.5 space-y-1.5 sm:space-y-2 md:space-y-2.5 no-scrollbar">
                       {/* Bot welcome */}
                       <div className="flex gap-1 sm:gap-1.5 items-start">
                         <div className="w-[12px] sm:w-[14px] md:w-[18px] h-[12px] sm:h-[14px] md:h-[18px] rounded-full bg-[#5c3d2e] flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -605,6 +679,45 @@ export default function LandingPage() {
                         <div className="bg-[#f1f5f9] rounded-lg rounded-tl-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-[#1e293b] max-w-[80%] leading-relaxed">
                           The Colombian Dark Roast is <span className="font-semibold">$16.99</span> for a 12oz bag. We also offer a subscription — save 15% on every order!
                         </div>
+                      </div>
+
+                      {/* User asks about subscription */}
+                      <div className="flex justify-end">
+                        <div className="bg-[#5c3d2e] rounded-lg rounded-tr-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-white max-w-[80%] leading-relaxed">
+                          Tell me about the subscription
+                        </div>
+                      </div>
+
+                      {/* Bot subscription reply */}
+                      <div className="flex gap-1 sm:gap-1.5 items-start">
+                        <div className="w-[12px] sm:w-[14px] md:w-[18px] h-[12px] sm:h-[14px] md:h-[18px] rounded-full bg-[#5c3d2e] flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg className="w-[6px] h-[6px] sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                          </svg>
+                        </div>
+                        <div className="bg-[#f1f5f9] rounded-lg rounded-tl-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-[#1e293b] max-w-[80%] leading-relaxed">
+                          Our subscription delivers fresh beans every 2 or 4 weeks. You get <span className="font-semibold">15% off</span>, free shipping, and you can pause or cancel anytime!
+                        </div>
+                      </div>
+
+                      {/* User thanks */}
+                      <div className="flex justify-end">
+                        <div className="bg-[#5c3d2e] rounded-lg rounded-tr-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-white max-w-[80%] leading-relaxed">
+                          That sounds great, I&apos;ll try it!
+                        </div>
+                      </div>
+
+                      {/* Bot closing */}
+                      <div className="flex gap-1 sm:gap-1.5 items-start">
+                        <div className="w-[12px] sm:w-[14px] md:w-[18px] h-[12px] sm:h-[14px] md:h-[18px] rounded-full bg-[#5c3d2e] flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg className="w-[6px] h-[6px] sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                          </svg>
+                        </div>
+                        <div className="bg-[#f1f5f9] rounded-lg rounded-tl-sm px-1.5 sm:px-2 py-1 sm:py-1.5 text-[5px] sm:text-[6px] md:text-[7px] text-[#1e293b] max-w-[80%] leading-relaxed">
+                          Awesome! Here&apos;s the link to get started. Let me know if you need anything else! ☕
+                        </div>
+                      </div>
                       </div>
                     </div>
 

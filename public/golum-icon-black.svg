@@ -1,0 +1,12 @@
+<svg viewBox="0 0 64 64" width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black circle -->
+  <circle cx="32" cy="32" r="30" fill="#1a1a1a" />
+  <!-- Left eye -->
+  <ellipse cx="22" cy="28" rx="7" ry="8" fill="#ffffff" />
+  <circle cx="24" cy="28" r="3.5" fill="#1a1a1a" />
+  <circle cx="25.5" cy="26" r="1.2" fill="#ffffff" />
+  <!-- Right eye -->
+  <ellipse cx="42" cy="28" rx="7" ry="8" fill="#ffffff" />
+  <circle cx="44" cy="28" r="3.5" fill="#1a1a1a" />
+  <circle cx="45.5" cy="26" r="1.2" fill="#ffffff" />
+</svg>
