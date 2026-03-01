@@ -294,7 +294,7 @@ function ModelCard({
   isUpdating: boolean;
   onSelect: () => void;
   providerBadgeClass: string;
-  RatingBar: ({ value, max }: { value: number; max?: number }) => JSX.Element;
+  RatingBar: ({ value, max }: { value: number; max?: number }) => React.ReactNode;
 }) {
   return (
     <div className={`card p-5 transition-all ${isActive ? 'border-primary-500 ring-1 ring-primary-500/20' : 'hover:border-[var(--text-muted)]'}`}>
