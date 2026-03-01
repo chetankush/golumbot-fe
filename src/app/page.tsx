@@ -185,7 +185,7 @@ export default function LandingPage() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-[2rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]">
+          <h1 className="text-[1.6rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]">
             Your website answers
             <br />
             questions 24/7. Instantly.
@@ -546,7 +546,7 @@ export default function LandingPage() {
             {/* Left — Badge + Large heading */}
             <div className="lg:max-w-lg flex-shrink-0">
               <div className="flex items-center gap-2.5 text-[11px] font-medium tracking-[0.2em] uppercase text-white/45 mb-6">
-                <span className="w-2 h-2 rounded-full bg-purple-400" />
+                <span className="w-2 h-2 rounded-full bg-white/60" />
                 Why Golum
               </div>
               <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-[1.1] tracking-tight">
@@ -644,7 +644,7 @@ export default function LandingPage() {
       <section id="how-it-works" className="py-24 md:py-32 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
-            <p className="text-purple-400 text-sm font-medium tracking-widest uppercase mb-4">How It Works</p>
+            <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">How It Works</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
               Live in 5 minutes. Seriously.
             </h2>
@@ -656,7 +656,7 @@ export default function LandingPage() {
           <div className="relative">
             {/* Connecting gradient line — desktop */}
             <div className="hidden md:block absolute top-[4.5rem] left-[calc(16.67%+12px)] right-[calc(16.67%+12px)] h-px">
-              <div className="w-full h-full bg-gradient-to-r from-purple-500/30 via-violet-400/20 to-blue-500/30" />
+              <div className="w-full h-full bg-gradient-to-r from-white/20 via-white/10 to-white/20" />
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 md:gap-5">
@@ -671,7 +671,7 @@ export default function LandingPage() {
       {/* ====== Contact Section — Minimal glass card ====== */}
       <section id="contact" className="py-24 md:py-32 px-6">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-purple-400 text-sm font-medium tracking-widest uppercase mb-4">Contact</p>
+          <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">Contact</p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
             Questions? We&apos;re here.
           </h2>
@@ -715,8 +715,8 @@ export default function LandingPage() {
                 href="mailto:chetankushwah929@gmail.com"
                 className="flex items-center gap-4 px-5 py-4 rounded-[18px] hover:bg-white/[0.04] transition-all duration-300 group"
               >
-                <div className="w-10 h-10 rounded-[14px] bg-white/[0.05] border border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:bg-purple-500/10 group-hover:border-purple-500/20 transition-all duration-300">
-                  <svg className="w-[18px] h-[18px] text-white/50 group-hover:text-purple-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <div className="w-10 h-10 rounded-[14px] bg-white/[0.05] border border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:bg-white/[0.08] group-hover:border-white/[0.15] transition-all duration-300">
+                  <svg className="w-[18px] h-[18px] text-white/50 group-hover:text-white/80 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
@@ -736,7 +736,7 @@ export default function LandingPage() {
       <section id="faq" className="py-24 md:py-32 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
-            <p className="text-purple-400 text-sm font-medium tracking-widest uppercase mb-4">FAQ</p>
+            <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">FAQ</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
               Got questions? We&apos;ve got answers.
             </h2>
@@ -761,21 +761,21 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto">
           <div className="relative apple-glass p-10 sm:p-14 md:p-20 text-center overflow-hidden">
             {/* Glow effects */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[2px] bg-gradient-to-r from-transparent via-purple-500/60 to-transparent" />
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-32 bg-purple-500/15 blur-[60px]" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-20 bg-purple-400/5 blur-[40px]" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-32 bg-white/[0.06] blur-[60px]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-20 bg-white/[0.03] blur-[40px]" />
 
             <h2 className="text-2xl md:text-4xl font-bold mb-5 text-white relative tracking-tight">
               Your competitors already have AI support.
               <br />
-              <span className="text-purple-400">Do you?</span>
+              <span className="text-white/60">Do you?</span>
             </h2>
             <p className="text-white/40 mb-10 max-w-lg mx-auto relative leading-relaxed">
               Every unanswered question is a lost customer. Set up Golum in 5 minutes and never miss a conversation again.
             </p>
             <Link
               href="/register"
-              className="relative inline-flex px-8 py-3.5 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_50px_rgba(124,58,237,0.4)] hover:scale-[1.02] active:scale-[0.98]"
+              className="relative inline-flex px-8 py-3.5 bg-white text-[#080816] font-semibold rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] hover:scale-[1.02] active:scale-[0.98]"
             >
               Get Started
             </Link>
@@ -825,9 +825,9 @@ export default function LandingPage() {
               &copy; {new Date().getFullYear()} Golum. All rights reserved.
             </p>
             <div className="flex items-center gap-5">
-              <a href="#" className="text-white/25 hover:text-purple-400 transition-colors duration-300"><TwitterIcon /></a>
-              <a href="#" className="text-white/25 hover:text-purple-400 transition-colors duration-300"><GitHubIcon /></a>
-              <a href="#" className="text-white/25 hover:text-purple-400 transition-colors duration-300"><LinkedInIcon /></a>
+              <a href="#" className="text-white/25 hover:text-white transition-colors duration-300"><TwitterIcon /></a>
+              <a href="#" className="text-white/25 hover:text-white transition-colors duration-300"><GitHubIcon /></a>
+              <a href="#" className="text-white/25 hover:text-white transition-colors duration-300"><LinkedInIcon /></a>
             </div>
           </div>
         </div>
@@ -842,8 +842,8 @@ function StepCard({ number, title, description }: { number: string; title: strin
     <div className="relative text-center group">
       <div className="apple-glass p-8 md:p-10">
         {/* Step number */}
-        <div className="inline-flex w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-violet-500/5 border border-purple-500/15 items-center justify-center mb-6 group-hover:from-purple-500/30 group-hover:border-purple-500/30 transition-all duration-500">
-          <span className="text-lg font-bold bg-gradient-to-br from-purple-400 to-violet-300 bg-clip-text text-transparent">{number}</span>
+        <div className="inline-flex w-14 h-14 rounded-2xl bg-white/[0.06] border border-white/[0.1] items-center justify-center mb-6 group-hover:bg-white/[0.1] group-hover:border-white/[0.18] transition-all duration-500">
+          <span className="text-lg font-bold text-white/70">{number}</span>
         </div>
         <h3 className="text-xl font-semibold text-white mb-3">{title}</h3>
         <p className="text-sm text-white/40 leading-relaxed">{description}</p>
@@ -862,10 +862,10 @@ function FAQItem({ number, question, answer }: { number: string; question: strin
         onClick={() => setIsOpen(!isOpen)}
         className="w-full py-6 flex items-center gap-4 text-left group"
       >
-        <span className="text-sm font-mono text-white/20 group-hover:text-purple-400 transition-colors duration-300 flex-shrink-0">{number}</span>
+        <span className="text-sm font-mono text-white/20 group-hover:text-white transition-colors duration-300 flex-shrink-0">{number}</span>
         <span className="flex-1 font-medium text-white/80 group-hover:text-white transition-colors duration-300">{question}</span>
         <svg
-          className={`w-5 h-5 text-white/20 group-hover:text-purple-400 transition-all duration-300 flex-shrink-0 ${isOpen ? 'rotate-45' : ''}`}
+          className={`w-5 h-5 text-white/20 group-hover:text-white/60 transition-all duration-300 flex-shrink-0 ${isOpen ? 'rotate-45' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
