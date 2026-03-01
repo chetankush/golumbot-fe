@@ -56,6 +56,7 @@ function DashboardContent() {
   const [assistantUsage, setAssistantUsage] = useState<{ current: number; limit: number } | null>(null);
   const [selectedEmbedAssistant, setSelectedEmbedAssistant] = useState<string>('');
   const [showToast, setShowToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Auto-dismiss toasts
   useEffect(() => {
@@ -170,7 +171,7 @@ function DashboardContent() {
 
       {/* Header */}
       <header className="sticky top-0 z-20 bg-[var(--bg-secondary)]/95 backdrop-blur-sm border-b border-[var(--border-color)]">
-        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]">
               <GolumIcon size={24} />
@@ -212,12 +213,32 @@ function DashboardContent() {
             >
               Logout
             </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-[var(--border-color)] bg-[var(--bg-secondary)] px-4 py-2">
+            <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-primary)] bg-[var(--bg-tertiary)] rounded-lg mb-1">Assistants</Link>
+            <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors mb-1">Knowledge Base</Link>
+            <Link href="/conversations" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors mb-1">Conversations</Link>
+            <Link href="/models" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors">Models</Link>
+          </div>
+        )}
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-6 py-8 animate-fade-in">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 animate-fade-in">
         {/* Contact Banner & API Key Section */}
         <div className="grid md:grid-cols-2 gap-4 mb-8">
           {/* Contact Us Banner */}
@@ -288,7 +309,7 @@ function DashboardContent() {
         </div>
 
         {/* Assistants Section */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div className="flex items-center gap-3">
             <h2 className="text-xl font-semibold text-[var(--text-primary)]">Assistants</h2>
             {assistantUsage && (
@@ -299,7 +320,7 @@ function DashboardContent() {
           </div>
           <div className="flex items-center gap-3">
             {assistantUsage && assistantUsage.limit !== -1 && assistantUsage.current >= assistantUsage.limit && (
-              <span className="text-sm text-[var(--text-secondary)]">
+              <span className="hidden sm:block text-sm text-[var(--text-secondary)]">
                 Contact us to create more
               </span>
             )}
@@ -353,7 +374,7 @@ function DashboardContent() {
         {assistants.length > 0 && (
           <div className="mt-12">
             <h2 className="text-xl font-semibold text-[var(--text-primary)] mb-4">Embed Widget</h2>
-            <div className="card p-6">
+            <div className="card p-4 sm:p-6">
               {assistants.length > 1 && (
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
@@ -374,7 +395,7 @@ function DashboardContent() {
               <p className="text-[var(--text-secondary)] mb-4">
                 Add this code before the closing <code className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-sm">&lt;/body&gt;</code> tag:
               </p>
-              <pre className="p-4 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-sm overflow-x-auto font-mono text-[var(--text-primary)]">
+              <pre className="p-3 sm:p-4 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-xs sm:text-sm overflow-x-auto font-mono text-[var(--text-primary)]">
 {`<script>
   window.GOLUM_CONFIG = {
     apiKey: '${apiKey}',
@@ -556,7 +577,7 @@ function CreateAssistantModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="card max-w-lg w-full p-6 animate-fade-in">
+      <div className="card max-w-lg w-full p-4 sm:p-6 animate-fade-in max-h-[90vh] overflow-y-auto">
         <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-6">Create Assistant</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -619,7 +640,7 @@ function CreateAssistantModal({
           {/* Contact Support Section */}
           <div className="pt-4 border-t border-[var(--border-color)]">
             <h4 className="text-sm font-medium text-[var(--text-primary)] mb-3">Direct Contact Options</h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
                   Phone Number
@@ -788,7 +809,7 @@ function CustomizeWidgetModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="card max-w-2xl w-full p-6 animate-fade-in max-h-[90vh] overflow-y-auto">
+      <div className="card max-w-2xl w-full p-4 sm:p-6 animate-fade-in max-h-[90vh] overflow-y-auto">
         <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-6">
           Customize Widget - {assistant.name}
         </h2>
@@ -869,7 +890,7 @@ function CustomizeWidgetModal({
             <label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">
               Launcher Icon
             </label>
-            <div className="grid grid-cols-6 gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
               {(Object.keys(LAUNCHER_ICONS) as Array<keyof typeof LAUNCHER_ICONS>).map((icon) => (
                 <button
                   key={icon}

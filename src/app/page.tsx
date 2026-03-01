@@ -74,7 +74,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-28 pb-16 px-6">
+      <section className="relative pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 dark:bg-primary-500/10 text-primary-500 dark:text-primary-300 text-sm font-medium mb-6">
             AI-Powered Customer Support
@@ -106,7 +106,7 @@ export default function LandingPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto mt-14 pt-8 border-t border-[var(--border-color)]">
+          <div className="grid grid-cols-3 gap-3 sm:gap-8 max-w-lg mx-auto mt-10 sm:mt-14 pt-8 border-t border-[var(--border-color)]">
             <div>
               <div className="text-2xl md:text-3xl font-bold text-[var(--text-primary)]">99%</div>
               <div className="text-xs text-[var(--text-muted)] mt-1">Response Accuracy</div>
@@ -124,10 +124,10 @@ export default function LandingPage() {
       </section>
 
       {/* MacBook Demo Section */}
-      <section className="pb-20 px-6">
+      <section className="pb-20 px-4 sm:px-6 overflow-hidden">
         <div className="max-w-4xl mx-auto">
           {/* MacBook Frame */}
-          <div className="relative">
+          <div className="relative origin-top scale-[0.55] sm:scale-75 md:scale-100 -mb-[45%] sm:-mb-[25%] md:mb-0">
             {/* Screen lid */}
             <div className="relative bg-[#0d0d0d] rounded-[12px] md:rounded-[16px] p-[6px] md:p-[8px] pt-[28px] md:pt-[32px] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)]">
               {/* Camera notch */}
@@ -356,7 +356,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="section px-6">
+      <section id="features" className="section px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
@@ -409,7 +409,7 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="section px-6 bg-[var(--bg-tertiary)]">
+      <section className="section px-4 sm:px-6 bg-[var(--bg-tertiary)]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
@@ -441,7 +441,7 @@ export default function LandingPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="section px-6">
+      <section id="contact" className="section px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
@@ -494,7 +494,7 @@ export default function LandingPage() {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">chetankushwah929@gmail.com</p>
+                  <p className="font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors break-all">chetankushwah929@gmail.com</p>
                   <p className="text-sm text-[var(--text-muted)]">Email us</p>
                 </div>
               </a>
@@ -504,7 +504,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="section px-6">
+      <section id="faq" className="section px-4 sm:px-6">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
@@ -545,9 +545,9 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="section px-6">
+      <section className="section px-4 sm:px-6">
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-10 md:p-14 text-center">
+          <div className="rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 sm:p-10 md:p-14 text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">
               Ready to transform your support?
             </h2>
@@ -566,9 +566,9 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--border-color)] py-12 px-6">
+      <footer className="border-t border-[var(--border-color)] py-12 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
             <div>
               <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]">
                 <GolumIcon size={22} />
