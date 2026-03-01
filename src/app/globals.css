@@ -56,6 +56,10 @@ body {
   background: #3a3a5a;
 }
 
+/* Hide scrollbar in mockups */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
 /* Input focus styles */
 input:focus, select:focus, textarea:focus {
   outline: none;

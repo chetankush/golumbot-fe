@@ -75,7 +75,7 @@ export default function LandingPage() {
                   </Link>
                   <Link
                     href="/register"
-                    className={`px-5 py-2 bg-white text-[#080816] text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_8px_24px_rgba(255,255,255,0.12)] ${mobileNav ? 'hidden' : ''}`}
+                    className={`px-3 sm:px-5 py-1.5 sm:py-2 bg-white text-[#080816] text-xs sm:text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_8px_24px_rgba(255,255,255,0.12)] ${mobileNav ? 'hidden' : ''}`}
                   >
                     Get Started
                   </Link>
@@ -197,8 +197,9 @@ export default function LandingPage() {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-sm md:text-base text-white/60 mb-9 max-w-xl mx-auto leading-relaxed">
-            Stop losing customers to unanswered questions. Golum trains an AI assistant on your content and deploys it on your site in minutes — so every visitor gets the help they need, the moment they need it.
+          <p className="text-sm md:text-base text-white/75 mb-9 max-w-xl mx-auto leading-relaxed">
+            <span className="hidden sm:inline">Stop losing customers to unanswered questions. Golum trains an AI assistant on your content and deploys it on your site in minutes — so every visitor gets the help they need, the moment they need it.</span>
+            <span className="sm:hidden">Train an AI assistant on your content. Deploy it on your site in minutes. Never miss a customer again.</span>
           </p>
 
           {/* White pill CTA */}
@@ -279,7 +280,7 @@ export default function LandingPage() {
                     </div>
 
                     <div className="relative flex-1 min-h-0 overflow-hidden">
-                      <div className="h-full overflow-y-auto">
+                      <div className="h-full overflow-y-auto no-scrollbar">
                         {/* Hero */}
                         <div className="flex flex-row items-center gap-2 sm:gap-3 md:gap-4 px-2.5 sm:px-4 md:px-5 py-3 sm:py-5 md:py-7">
                           <div className="flex-1 min-w-0">
@@ -424,7 +425,7 @@ export default function LandingPage() {
                     </div>
 
                     <div className="relative flex-1 min-h-0 overflow-hidden">
-                      <div className="h-full overflow-y-auto">
+                      <div className="h-full overflow-y-auto no-scrollbar">
                         {/* Mobile Hero */}
                         <div className="px-2 sm:px-2.5 py-2 sm:py-3">
                           <div className="inline-block px-1 sm:px-1.5 py-0.5 bg-[#f0ebe3] rounded text-[4px] sm:text-[5px] text-[#8b7355] font-semibold tracking-wide uppercase mb-1 sm:mb-1.5">Fresh Daily</div>
@@ -532,7 +533,7 @@ export default function LandingPage() {
                     </div>
 
                     {/* Messages area */}
-                    <div className="flex-1 p-1.5 sm:p-2 md:p-2.5 space-y-1.5 sm:space-y-2 md:space-y-2.5 overflow-y-auto bg-white">
+                    <div className="flex-1 p-1.5 sm:p-2 md:p-2.5 space-y-1.5 sm:space-y-2 md:space-y-2.5 overflow-y-auto no-scrollbar bg-white">
                       {/* Bot welcome */}
                       <div className="flex gap-1 sm:gap-1.5 items-start">
                         <div className="w-[12px] sm:w-[14px] md:w-[18px] h-[12px] sm:h-[14px] md:h-[18px] rounded-full bg-[#5c3d2e] flex items-center justify-center flex-shrink-0 mt-0.5">
