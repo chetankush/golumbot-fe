@@ -17,6 +17,8 @@ interface WidgetConfig {
   customIconUrl?: string;
   customIconPath?: string;
   chatbotName?: string;
+  launcherStyle?: 'circle' | 'pill';
+  launcherColorScheme?: 'filled' | 'light';
 }
 
 interface Assistant {
@@ -770,9 +772,16 @@ function CustomizeWidgetModal({
     borderRadius: 'rounded',
     launcherIcon: 'chat',
     suggestions: [],
+    launcherStyle: 'circle',
+    launcherColorScheme: 'filled',
   };
 
   const [newSuggestion, setNewSuggestion] = useState('');
+  const [contactInfo, setContactInfo] = useState({
+    bookingUrl: assistant.bookingUrl || '',
+    supportPhone: assistant.supportPhone || '',
+    supportWhatsApp: assistant.supportWhatsApp || '',
+  });
 
   const [config, setConfig] = useState<WidgetConfig>({
     ...defaultConfig,
@@ -787,7 +796,7 @@ function CustomizeWidgetModal({
     setError('');
 
     try {
-      await assistantsApi.update(token, assistant.id, { widgetConfig: config });
+      await assistantsApi.update(token, assistant.id, { widgetConfig: config, ...contactInfo });
       onSaved();
     } catch (err: any) {
       setError(err.message || 'Failed to save customization');
@@ -909,6 +918,84 @@ function CustomizeWidgetModal({
                   <span className="text-xs text-[var(--text-muted)] capitalize">{icon}</span>
                 </button>
               ))}
+            </div>
+          </div>
+
+          {/* Launcher Shape */}
+          <div>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">
+              Launcher Shape
+            </label>
+            <div className="flex gap-3">
+              {(['circle', 'pill'] as const).map((style) => (
+                <button
+                  key={style}
+                  type="button"
+                  onClick={() => setConfig({ ...config, launcherStyle: style })}
+                  className={`flex-1 p-4 border-2 rounded-xl transition-all ${
+                    (config.launcherStyle || 'circle') === style
+                      ? 'border-primary-500 bg-primary-500/10'
+                      : 'border-[var(--border-color)] hover:border-[var(--text-muted)]'
+                  }`}
+                >
+                  <div className="flex items-center justify-center mb-2">
+                    {style === 'circle' ? (
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center text-white" style={{ backgroundColor: config.primaryColor }}>
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 px-4 py-2 rounded-full text-white text-xs font-medium" style={{ backgroundColor: config.primaryColor }}>
+                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+                        {config.chatbotName || 'Chat'}
+                      </div>
+                    )}
+                  </div>
+                  <span className="text-sm font-medium text-[var(--text-primary)] capitalize">{style}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Launcher Color Scheme */}
+          <div>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">
+              Launcher Color Scheme
+            </label>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setConfig({ ...config, launcherColorScheme: 'filled' })}
+                className={`flex-1 p-4 border-2 rounded-xl transition-all ${
+                  (config.launcherColorScheme || 'filled') === 'filled'
+                    ? 'border-primary-500 bg-primary-500/10'
+                    : 'border-[var(--border-color)] hover:border-[var(--text-muted)]'
+                }`}
+              >
+                <div className="flex items-center justify-center mb-2">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white" style={{ backgroundColor: config.primaryColor }}>
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+                  </div>
+                </div>
+                <span className="text-sm font-medium text-[var(--text-primary)]">Filled</span>
+                <p className="text-xs text-[var(--text-muted)] mt-0.5">Colored bg, white icon</p>
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfig({ ...config, launcherColorScheme: 'light' })}
+                className={`flex-1 p-4 border-2 rounded-xl transition-all ${
+                  (config.launcherColorScheme || 'filled') === 'light'
+                    ? 'border-primary-500 bg-primary-500/10'
+                    : 'border-[var(--border-color)] hover:border-[var(--text-muted)]'
+                }`}
+              >
+                <div className="flex items-center justify-center mb-2">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-[#1a1a1a] bg-white border border-gray-200 shadow-sm">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+                  </div>
+                </div>
+                <span className="text-sm font-medium text-[var(--text-primary)]">Light</span>
+                <p className="text-xs text-[var(--text-muted)] mt-0.5">White bg, dark icon</p>
+              </button>
             </div>
           </div>
 
@@ -1099,6 +1186,54 @@ function CustomizeWidgetModal({
             )}
           </div>
 
+          {/* Contact & Booking */}
+          <div>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
+              Contact &amp; Booking
+            </label>
+            <p className="text-xs text-[var(--text-muted)] mb-3">
+              Add your contact details so the chatbot can offer booking, calls, and WhatsApp support.
+            </p>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs font-medium text-[var(--text-muted)] mb-1">
+                  Calendly / Booking URL
+                </label>
+                <input
+                  type="url"
+                  value={contactInfo.bookingUrl}
+                  onChange={(e) => setContactInfo({ ...contactInfo, bookingUrl: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
+                  placeholder="https://calendly.com/your-link"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-[var(--text-muted)] mb-1">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  value={contactInfo.supportPhone}
+                  onChange={(e) => setContactInfo({ ...contactInfo, supportPhone: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
+                  placeholder="+1 234 567 8900"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-[var(--text-muted)] mb-1">
+                  WhatsApp Number
+                </label>
+                <input
+                  type="tel"
+                  value={contactInfo.supportWhatsApp}
+                  onChange={(e) => setContactInfo({ ...contactInfo, supportWhatsApp: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)]"
+                  placeholder="+1 234 567 8900"
+                />
+              </div>
+            </div>
+          </div>
+
           {/* Live Preview */}
           <div>
             <label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">
@@ -1152,16 +1287,40 @@ function CustomizeWidgetModal({
               </div>
 
               {/* Launcher button preview */}
-              <div
-                className={`absolute bottom-3 w-10 h-10 flex items-center justify-center text-white shadow-lg ${
-                  config.position === 'bottom-right' ? 'right-4' : 'left-4'
-                } ${
-                  config.borderRadius === 'sharp' ? 'rounded-lg' : 'rounded-full'
-                }`}
-                style={{ backgroundColor: config.primaryColor }}
-              >
-                {LAUNCHER_ICONS[config.launcherIcon]}
-              </div>
+              {(config.launcherStyle || 'circle') === 'pill' ? (
+                <div
+                  className={`absolute bottom-3 flex items-center gap-1.5 px-3 py-2 shadow-lg ${
+                    config.position === 'bottom-right' ? 'right-4' : 'left-4'
+                  } ${
+                    config.borderRadius === 'sharp' ? 'rounded-lg' : 'rounded-full'
+                  } ${
+                    (config.launcherColorScheme || 'filled') === 'light'
+                      ? 'bg-white text-[#1a1a1a] border border-gray-200'
+                      : 'text-white'
+                  }`}
+                  style={(config.launcherColorScheme || 'filled') === 'filled' ? { backgroundColor: config.primaryColor } : undefined}
+                >
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    {LAUNCHER_ICONS[config.launcherIcon]}
+                  </div>
+                  <span className="text-[10px] font-semibold whitespace-nowrap">{config.chatbotName || 'Chat'}</span>
+                </div>
+              ) : (
+                <div
+                  className={`absolute bottom-3 w-10 h-10 flex items-center justify-center shadow-lg ${
+                    config.position === 'bottom-right' ? 'right-4' : 'left-4'
+                  } ${
+                    config.borderRadius === 'sharp' ? 'rounded-lg' : 'rounded-full'
+                  } ${
+                    (config.launcherColorScheme || 'filled') === 'light'
+                      ? 'bg-white text-[#1a1a1a] border border-gray-200'
+                      : 'text-white'
+                  }`}
+                  style={(config.launcherColorScheme || 'filled') === 'filled' ? { backgroundColor: config.primaryColor } : undefined}
+                >
+                  {LAUNCHER_ICONS[config.launcherIcon]}
+                </div>
+              )}
             </div>
           </div>
 
