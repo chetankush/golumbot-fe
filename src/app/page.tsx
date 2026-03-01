@@ -13,7 +13,10 @@ export default function LandingPage() {
 
   useEffect(() => {
     setMounted(true);
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      setMobileNav(false);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -29,7 +32,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#080816]">
       {/* ====== Navigation ====== */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'glass' : ''}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || mobileNav ? 'bg-[#080816]/90 backdrop-blur-2xl' : ''}`}>
         <div className="relative max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 text-xl font-semibold text-white flex-shrink-0">
@@ -82,7 +85,7 @@ export default function LandingPage() {
                 onClick={() => setMobileNav(!mobileNav)}
                 className="md:hidden relative p-2 text-white/60 hover:text-white transition-colors duration-300"
               >
-                <svg className={`w-5 h-5 transition-all duration-500 ${mobileNav ? 'rotate-180 scale-90' : 'rotate-0 scale-100'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className={`w-5 h-5 transition-transform duration-300 ${mobileNav ? 'rotate-90' : 'rotate-0'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   {mobileNav ? (
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   ) : (
@@ -93,71 +96,73 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+      </nav>
 
-        {/* Mobile nav overlay */}
-        <div
-          className={`md:hidden fixed inset-0 top-0 z-[-1] transition-all duration-500 ${
-            mobileNav ? 'opacity-100 visible' : 'opacity-0 invisible'
-          }`}
-        >
-          {/* Frosted glass background */}
-          <div className={`absolute inset-0 backdrop-blur-[80px] bg-gradient-to-b from-white/[0.06] via-white/[0.03] to-transparent transition-opacity duration-500 ${mobileNav ? 'opacity-100' : 'opacity-0'}`} />
+      {/* Mobile nav panel — separate from nav, proper z-index */}
+      <div
+        className={`md:hidden fixed inset-0 z-40 transition-all duration-400 ${
+          mobileNav
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        {/* Solid dark background — no glitchy backdrop-blur dependency */}
+        <div className="absolute inset-0 bg-[#080816]/[0.97]" />
 
-          {/* Nav content */}
-          <div className="relative pt-24 px-8 pb-10 flex flex-col h-full">
-            {/* Links */}
-            <div className="space-y-1">
-              {[
-                { href: '#features', label: 'Features', icon: 'M13 10V3L4 14h7v7l9-11h-7z', delay: '0ms' },
-                { href: '#how-it-works', label: 'How it works', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', delay: '50ms' },
-                { href: '#contact', label: 'Contact', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', delay: '100ms' },
-                { href: '#faq', label: 'FAQ', icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', delay: '150ms' },
-              ].map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileNav(false)}
-                  className={`group flex items-center gap-4 py-4 px-4 rounded-2xl transition-all duration-500 hover:bg-white/[0.06] ${
-                    mobileNav ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-                  }`}
-                  style={{ transitionDelay: mobileNav ? item.delay : '0ms' }}
-                >
-                  <div className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center group-hover:bg-white/[0.1] group-hover:border-white/[0.15] transition-all duration-300">
-                    <svg className="w-4 h-4 text-white/50 group-hover:text-white/80 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
-                    </svg>
-                  </div>
-                  <span className="text-[15px] font-medium text-white/70 group-hover:text-white transition-colors duration-300 tracking-tight">{item.label}</span>
-                  <svg className="w-4 h-4 text-white/20 group-hover:text-white/50 ml-auto transition-all duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        {/* Nav content */}
+        <div className="relative pt-24 px-8 pb-10 flex flex-col h-full overflow-y-auto">
+          {/* Links */}
+          <div className="space-y-1">
+            {[
+              { href: '#features', label: 'Features', icon: 'M13 10V3L4 14h7v7l9-11h-7z', delay: '60ms' },
+              { href: '#how-it-works', label: 'How it works', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', delay: '120ms' },
+              { href: '#contact', label: 'Contact', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', delay: '180ms' },
+              { href: '#faq', label: 'FAQ', icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', delay: '240ms' },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileNav(false)}
+                className={`group flex items-center gap-4 py-4 px-4 rounded-2xl transition-all duration-400 hover:bg-white/[0.06] ${
+                  mobileNav ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+                }`}
+                style={{ transitionDelay: mobileNav ? item.delay : '0ms' }}
+              >
+                <div className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center group-hover:bg-white/[0.1] group-hover:border-white/[0.15] transition-all duration-300">
+                  <svg className="w-4 h-4 text-white/50 group-hover:text-white/80 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                   </svg>
-                </a>
-              ))}
-            </div>
+                </div>
+                <span className="text-[15px] font-medium text-white/70 group-hover:text-white transition-colors duration-300 tracking-tight">{item.label}</span>
+                <svg className="w-4 h-4 text-white/20 group-hover:text-white/50 ml-auto transition-all duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            ))}
+          </div>
 
-            {/* Divider */}
-            <div className={`my-6 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent transition-all duration-700 ${mobileNav ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} style={{ transitionDelay: mobileNav ? '200ms' : '0ms' }} />
+          {/* Divider */}
+          <div className={`my-6 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent transition-all duration-500 ${mobileNav ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} style={{ transitionDelay: mobileNav ? '300ms' : '0ms' }} />
 
-            {/* Auth buttons */}
-            <div className={`flex flex-col gap-3 transition-all duration-500 ${mobileNav ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: mobileNav ? '250ms' : '0ms' }}>
-              <Link
-                href="/login"
-                onClick={() => setMobileNav(false)}
-                className="flex items-center justify-center py-3.5 px-6 rounded-2xl border border-white/[0.1] bg-white/[0.04] text-white/80 text-[15px] font-medium hover:bg-white/[0.08] hover:border-white/[0.18] hover:text-white transition-all duration-300"
-              >
-                Sign in
-              </Link>
-              <Link
-                href="/register"
-                onClick={() => setMobileNav(false)}
-                className="flex items-center justify-center py-3.5 px-6 rounded-2xl bg-white text-[#080816] text-[15px] font-semibold hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] transition-all duration-300"
-              >
-                Get Started
-              </Link>
-            </div>
+          {/* Auth buttons */}
+          <div className={`flex flex-col gap-3 transition-all duration-400 ${mobileNav ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`} style={{ transitionDelay: mobileNav ? '350ms' : '0ms' }}>
+            <Link
+              href="/login"
+              onClick={() => setMobileNav(false)}
+              className="flex items-center justify-center py-3.5 px-6 rounded-2xl border border-white/[0.1] bg-white/[0.04] text-white/80 text-[15px] font-medium hover:bg-white/[0.08] hover:border-white/[0.18] hover:text-white transition-all duration-300"
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/register"
+              onClick={() => setMobileNav(false)}
+              className="flex items-center justify-center py-3.5 px-6 rounded-2xl bg-white text-[#080816] text-[15px] font-semibold hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] transition-all duration-300"
+            >
+              Get Started
+            </Link>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* ====== HERO — Full landscape, Giga-style ====== */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
