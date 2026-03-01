@@ -304,7 +304,7 @@ export default function AdminPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 p-1 bg-[var(--bg-tertiary)] rounded-lg mb-6 w-fit">
+        <div className="flex gap-1 p-1 bg-[var(--bg-tertiary)] rounded-lg mb-6 w-full sm:w-fit overflow-x-auto">
           <button
             onClick={() => setActiveTab('documents')}
             className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
@@ -440,7 +440,7 @@ export default function AdminPage() {
             <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
               URL to Scrape
             </label>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="url"
                 value={scrapeUrl}
@@ -451,7 +451,7 @@ export default function AdminPage() {
               <button
                 onClick={handleScrape}
                 disabled={scraping || !scrapeUrl || !selectedAssistant}
-                className="px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-all disabled:opacity-50"
+                className="w-full sm:w-auto px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-all disabled:opacity-50"
               >
                 {scraping ? 'Scraping...' : 'Scrape'}
               </button>
