@@ -218,65 +218,41 @@ function DashboardContent() {
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-6 py-8 animate-fade-in">
-        {/* Credits & API Key Section */}
+        {/* Contact Banner & API Key Section */}
         <div className="grid md:grid-cols-2 gap-4 mb-8">
-          {/* Credits Card */}
-          <div className={`card p-5 ${credits?.lowBalance ? 'border-orange-400 dark:border-orange-600' : ''}`}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                  credits?.devMode
-                    ? 'bg-primary-50 dark:bg-primary-500/10'
-                    : credits?.lowBalance
-                    ? 'bg-orange-50 dark:bg-orange-900/20'
-                    : 'bg-primary-50 dark:bg-primary-500/10'
-                }`}>
-                  <svg className={`w-5 h-5 ${credits?.devMode ? 'text-[var(--accent)]' : credits?.lowBalance ? 'text-orange-500' : 'text-[var(--accent)]'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-medium text-[var(--text-primary)]">Credits</h3>
-                    {currentPlan && (
-                      <span className="px-2 py-0.5 text-xs font-medium bg-primary-500/10 text-primary-500 rounded-full">
-                        {currentPlan.name}
-                      </span>
-                    )}
-                    {credits?.devMode && (
-                      <span className="px-2 py-0.5 text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full">
-                        Dev Mode
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-2xl font-bold text-[var(--text-primary)]">
-                    {credits?.devMode ? '∞' : credits?.balance?.toLocaleString() ?? '...'}
-                  </p>
+          {/* Contact Us Banner */}
+          <div className="card p-5 border-primary-500/30 bg-gradient-to-br from-primary-500/5 to-transparent">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary-50 dark:bg-primary-500/10 flex-shrink-0">
+                <svg className="w-5 h-5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-medium text-[var(--text-primary)] mb-1">Want full access?</h3>
+                <p className="text-sm text-[var(--text-secondary)] mb-3">Contact us to unlock the full potential of Golum for your business.</p>
+                <div className="space-y-1.5">
+                  <a href="tel:7987401227" className="flex items-center gap-2 text-sm text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors">
+                    <svg className="w-4 h-4 text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    7987401227
+                  </a>
+                  <a href="tel:9303135537" className="flex items-center gap-2 text-sm text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors">
+                    <svg className="w-4 h-4 text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    9303135537
+                  </a>
+                  <a href="mailto:chetankushwah929@gmail.com" className="flex items-center gap-2 text-sm text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors">
+                    <svg className="w-4 h-4 text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    chetankushwah929@gmail.com
+                  </a>
                 </div>
               </div>
-              {!credits?.devMode && (
-                <Link
-                  href="/pricing"
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    credits?.lowBalance
-                      ? 'bg-orange-500 hover:bg-orange-600 text-white'
-                      : 'bg-[var(--bg-tertiary)] hover:bg-[var(--border-color)] text-[var(--text-primary)]'
-                  }`}
-                >
-                  {credits?.lowBalance ? 'Buy Now' : 'Buy More'}
-                </Link>
-              )}
             </div>
-            {credits?.devMode && (
-              <p className="mt-3 text-sm text-blue-600 dark:text-blue-400">
-                💻 Development mode - Stripe not configured. Credits are unlimited.
-              </p>
-            )}
-            {credits?.lowBalance && !credits?.devMode && (
-              <p className="mt-3 text-sm text-orange-600 dark:text-orange-400">
-                ⚠️ Low balance! Buy more credits to keep your chatbot running.
-              </p>
-            )}
           </div>
 
           {/* API Key Card */}
@@ -323,12 +299,9 @@ function DashboardContent() {
           </div>
           <div className="flex items-center gap-3">
             {assistantUsage && assistantUsage.limit !== -1 && assistantUsage.current >= assistantUsage.limit && (
-              <Link
-                href="/pricing"
-                className="text-sm text-primary-500 hover:text-primary-600 font-medium"
-              >
-                Upgrade to create more
-              </Link>
+              <span className="text-sm text-[var(--text-secondary)]">
+                Contact us to create more
+              </span>
             )}
             <button
               onClick={() => setShowCreateModal(true)}

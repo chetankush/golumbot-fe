@@ -36,9 +36,9 @@ export default function LandingPage() {
               <a href="#features" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                 Features
               </a>
-              <Link href="/pricing" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
-                Pricing
-              </Link>
+              <a href="#contact" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+                Contact
+              </a>
               <a href="#faq" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                 FAQ
               </a>
@@ -440,57 +440,65 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="section px-6">
+      {/* Contact Section */}
+      <section id="contact" className="section px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Pay as you go
+              Get Full Access
             </h2>
-            <p className="text-lg text-[var(--text-secondary)] mb-3">
-              Buy credits, use them anytime. No subscriptions, no commitments.
-            </p>
-            <p className="text-sm text-[var(--text-secondary)]">
-              100 free credits for new users
+            <p className="text-lg text-[var(--text-secondary)]">
+              Contact us to pay for the product and use it to its full potential.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            <CreditCard
-              name="Basic"
-              credits={500}
-              price={10}
-              href="/pricing"
-            />
-            <CreditCard
-              name="Popular"
-              credits={2000}
-              price={15}
-              savings="25%"
-              popular
-              href="/pricing"
-            />
-            <CreditCard
-              name="Pro"
-              credits={10000}
-              price={50}
-              savings="50%"
-              href="/pricing"
-            />
-            <CreditCard
-              name="Business"
-              credits={50000}
-              price={200}
-              savings="60%"
-              href="/pricing"
-            />
-          </div>
+          <div className="max-w-md mx-auto card p-8">
+            <div className="space-y-4">
+              <a
+                href="tel:7987401227"
+                className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-tertiary)] hover:bg-[var(--border-color)] transition-colors group"
+              >
+                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">7987401227</p>
+                  <p className="text-sm text-[var(--text-muted)]">Call us</p>
+                </div>
+              </a>
 
-          <div className="mt-12 text-center">
-            <p className="text-[var(--text-secondary)] mb-4">Credit costs: 1 per message • 5 per document • 3 per web scrape</p>
-            <Link href="/pricing" className="text-primary-500 hover:text-primary-600 font-medium">
-              View all pricing details →
-            </Link>
+              <a
+                href="tel:9303135537"
+                className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-tertiary)] hover:bg-[var(--border-color)] transition-colors group"
+              >
+                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">9303135537</p>
+                  <p className="text-sm text-[var(--text-muted)]">Call us</p>
+                </div>
+              </a>
+
+              <a
+                href="mailto:chetankushwah929@gmail.com"
+                className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-tertiary)] hover:bg-[var(--border-color)] transition-colors group"
+              >
+                <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">chetankushwah929@gmail.com</p>
+                  <p className="text-sm text-[var(--text-muted)]">Email us</p>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -574,7 +582,7 @@ export default function LandingPage() {
               <h4 className="font-semibold mb-4">Product</h4>
               <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
                 <li><a href="#features" className="hover:text-[var(--text-primary)]">Features</a></li>
-                <li><a href="#pricing" className="hover:text-[var(--text-primary)]">Pricing</a></li>
+                <li><a href="#contact" className="hover:text-[var(--text-primary)]">Contact</a></li>
                 <li><a href="#faq" className="hover:text-[var(--text-primary)]">FAQ</a></li>
               </ul>
             </div>
@@ -637,49 +645,6 @@ function StepCard({ number, title, description }: { number: string; title: strin
       </div>
       <h3 className="text-base font-semibold mb-1.5">{title}</h3>
       <p className="text-sm text-[var(--text-secondary)]">{description}</p>
-    </div>
-  );
-}
-
-// Credit Card Component
-function CreditCard({ name, credits, price, savings, popular, href }: {
-  name: string;
-  credits: number;
-  price: number;
-  savings?: string;
-  popular?: boolean;
-  href: string;
-}) {
-  return (
-    <div className={`pricing-card text-center ${popular ? 'popular' : ''}`}>
-      {popular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[var(--accent)] text-white text-xs font-medium rounded-full">
-          Best value
-        </div>
-      )}
-      {savings && (
-        <div className="absolute top-3 right-3 px-2 py-0.5 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-xs font-medium rounded">
-          Save {savings}
-        </div>
-      )}
-      <h3 className="text-base font-semibold mb-1">{name}</h3>
-      <div className="mb-3">
-        <span className="text-3xl font-bold">${price}</span>
-      </div>
-      <div className="py-3 mb-3 rounded-lg bg-[var(--bg-tertiary)]">
-        <p className="text-xl font-bold text-[var(--accent)]">{credits.toLocaleString()}</p>
-        <p className="text-xs text-[var(--text-secondary)]">credits</p>
-      </div>
-      <Link
-        href={href}
-        className={`block w-full py-2.5 rounded-lg text-sm font-medium text-center transition-colors ${
-          popular
-            ? 'bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)]'
-            : 'bg-[var(--bg-tertiary)] text-[var(--text-primary)] hover:bg-[var(--border-color)]'
-        }`}
-      >
-        Buy now
-      </Link>
     </div>
   );
 }
