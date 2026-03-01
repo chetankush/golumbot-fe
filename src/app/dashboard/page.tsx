@@ -893,7 +893,7 @@ function CustomizeWidgetModal({
                 <button
                   key={icon}
                   type="button"
-                  onClick={() => setConfig({ ...config, launcherIcon: icon })}
+                  onClick={() => setConfig({ ...config, launcherIcon: icon as WidgetConfig['launcherIcon'] })}
                   className={`p-4 border-2 rounded-xl flex flex-col items-center gap-2 transition-all ${
                     config.launcherIcon === icon
                       ? 'border-primary-500 bg-primary-500/10'
