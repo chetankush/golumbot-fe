@@ -66,13 +66,13 @@ export default function LandingPage() {
                 <>
                   <Link
                     href="/login"
-                    className="hidden sm:block text-sm text-white/50 hover:text-white transition-colors duration-300"
+                    className="hidden sm:block text-sm text-white hover:text-white/80 transition-colors duration-300"
                   >
                     Sign in
                   </Link>
                   <Link
                     href="/register"
-                    className="px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium rounded-full transition-all duration-300 hover:shadow-[0_0_24px_rgba(124,58,237,0.3)]"
+                    className="px-5 py-2 bg-white text-[#080816] text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_8px_24px_rgba(255,255,255,0.12)]"
                   >
                     Get Started
                   </Link>
@@ -147,7 +147,7 @@ export default function LandingPage() {
             href="/register"
             className="inline-flex px-7 py-3 bg-white text-[#080816] text-sm font-medium rounded-full hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
           >
-            Start Free — No Credit Card
+            Get Started 
           </Link>
         </div>
 
@@ -613,9 +613,9 @@ export default function LandingPage() {
               href="/register"
               className="relative inline-flex px-8 py-3.5 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_50px_rgba(124,58,237,0.4)] hover:scale-[1.02] active:scale-[0.98]"
             >
-              Get Started Free
+              Get Started
             </Link>
-            <p className="mt-5 text-sm text-white/20 relative">Free forever for small sites. No credit card needed.</p>
+            <p className="mt-5 text-sm text-white/20 relative">Free to get started. Upgrade anytime.</p>
           </div>
         </div>
       </section>
