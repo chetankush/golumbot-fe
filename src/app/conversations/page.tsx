@@ -193,7 +193,7 @@ export default function ConversationsPage() {
       <header className="sticky top-0 z-20 bg-[var(--bg-secondary)]/95 backdrop-blur-sm border-b border-[var(--border-color)]">
         <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]">
+            <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]">
               <GolumIcon size={24} />
               Golum
             </Link>
