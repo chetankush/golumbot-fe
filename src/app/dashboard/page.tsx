@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
 import { assistantsApi, creditsApi, plansApi } from '@/lib/api';
-import { ThemeToggle } from '@/components/ThemeProvider';
 import { GolumIcon } from '@/components/Logo';
 
 interface WidgetConfig {
@@ -157,8 +156,8 @@ function DashboardContent() {
       {showToast && (
         <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-3 rounded-lg shadow-lg animate-fade-in flex items-center gap-3 text-sm ${
           showToast.type === 'success'
-            ? 'bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124]'
-            : 'bg-red-600 dark:bg-red-500 text-white'
+            ? 'bg-[#e8eaed] text-[#202124]'
+            : 'bg-red-500 text-white'
         }`}>
           <span>{showToast.message}</span>
           <button onClick={() => setShowToast(null)} className="ml-1 hover:opacity-70 flex-shrink-0">
@@ -206,7 +205,6 @@ function DashboardContent() {
           </div>
           <div className="flex items-center gap-3">
             <span className="hidden sm:block text-sm text-[var(--text-muted)]">{tenant?.name}</span>
-            <ThemeToggle />
             <button
               onClick={handleLogout}
               className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
@@ -244,7 +242,7 @@ function DashboardContent() {
           {/* Contact Us Banner */}
           <div className="card p-5 border-primary-500/30 bg-gradient-to-br from-primary-500/5 to-transparent">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary-50 dark:bg-primary-500/10 flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary-500/10 flex-shrink-0">
                 <svg className="w-5 h-5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
@@ -476,8 +474,8 @@ function AssistantCard({
         <span
           className={`px-2 py-1 text-xs font-medium rounded-full ${
             assistant.isActive
-              ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-              : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'
+              ? 'bg-green-900/30 text-green-400'
+              : 'bg-zinc-800 text-zinc-400'
           }`}
         >
           {assistant.isActive ? 'Active' : 'Inactive'}
@@ -582,7 +580,7 @@ function CreateAssistantModal({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 rounded-lg text-sm">
+            <div className="p-3 bg-red-900/20 border border-red-800 text-red-400 rounded-lg text-sm">
               {error}
             </div>
           )}
@@ -816,7 +814,7 @@ function CustomizeWidgetModal({
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 rounded-lg text-sm">
+            <div className="p-3 bg-red-900/20 border border-red-800 text-red-400 rounded-lg text-sm">
               {error}
             </div>
           )}
@@ -1057,7 +1055,7 @@ function CustomizeWidgetModal({
                       updated.splice(i, 1);
                       setConfig({ ...config, suggestions: updated });
                     }}
-                    className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                    className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-900/20 rounded-lg transition-colors"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -1109,16 +1107,16 @@ function CustomizeWidgetModal({
             <div className="relative bg-[var(--bg-tertiary)] rounded-xl p-4 h-56 overflow-hidden">
               {/* Mini chat panel preview */}
               <div
-                className={`absolute bottom-14 w-52 bg-white dark:bg-zinc-800 shadow-lg overflow-hidden ${
+                className={`absolute bottom-14 w-52 bg-zinc-800 shadow-lg overflow-hidden ${
                   config.position === 'bottom-right' ? 'right-4' : 'left-4'
                 } ${
                   config.borderRadius === 'sharp' ? 'rounded-sm' : config.borderRadius === 'rounded' ? 'rounded-xl' : 'rounded-2xl'
                 }`}
               >
                 {/* Header */}
-                <div className="px-3 py-2.5 border-b border-gray-100 dark:border-zinc-700 flex items-center justify-between">
+                <div className="px-3 py-2.5 border-b border-zinc-700 flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-semibold text-gray-900 dark:text-white block">Golum</span>
+                    <span className="text-xs font-semibold text-white block">Golum</span>
                     <span className="text-[10px] font-medium" style={{ color: config.primaryColor }}>The team can also help</span>
                   </div>
                   <div className="w-4 h-4 text-gray-400">
@@ -1128,7 +1126,7 @@ function CustomizeWidgetModal({
                 {/* Message bubble */}
                 <div className="p-2.5">
                   <div
-                    className={`inline-block px-2.5 py-1.5 text-[10px] bg-gray-100 dark:bg-zinc-700 text-gray-800 dark:text-zinc-200 ${
+                    className={`inline-block px-2.5 py-1.5 text-[10px] bg-zinc-700 text-zinc-200 ${
                       config.borderRadius === 'sharp' ? 'rounded-sm' : config.borderRadius === 'rounded' ? 'rounded-lg' : 'rounded-2xl'
                     }`}
                   >
@@ -1137,7 +1135,7 @@ function CustomizeWidgetModal({
                 </div>
                 {/* Input preview */}
                 <div className="px-2.5 pb-2.5">
-                  <div className={`flex items-center justify-between border border-gray-200 dark:border-zinc-600 px-2 py-1.5 ${
+                  <div className={`flex items-center justify-between border border-zinc-600 px-2 py-1.5 ${
                     config.borderRadius === 'sharp' ? 'rounded-sm' : config.borderRadius === 'rounded' ? 'rounded-lg' : 'rounded-xl'
                   }`}>
                     <span className="text-[10px] text-gray-400">Type a message...</span>

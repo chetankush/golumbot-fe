@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
 import { assistantsApi, documentsApi } from '@/lib/api';
-import { ThemeToggle } from '@/components/ThemeProvider';
 import { GolumIcon } from '@/components/Logo';
 
 type Tab = 'documents' | 'scraper' | 'paste';
@@ -244,7 +243,6 @@ export default function AdminPage() {
           </div>
           <div className="flex items-center gap-3">
             <span className="hidden sm:block text-sm text-[var(--text-muted)]">{tenant?.name}</span>
-            <ThemeToggle />
             <button
               onClick={() => { logout(); router.push('/login'); }}
               className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
@@ -341,12 +339,12 @@ export default function AdminPage() {
 
         {/* Messages */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 rounded-lg text-sm">
+          <div className="mb-4 p-3 bg-red-900/20 border border-red-800 text-red-400 rounded-lg text-sm">
             {error}
           </div>
         )}
         {success && (
-          <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-lg text-sm">
+          <div className="mb-4 p-3 bg-green-900/20 border border-green-800 text-green-400 rounded-lg text-sm">
             {success}
           </div>
         )}
@@ -486,21 +484,21 @@ export default function AdminPage() {
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                       doc.type === 'url'
-                        ? 'bg-purple-100 dark:bg-purple-900/30'
+                        ? 'bg-purple-900/30'
                         : doc.type === 'text'
-                        ? 'bg-green-100 dark:bg-green-900/30'
-                        : 'bg-blue-100 dark:bg-blue-900/30'
+                        ? 'bg-green-900/30'
+                        : 'bg-blue-900/30'
                     }`}>
                       {doc.type === 'url' ? (
-                        <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                         </svg>
                       ) : doc.type === 'text' ? (
-                        <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
                         </svg>
                       ) : (
-                        <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                       )}
@@ -516,7 +514,7 @@ export default function AdminPage() {
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => handlePreview(doc)}
-                      className="p-2 text-[var(--text-muted)] hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
+                      className="p-2 text-[var(--text-muted)] hover:text-primary-500 hover:bg-primary-900/20 rounded-lg transition-colors"
                       title="Preview content"
                     >
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -526,7 +524,7 @@ export default function AdminPage() {
                     </button>
                     <button
                       onClick={() => handleDelete(doc.id)}
-                      className="p-2 text-[var(--text-muted)] hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                      className="p-2 text-[var(--text-muted)] hover:text-red-500 hover:bg-red-900/20 rounded-lg transition-colors"
                       title="Delete document"
                     >
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -548,21 +546,21 @@ export default function AdminPage() {
                 <div className="flex items-center gap-3 min-w-0">
                   <div className={`w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center ${
                     previewDoc?.type === 'url'
-                      ? 'bg-purple-100 dark:bg-purple-900/30'
+                      ? 'bg-purple-900/30'
                       : previewDoc?.type === 'text'
-                      ? 'bg-green-100 dark:bg-green-900/30'
-                      : 'bg-blue-100 dark:bg-blue-900/30'
+                      ? 'bg-green-900/30'
+                      : 'bg-blue-900/30'
                   }`}>
                     {previewDoc?.type === 'url' ? (
-                      <svg className="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                       </svg>
                     ) : previewDoc?.type === 'text' ? (
-                      <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
                       </svg>
                     ) : (
-                      <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                     )}

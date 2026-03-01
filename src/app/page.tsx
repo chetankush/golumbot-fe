@@ -3,52 +3,62 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
-import { ThemeToggle } from '@/components/ThemeProvider';
 import { GolumIcon } from '@/components/Logo';
 
 export default function LandingPage() {
   const { isAuthenticated } = useAuthStore();
   const [mounted, setMounted] = useState(false);
+  const [mobileNav, setMobileNav] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   if (!mounted) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div className="flex items-center justify-center min-h-screen bg-[#080816]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+    <div className="min-h-screen bg-[#080816]">
+      {/* ====== Navigation ====== */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'glass' : ''}`}>
+        <div className="relative max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 text-xl font-semibold text-[var(--text-primary)]">
+            <Link href="/" className="flex items-center gap-2 text-xl font-semibold text-white flex-shrink-0">
               <GolumIcon size={28} />
               Golum
             </Link>
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+
+            {/* Centered nav links — absolute center of screen */}
+            <div className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <a href="#features" className="text-sm text-white/80 hover:text-white transition-colors duration-300">
                 Features
               </a>
-              <a href="#contact" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+              <a href="#how-it-works" className="text-sm text-white/80 hover:text-white transition-colors duration-300">
+                How it works
+              </a>
+              <a href="#contact" className="text-sm text-white/80 hover:text-white transition-colors duration-300">
                 Contact
               </a>
-              <a href="#faq" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+              <a href="#faq" className="text-sm text-white/80 hover:text-white transition-colors duration-300">
                 FAQ
               </a>
             </div>
-            <div className="flex items-center gap-3">
-              <ThemeToggle />
+
+            {/* Right actions */}
+            <div className="flex items-center gap-3 flex-shrink-0">
               {isAuthenticated ? (
                 <Link
                   href="/dashboard"
-                  className="px-4 py-2 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-hover)] transition-colors"
+                  className="px-5 py-2 border border-white/[0.1] bg-white/[0.04] backdrop-blur-xl text-white text-sm font-medium rounded-full hover:bg-white/[0.08] hover:border-white/[0.18] transition-all duration-300"
                 >
                   Dashboard
                 </Link>
@@ -56,86 +66,122 @@ export default function LandingPage() {
                 <>
                   <Link
                     href="/login"
-                    className="hidden sm:block text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                    className="hidden sm:block text-sm text-white/50 hover:text-white transition-colors duration-300"
                   >
                     Sign in
                   </Link>
                   <Link
                     href="/register"
-                    className="px-4 py-2 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-hover)] transition-colors"
+                    className="px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium rounded-full transition-all duration-300 hover:shadow-[0_0_24px_rgba(124,58,237,0.3)]"
                   >
                     Get Started
                   </Link>
                 </>
               )}
+              <button
+                onClick={() => setMobileNav(!mobileNav)}
+                className="md:hidden p-2 text-white/50 hover:text-white transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  {mobileNav ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile nav dropdown */}
+        {mobileNav && (
+          <div className="md:hidden border-t border-white/[0.06] bg-[rgba(8,8,22,0.85)] backdrop-blur-[60px] px-6 py-4 space-y-1">
+            <a href="#features" onClick={() => setMobileNav(false)} className="block py-3 text-white/50 hover:text-white transition-colors">Features</a>
+            <a href="#how-it-works" onClick={() => setMobileNav(false)} className="block py-3 text-white/50 hover:text-white transition-colors">How it works</a>
+            <a href="#contact" onClick={() => setMobileNav(false)} className="block py-3 text-white/50 hover:text-white transition-colors">Contact</a>
+            <a href="#faq" onClick={() => setMobileNav(false)} className="block py-3 text-white/50 hover:text-white transition-colors">FAQ</a>
+          </div>
+        )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 dark:bg-primary-500/10 text-primary-500 dark:text-primary-300 text-sm font-medium mb-6">
-            AI-Powered Customer Support
+      {/* ====== HERO — Full landscape, Giga-style ====== */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        {/* Background landscape image */}
+        <div className="absolute inset-0">
+          <img
+            src="/hero-bg.jpg"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          {/* Very light overlay — let the landscape breathe */}
+          <div className="absolute inset-0 bg-black/15" />
+          {/* Subtle warm gradient at horizon for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080816]/80 via-transparent to-[#080816]/10" />
+        </div>
+
+        {/* Content — centered, wider container */}
+        <div className="relative text-center max-w-7xl mx-auto px-6 pt-32 pb-32 flex-1 flex flex-col items-center justify-center">
+          {/* Announcement badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.12] backdrop-blur-xl border border-white/[0.15] text-[10px] font-medium tracking-[0.15em] uppercase text-white/70 mb-10 cursor-pointer hover:bg-white/[0.18] transition-all duration-300">
+            Turn Every Visitor Into a Customer
+            <svg className="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold mb-5 leading-tight tracking-tight">
-            Build intelligent
-            <span className="text-[var(--accent)] block">AI assistants</span>
-            for your website
+          {/* Heading */}
+          <h1 className="text-[2rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]">
+            Your website answers
+            <br />
+            questions 24/7. Instantly.
           </h1>
 
-          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto mb-8 leading-relaxed">
-            Create custom AI chatbots trained on your content. Provide instant, accurate support to your visitors 24/7 without writing a single line of code.
+          {/* Subtitle */}
+          <p className="text-sm md:text-base text-white/60 mb-9 max-w-xl mx-auto leading-relaxed">
+            Stop losing customers to unanswered questions. Golum trains an AI assistant on your content and deploys it on your site in minutes — so every visitor gets the help they need, the moment they need it.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link
-              href="/register"
-              className="w-full sm:w-auto px-6 py-3 bg-[var(--accent)] text-white font-medium rounded-lg text-base hover:bg-[var(--accent-hover)] transition-colors"
-            >
-              Start free trial
-            </Link>
-            <a
-              href="#features"
-              className="w-full sm:w-auto px-6 py-3 bg-[var(--bg-tertiary)] border border-[var(--border-color)] text-[var(--text-primary)] font-medium rounded-lg text-base hover:bg-[var(--border-color)] transition-colors"
-            >
-              See how it works
-            </a>
-          </div>
+          {/* White pill CTA */}
+          <Link
+            href="/register"
+            className="inline-flex px-7 py-3 bg-white text-[#080816] text-sm font-medium rounded-full hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Start Free — No Credit Card
+          </Link>
+        </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-3 sm:gap-8 max-w-lg mx-auto mt-10 sm:mt-14 pt-8 border-t border-[var(--border-color)]">
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[var(--text-primary)]">99%</div>
-              <div className="text-xs text-[var(--text-muted)] mt-1">Response Accuracy</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[var(--text-primary)]">24/7</div>
-              <div className="text-xs text-[var(--text-muted)] mt-1">Always Available</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[var(--text-primary)]">5min</div>
-              <div className="text-xs text-[var(--text-muted)] mt-1">Setup Time</div>
-            </div>
+        {/* Bottom stats bar — placed higher */}
+        <div className="relative w-full mb-28 px-6">
+          <div className="max-w-5xl mx-auto flex items-center justify-center gap-10 sm:gap-14 md:gap-20 flex-wrap">
+            <span className="text-white text-base md:text-lg font-semibold tracking-wide">99% Accuracy</span>
+            <span className="text-white text-base md:text-lg font-semibold tracking-wide">24/7 Available</span>
+            <span className="text-white text-base md:text-lg font-semibold tracking-wide">5 Min Setup</span>
+            <span className="text-white text-base md:text-lg font-semibold tracking-wide">Any Website</span>
           </div>
         </div>
+
+        {/* Bottom fade to page bg */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#080816] to-transparent pointer-events-none" />
       </section>
 
-      {/* MacBook Demo Section */}
-      <section className="pb-20 px-4 sm:px-6 overflow-hidden">
+      {/* ====== MacBook Demo Section ====== */}
+      <section className="py-20 md:py-28 px-6 overflow-hidden">
         <div className="max-w-4xl mx-auto">
+          <p className="text-center text-sm text-[var(--text-muted)] mb-10">
+            See it in action — a custom AI assistant that matches your brand and answers using your own content
+          </p>
+
           {/* MacBook Frame */}
-          <div className="relative origin-top scale-[0.55] sm:scale-75 md:scale-100 -mb-[45%] sm:-mb-[25%] md:mb-0">
+          <div className="relative origin-top scale-[0.6] sm:scale-75 md:scale-100 -mb-[40%] sm:-mb-[20%] md:mb-0">
             {/* Screen lid */}
-            <div className="relative bg-[#0d0d0d] rounded-[12px] md:rounded-[16px] p-[6px] md:p-[8px] pt-[28px] md:pt-[32px] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)]">
+            <div className="relative bg-[#0d0d0d] rounded-[12px] md:rounded-[16px] p-[6px] md:p-[8px] pt-[28px] md:pt-[32px] shadow-[0_20px_60px_-10px_rgba(124,58,237,0.2)]">
               {/* Camera notch */}
               <div className="absolute top-[10px] md:top-[12px] left-1/2 -translate-x-1/2 w-[6px] h-[6px] rounded-full bg-[#1c1c1e] ring-1 ring-[#2a2a2c]"></div>
 
-              {/* Screen with inner bezel shadow */}
+              {/* Screen */}
               <div className="relative bg-white rounded-[4px] md:rounded-[6px] overflow-hidden shadow-[inset_0_0_0_1px_rgba(0,0,0,0.2)]" style={{ aspectRatio: '16 / 10' }}>
-                {/* Browser address bar */}
+                {/* Browser bar */}
                 <div className="bg-[#f2f2f2] border-b border-[#e0e0e0] px-3 py-1.5 flex items-center gap-2">
                   <div className="flex gap-[5px]">
                     <div className="w-[10px] h-[10px] rounded-full bg-[#ff5f57]"></div>
@@ -151,76 +197,64 @@ export default function LandingPage() {
                   <div className="w-[52px]"></div>
                 </div>
 
-                {/* Website content — uses flex-col to fill the aspect-ratio box */}
+                {/* Site content */}
                 <div className="absolute inset-0 top-[30px] flex flex-col bg-[#fafaf9]">
-                  {/* Website nav */}
+                  {/* Site nav */}
                   <div className="bg-white border-b border-[#eee] px-4 md:px-5 py-2.5 flex items-center justify-between flex-shrink-0">
                     <div className="flex items-center gap-4 md:gap-6">
                       <span className="text-[11px] md:text-sm font-bold text-[#1a1a1a] tracking-tight">Brew & Co.</span>
                       <div className="hidden md:flex gap-4">
-                        <span className="text-[9px] text-[#888] font-medium hover:text-[#1a1a1a] cursor-pointer transition-colors">Menu</span>
-                        <span className="text-[9px] text-[#888] font-medium hover:text-[#1a1a1a] cursor-pointer transition-colors">Locations</span>
-                        <span className="text-[9px] text-[#888] font-medium hover:text-[#1a1a1a] cursor-pointer transition-colors">About</span>
-                        <span className="text-[9px] text-[#888] font-medium hover:text-[#1a1a1a] cursor-pointer transition-colors">Contact</span>
+                        <span className="text-[9px] text-[#888] font-medium">Menu</span>
+                        <span className="text-[9px] text-[#888] font-medium">Locations</span>
+                        <span className="text-[9px] text-[#888] font-medium">About</span>
+                        <span className="text-[9px] text-[#888] font-medium">Contact</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-2.5">
-                      <span className="hidden md:block text-[9px] text-[#888] font-medium cursor-pointer hover:text-[#1a1a1a] transition-colors">Sign in</span>
-                      <div className="px-2.5 py-1 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold cursor-pointer hover:bg-[#4a3020] transition-colors">Order Now</div>
+                      <span className="hidden md:block text-[9px] text-[#888] font-medium">Sign in</span>
+                      <div className="px-2.5 py-1 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold">Order Now</div>
                     </div>
                   </div>
 
-                  {/* Scrollable body area */}
                   <div className="relative flex-1 min-h-0 overflow-hidden">
                     <div className="h-full overflow-y-auto">
-                      {/* Hero section */}
+                      {/* Hero */}
                       <div className="flex flex-col md:flex-row items-center gap-0 md:gap-4 px-4 md:px-5 py-5 md:py-7">
-                        {/* Text side */}
                         <div className="flex-1">
                           <div className="inline-block px-2 py-0.5 bg-[#f0ebe3] rounded text-[7px] text-[#8b7355] font-semibold tracking-wide uppercase mb-2">Fresh Daily</div>
                           <h2 className="text-[16px] md:text-[20px] font-extrabold text-[#1a1a1a] leading-[1.15] mb-2">Craft coffee,{' '}<br className="hidden md:block" />delivered fresh</h2>
                           <p className="text-[8px] md:text-[9px] text-[#777] leading-relaxed mb-3 max-w-[200px]">Premium single-origin beans roasted locally every morning. Subscribe and save 15% on every order.</p>
                           <div className="flex gap-2">
-                            <div className="px-3 py-1.5 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold cursor-pointer hover:bg-[#4a3020] transition-colors">Shop Beans</div>
-                            <div className="px-3 py-1.5 bg-white border border-[#ddd] rounded-md text-[8px] text-[#333] font-semibold cursor-pointer hover:bg-[#f5f5f5] transition-colors">Our Story</div>
+                            <div className="px-3 py-1.5 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold">Shop Beans</div>
+                            <div className="px-3 py-1.5 bg-white border border-[#ddd] rounded-md text-[8px] text-[#333] font-semibold">Our Story</div>
                           </div>
                         </div>
-
-                        {/* Hero image */}
                         <div className="hidden md:block w-[45%] rounded-xl overflow-hidden flex-shrink-0 h-[160px] shadow-sm">
                           <img src="/c5.avif" alt="Coffee shop interior" className="w-full h-full object-cover" />
                         </div>
                       </div>
 
-                      {/* Best Sellers section */}
+                      {/* Best Sellers */}
                       <div className="hidden md:block px-4 md:px-5 pb-3">
                         <p className="text-[12px] font-bold text-[#1a1a1a] mb-2">Best Sellers</p>
                         <div className="grid grid-cols-3 gap-2">
-                          <div className="bg-white border border-[#eee] rounded-lg overflow-hidden">
-                            <div className="w-full h-36 overflow-hidden"><img src="/cofi1.jpg" alt="Ethiopian" className="w-full h-full object-cover" /></div>
-                            <div className="p-1.5">
-                              <p className="text-[7px] font-semibold text-[#1a1a1a]">Ethiopian Yirga</p>
-                              <p className="text-[6px] text-[#5c3d2e] font-semibold">$18.99</p>
+                          {[
+                            { img: '/cofi1.jpg', name: 'Ethiopian Yirga', price: '$18.99' },
+                            { img: '/cofi2.avif', name: 'Colombian Dark', price: '$16.99' },
+                            { img: '/cofi3.avif', name: 'House Blend', price: '$14.99' },
+                          ].map((item) => (
+                            <div key={item.name} className="bg-white border border-[#eee] rounded-lg overflow-hidden">
+                              <div className="w-full h-36 overflow-hidden"><img src={item.img} alt={item.name} className="w-full h-full object-cover" /></div>
+                              <div className="p-1.5">
+                                <p className="text-[7px] font-semibold text-[#1a1a1a]">{item.name}</p>
+                                <p className="text-[6px] text-[#5c3d2e] font-semibold">{item.price}</p>
+                              </div>
                             </div>
-                          </div>
-                          <div className="bg-white border border-[#eee] rounded-lg overflow-hidden">
-                            <div className="w-full h-36 overflow-hidden"><img src="/cofi2.avif" alt="Colombian" className="w-full h-full object-cover" /></div>
-                            <div className="p-1.5">
-                              <p className="text-[7px] font-semibold text-[#1a1a1a]">Colombian Dark</p>
-                              <p className="text-[6px] text-[#5c3d2e] font-semibold">$16.99</p>
-                            </div>
-                          </div>
-                          <div className="bg-white border border-[#eee] rounded-lg overflow-hidden">
-                            <div className="w-full h-36 overflow-hidden"><img src="/cofi3.avif" alt="House Blend" className="w-full h-full object-cover" /></div>
-                            <div className="p-1.5">
-                              <p className="text-[7px] font-semibold text-[#1a1a1a]">House Blend</p>
-                              <p className="text-[6px] text-[#5c3d2e] font-semibold">$14.99</p>
-                            </div>
-                          </div>
+                          ))}
                         </div>
                       </div>
 
-                      {/* About / Story section */}
+                      {/* About */}
                       <div className="hidden md:block px-4 md:px-5 pb-4">
                         <div className="bg-white border border-[#eee] rounded-lg overflow-hidden flex">
                           <div className="w-[40%] flex-shrink-0 overflow-hidden">
@@ -229,13 +263,12 @@ export default function LandingPage() {
                           <div className="p-4 flex-1">
                             <p className="text-[7px] font-semibold text-[#5c3d2e] uppercase tracking-wider mb-1">About Us</p>
                             <p className="text-[13px] font-bold text-[#1a1a1a] mb-2 leading-tight">Our Story</p>
-                            <p className="text-[9px] text-[#555] leading-relaxed">Founded in 2019, Brew & Co. started with a simple idea: everyone deserves freshly roasted, ethically sourced coffee. We work directly with farmers in Ethiopia, Colombia, and Guatemala to bring you the finest single-origin beans at fair prices.</p>
-                            <p className="text-[9px] text-[#555] leading-relaxed mt-1.5">Every batch is roasted locally each morning for peak freshness. From bean to cup, we obsess over quality so you don&apos;t have to.</p>
+                            <p className="text-[9px] text-[#555] leading-relaxed">Founded in 2019, Brew & Co. started with a simple idea: everyone deserves freshly roasted, ethically sourced coffee.</p>
                           </div>
                         </div>
                       </div>
 
-                      {/* Gallery section */}
+                      {/* Gallery */}
                       <div className="hidden md:block px-4 md:px-5 pb-3">
                         <p className="text-[12px] font-bold text-[#1a1a1a] mb-2">From Our Roastery</p>
                         <div className="grid grid-cols-2 gap-1.5">
@@ -256,16 +289,15 @@ export default function LandingPage() {
                       </div>
                     </div>
 
-                    {/* Golum Chat Widget — matches real widget UI */}
+                    {/* Chat Widget */}
                     <div className="absolute bottom-2 md:bottom-3 right-2 md:right-3 w-[180px] md:w-[220px] bg-white rounded-[10px] md:rounded-[14px] shadow-[0_8px_40px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
-                      {/* Header — clean white with border like real widget */}
                       <div className="px-2 md:px-2.5 py-1.5 md:py-2 flex items-center gap-1.5 border-b border-[#f1f5f9] bg-white">
                         <div className="flex-1 min-w-0">
                           <p className="text-[#0f172a] text-[9px] md:text-[10px] font-semibold leading-tight">Brew & Co.</p>
                           <p className="text-[#5c3d2e] text-[6px] md:text-[7px] font-medium leading-tight">The team can also help</p>
                         </div>
                         <div className="flex items-center gap-0.5">
-                          <div className="w-3.5 h-3.5 md:w-4 md:h-4 rounded flex items-center justify-center text-[#94a3b8] hover:bg-[#f1f5f9]">
+                          <div className="w-3.5 h-3.5 md:w-4 md:h-4 rounded flex items-center justify-center text-[#94a3b8]">
                             <svg className="w-2 h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
@@ -277,30 +309,24 @@ export default function LandingPage() {
                           </div>
                         </div>
                       </div>
-                      {/* Subtitle */}
                       <div className="bg-[#fafbfc] border-b border-[#f1f5f9] px-2 py-1 text-center">
                         <p className="text-[6px] md:text-[7px] text-[#94a3b8]">Ask us anything, or share your feedback.</p>
                       </div>
-                      {/* Chat messages — matches real widget styling */}
                       <div className="p-1.5 md:p-2.5 space-y-1.5 md:space-y-2 bg-white flex-1">
-                        {/* Assistant message */}
                         <div className="flex flex-col gap-0.5">
                           <div className="self-start bg-[#f1f5f9] rounded-sm rounded-tr-xl rounded-br-xl rounded-bl-xl px-1.5 md:px-2 py-1 md:py-1.5 text-[7px] md:text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
-                            Welcome to Brew & Co! Ask me anything about our beans or brewing tips ☕
+                            Welcome to Brew & Co! Ask me anything about our beans or brewing tips
                           </div>
                         </div>
-                        {/* User message */}
                         <div className="flex flex-col gap-0.5">
                           <div className="self-end bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl rounded-tr-xl rounded-bl-xl rounded-br-sm px-1.5 md:px-2 py-1 md:py-1.5 text-[7px] md:text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
                             Which blend is best for cold brew?
                           </div>
                         </div>
-                        {/* Assistant reply */}
                         <div className="flex flex-col gap-0.5">
                           <div className="self-start bg-[#f1f5f9] rounded-sm rounded-tr-xl rounded-br-xl rounded-bl-xl px-1.5 md:px-2 py-1 md:py-1.5 text-[7px] md:text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
-                            Our <span className="font-semibold">Colombian Dark Roast</span> is perfect! Smooth, low acidity, with chocolate notes. Steep 12-18hrs 🤎
+                            Our <span className="font-semibold">Colombian Dark Roast</span> is perfect! Smooth, low acidity, with chocolate notes. Steep 12-18hrs
                           </div>
-                          {/* Action button like real widget */}
                           <div className="self-start mt-0.5">
                             <div className="inline-flex items-center gap-1 px-1.5 md:px-2 py-0.5 md:py-1 bg-[#1e293b] text-white rounded-xl text-[6px] md:text-[7px] font-medium">
                               <svg className="w-1.5 h-1.5 md:w-2 md:h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -311,7 +337,6 @@ export default function LandingPage() {
                           </div>
                         </div>
                       </div>
-                      {/* Input — matches real widget input box */}
                       <div className="px-1.5 md:px-2 py-1 md:py-1.5 bg-white">
                         <div className="border-2 border-[#e2e8f0] rounded-lg md:rounded-xl px-1.5 md:px-2 py-1 md:py-1.5">
                           <p className="text-[6px] md:text-[7px] text-[#94a3b8] mb-0.5">Type a message...</p>
@@ -342,279 +367,303 @@ export default function LandingPage() {
             {/* MacBook base */}
             <div className="relative mx-auto" style={{ width: '100%' }}>
               <div className="h-[10px] bg-gradient-to-b from-[#333] to-[#2a2a2a] rounded-b-xl shadow-[0_2px_8px_rgba(0,0,0,0.15)]">
-                {/* Trackpad indent */}
                 <div className="absolute top-[2px] left-1/2 -translate-x-1/2 w-14 h-[4px] bg-[#2a2a2a] rounded-b-sm border-t border-[#3a3a3a]"></div>
               </div>
             </div>
           </div>
-
-          {/* Caption */}
-          <p className="text-center text-sm text-[var(--text-muted)] mt-8">
-            Fully customizable — matches your brand colors and answers using your content
-          </p>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="section px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Everything you need
-            </h2>
-            <p className="text-lg text-[var(--text-secondary)] max-w-xl mx-auto">
-              Powerful features to build and deploy AI assistants in minutes
-            </p>
+      {/* ====== Features Section — Giga-style ====== */}
+      <section id="features" className="py-24 md:py-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Top row: heading left + mini features right */}
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12 lg:gap-20 mb-14 md:mb-20">
+            {/* Left — Badge + Large heading */}
+            <div className="lg:max-w-lg flex-shrink-0">
+              <div className="flex items-center gap-2.5 text-[11px] font-medium tracking-[0.2em] uppercase text-white/45 mb-6">
+                <span className="w-2 h-2 rounded-full bg-purple-400" />
+                Why Golum
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-[1.1] tracking-tight">
+                Replace your help desk.
+                <br />
+                Keep your customers.
+              </h2>
+            </div>
+
+            {/* Right — 3 mini features in a row */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-10 lg:max-w-2xl lg:pt-8">
+              <div>
+                <div className="text-white/45 mb-3"><PaletteIcon /></div>
+                <h4 className="text-white font-medium mb-1.5">Your Brand, Your Voice</h4>
+                <p className="text-sm text-white/35 leading-relaxed">Colors, tone, personality — your AI sounds like you, not a robot</p>
+              </div>
+              <div>
+                <div className="text-white/45 mb-3"><BrainIcon /></div>
+                <h4 className="text-white font-medium mb-1.5">Learns in Seconds</h4>
+                <p className="text-sm text-white/35 leading-relaxed">Drop a PDF or paste a URL — the AI knows your business instantly</p>
+              </div>
+              <div>
+                <div className="text-white/45 mb-3"><CodeIcon /></div>
+                <h4 className="text-white font-medium mb-1.5">One Line, Done</h4>
+                <p className="text-sm text-white/35 leading-relaxed">Copy one snippet, paste it on your site. Live in under 60 seconds</p>
+              </div>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <FeatureCard
-              icon={<BrainIcon />}
-              title="Smart Learning"
-              description="Upload documents, PDFs, or scrape websites. Your AI learns from your content automatically."
-              gradient="from-purple-500 to-pink-500"
-            />
-            <FeatureCard
-              icon={<ChatIcon />}
-              title="Natural Conversations"
-              description="Powered by advanced LLMs for human-like, context-aware responses to any question."
-              gradient="from-blue-500 to-cyan-500"
-            />
-            <FeatureCard
-              icon={<CodeIcon />}
-              title="Easy Integration"
-              description="Add to any website with a simple script tag. No coding required."
-              gradient="from-green-500 to-emerald-500"
-            />
-            <FeatureCard
-              icon={<PaletteIcon />}
-              title="Fully Customizable"
-              description="Match your brand with custom colors, positioning, and welcome messages."
-              gradient="from-orange-500 to-amber-500"
-            />
-            <FeatureCard
-              icon={<ShieldIcon />}
-              title="Secure & Private"
-              description="Enterprise-grade security. Your data is encrypted and never shared."
-              gradient="from-red-500 to-rose-500"
-            />
-            <FeatureCard
-              icon={<ChartIcon />}
-              title="Analytics Dashboard"
-              description="Track conversations, popular questions, and improve your knowledge base."
-              gradient="from-indigo-500 to-violet-500"
-            />
+          {/* Large showcase card */}
+          <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+            <div className="grid lg:grid-cols-2">
+              {/* Left content */}
+              <div className="p-8 md:p-10 lg:p-14 flex flex-col">
+                <div className="flex items-center gap-3 mb-5">
+                  <svg className="w-6 h-6 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                  </svg>
+                  <h3 className="text-2xl md:text-3xl font-semibold text-white">Your Command Center</h3>
+                </div>
+                <p className="text-white/40 mb-8 leading-relaxed max-w-sm text-[15px]">
+                  See every conversation, measure customer satisfaction, and improve your AI — all from one dashboard you&apos;ll actually enjoy using.
+                </p>
+                <Link
+                  href="/register"
+                  className="self-start px-6 py-3 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] hover:border-white/[0.2] transition-all duration-300"
+                >
+                  Try It Free
+                </Link>
+
+                {/* Bottom list items with dividers */}
+                <div className="mt-auto pt-10">
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Upload PDFs, docs, or your site URL to train</div>
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Match your brand colors and personality</div>
+                  <div className="py-4 text-[15px] text-white/80 font-medium">Go live on any website with one line of code</div>
+                </div>
+              </div>
+
+              {/* Right — Landscape image with stats overlay */}
+              <div className="relative min-h-[360px] lg:min-h-0">
+                <img src="/showcase-bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/25" />
+
+                {/* Floating stats panel */}
+                <div className="absolute bottom-5 left-5 right-5 md:bottom-8 md:left-8 md:right-8 p-5 md:p-6 rounded-2xl bg-[rgba(12,12,28,0.85)] backdrop-blur-2xl border border-white/[0.08]">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="w-2 h-2 rounded-full bg-green-400" />
+                    <span className="text-sm text-white/60 font-medium">Real Results, Live</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2.5">
+                    <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.06]">
+                      <p className="text-[10px] text-white/35 mb-1">Questions Answered</p>
+                      <p className="text-xl font-bold text-white">99%</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.06]">
+                      <p className="text-[10px] text-white/35 mb-1">Customers Helped</p>
+                      <p className="text-xl font-bold text-white">1,240</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.06]">
+                      <p className="text-[10px] text-white/35 mb-1">Response Time</p>
+                      <p className="text-xl font-bold text-white">&lt;2s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="section px-4 sm:px-6 bg-[var(--bg-tertiary)]">
+      {/* ====== How It Works — Connected glass timeline ====== */}
+      <section id="how-it-works" className="py-24 md:py-32 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Up and running in minutes
+          <div className="text-center mb-16 md:mb-20">
+            <p className="text-purple-400 text-sm font-medium tracking-widest uppercase mb-4">How It Works</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+              Live in 5 minutes. Seriously.
             </h2>
-            <p className="text-lg text-[var(--text-secondary)]">
-              Three simple steps to transform your customer support
+            <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto leading-relaxed">
+              No developers needed. No complicated setup. Just three steps between you and an AI that sells, supports, and scales for you.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <StepCard
-              number="1"
-              title="Create Assistant"
-              description="Sign up and create your AI assistant with a custom personality and name."
-            />
-            <StepCard
-              number="2"
-              title="Train with Content"
-              description="Upload documents or scrape your website. AI learns your business instantly."
-            />
-            <StepCard
-              number="3"
-              title="Embed & Go Live"
-              description="Copy one line of code. Your AI assistant is now live on your website."
-            />
+          <div className="relative">
+            {/* Connecting gradient line — desktop */}
+            <div className="hidden md:block absolute top-[4.5rem] left-[calc(16.67%+12px)] right-[calc(16.67%+12px)] h-px">
+              <div className="w-full h-full bg-gradient-to-r from-purple-500/30 via-violet-400/20 to-blue-500/30" />
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 md:gap-5">
+              <StepCard number="01" title="Create Your Assistant" description="Pick a name, set the tone. Make it feel like a real team member — friendly, professional, or anything in between." />
+              <StepCard number="02" title="Feed It Your Knowledge" description="Upload your FAQs, product docs, or just paste your website URL. The AI reads everything and becomes an expert on your business." />
+              <StepCard number="03" title="Go Live Instantly" description="Copy one snippet, paste it on your site. Your AI assistant starts answering customers immediately — while you sleep." />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="section px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Get Full Access
-            </h2>
-            <p className="text-lg text-[var(--text-secondary)]">
-              Contact us to pay for the product and use it to its full potential.
-            </p>
-          </div>
+      {/* ====== Contact Section — Minimal glass card ====== */}
+      <section id="contact" className="py-24 md:py-32 px-6">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-purple-400 text-sm font-medium tracking-widest uppercase mb-4">Contact</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+            Questions? We&apos;re here.
+          </h2>
+          <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto mb-14 leading-relaxed">
+            Whether you need a custom plan, have a technical question, or just want to see a demo — reach out. We respond fast.
+          </p>
 
-          <div className="max-w-md mx-auto card p-8">
-            <div className="space-y-4">
+          <div className="apple-glass p-2 sm:p-3 inline-block w-full max-w-md">
+            <div className="space-y-1">
               <a
                 href="tel:7987401227"
-                className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-tertiary)] hover:bg-[var(--border-color)] transition-colors group"
+                className="flex items-center gap-4 px-5 py-4 rounded-[18px] hover:bg-white/[0.04] transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                <div className="w-10 h-10 rounded-[14px] bg-white/[0.05] border border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/10 group-hover:border-green-500/20 transition-all duration-300">
+                  <svg className="w-[18px] h-[18px] text-white/50 group-hover:text-green-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <div>
-                  <p className="font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">7987401227</p>
-                  <p className="text-sm text-[var(--text-muted)]">Call us</p>
+                <div className="text-left">
+                  <p className="font-medium text-white/90 group-hover:text-white transition-colors">798 740 1227</p>
+                  <p className="text-xs text-white/25 mt-0.5">Phone</p>
                 </div>
               </a>
 
               <a
                 href="tel:9303135537"
-                className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-tertiary)] hover:bg-[var(--border-color)] transition-colors group"
+                className="flex items-center gap-4 px-5 py-4 rounded-[18px] hover:bg-white/[0.04] transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                <div className="w-10 h-10 rounded-[14px] bg-white/[0.05] border border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/10 group-hover:border-green-500/20 transition-all duration-300">
+                  <svg className="w-[18px] h-[18px] text-white/50 group-hover:text-green-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <div>
-                  <p className="font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">9303135537</p>
-                  <p className="text-sm text-[var(--text-muted)]">Call us</p>
+                <div className="text-left">
+                  <p className="font-medium text-white/90 group-hover:text-white transition-colors">930 313 5537</p>
+                  <p className="text-xs text-white/25 mt-0.5">Phone</p>
                 </div>
               </a>
 
               <a
                 href="mailto:chetankushwah929@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-tertiary)] hover:bg-[var(--border-color)] transition-colors group"
+                className="flex items-center gap-4 px-5 py-4 rounded-[18px] hover:bg-white/[0.04] transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <div className="w-10 h-10 rounded-[14px] bg-white/[0.05] border border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:bg-purple-500/10 group-hover:border-purple-500/20 transition-all duration-300">
+                  <svg className="w-[18px] h-[18px] text-white/50 group-hover:text-purple-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <div>
-                  <p className="font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors break-all">chetankushwah929@gmail.com</p>
-                  <p className="text-sm text-[var(--text-muted)]">Email us</p>
+                <div className="text-left">
+                  <p className="font-medium text-white/90 group-hover:text-white transition-colors break-all">chetankushwah929@gmail.com</p>
+                  <p className="text-xs text-white/25 mt-0.5">Email</p>
                 </div>
               </a>
             </div>
           </div>
+
+          <p className="mt-10 text-sm text-white/20">We typically respond within a few hours.</p>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="section px-4 sm:px-6">
+      {/* ====== FAQ Section ====== */}
+      <section id="faq" className="py-24 md:py-32 px-6">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Frequently asked questions
+          <div className="text-center mb-16 md:mb-20">
+            <p className="text-purple-400 text-sm font-medium tracking-widest uppercase mb-4">FAQ</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+              Got questions? We&apos;ve got answers.
             </h2>
-            <p className="text-lg text-[var(--text-secondary)]">
-              Everything you need to know about Golum
+            <p className="text-base md:text-lg text-white/40">
+              Everything you need to know before you get started
             </p>
           </div>
 
-          <div className="space-y-4">
-            <FAQItem
-              question="How does Golum learn from my content?"
-              answer="Simply upload documents (PDF, DOCX, TXT, etc.) or provide website URLs. Our AI automatically extracts and understands the content, creating a knowledge base your assistant can reference when answering questions."
-            />
-            <FAQItem
-              question="What AI models power Golum?"
-              answer="We use state-of-the-art large language models including Llama, GPT, and others through various providers. You can choose the model that best fits your needs and budget."
-            />
-            <FAQItem
-              question="How do I add the widget to my website?"
-              answer="It's as simple as copying two lines of code and pasting them before the closing body tag of your website. Works with any platform - WordPress, Shopify, Wix, custom sites, and more."
-            />
-            <FAQItem
-              question="Is my data secure?"
-              answer="Absolutely. All data is encrypted in transit and at rest. We never share your data with third parties, and you can delete your data at any time. We're GDPR compliant."
-            />
-            <FAQItem
-              question="Can I customize the look and feel?"
-              answer="Yes! You can customize colors, position, welcome message, and more to match your brand. Pro users can also remove the Golum branding entirely."
-            />
-            <FAQItem
-              question="What happens if the AI doesn't know an answer?"
-              answer="The AI will honestly say it doesn't have that information in its knowledge base. You can configure fallback responses or escalation to human support."
-            />
+          <div className="divide-y divide-white/[0.06] border-t border-white/[0.06]">
+            <FAQItem number="01" question="How does Golum learn my business?" answer="Just upload your documents (PDF, DOCX, TXT) or paste your website URL. Golum reads everything, understands the context, and builds a knowledge base your AI assistant uses to answer customers accurately — no manual training required." />
+            <FAQItem number="02" question="Do I need to write any code?" answer="Not really. You'll copy one small snippet and paste it into your website. That's it. Works on WordPress, Shopify, Wix, Squarespace, or any custom site. If you can paste text, you can set up Golum." />
+            <FAQItem number="03" question="What AI models are available?" answer="We offer access to top-tier models including Llama, GPT, and more. Pick the one that fits your needs — whether you want the fastest responses or the most nuanced answers. Switch anytime." />
+            <FAQItem number="04" question="Is my business data safe?" answer="100%. All data is encrypted in transit and at rest. We never sell or share your data. You own it, and you can delete it anytime. We're fully GDPR compliant." />
+            <FAQItem number="05" question="Can it really match my brand?" answer="Completely. Customize the widget colors, position, welcome message, avatar, and even the AI's personality and tone. Your customers will think it's built in-house." />
+            <FAQItem number="06" question="What if the AI can't answer a question?" answer="It'll be honest — no making things up. You can set custom fallback messages, collect the visitor's email, or automatically escalate to your human support team. You stay in control." />
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section px-4 sm:px-6">
+      {/* ====== CTA Section ====== */}
+      <section className="py-24 md:py-32 px-6">
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 sm:p-10 md:p-14 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">
-              Ready to transform your support?
+          <div className="relative apple-glass p-10 sm:p-14 md:p-20 text-center overflow-hidden">
+            {/* Glow effects */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[2px] bg-gradient-to-r from-transparent via-purple-500/60 to-transparent" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-32 bg-purple-500/15 blur-[60px]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-20 bg-purple-400/5 blur-[40px]" />
+
+            <h2 className="text-2xl md:text-4xl font-bold mb-5 text-white relative tracking-tight">
+              Your competitors already have AI support.
+              <br />
+              <span className="text-purple-400">Do you?</span>
             </h2>
-            <p className="text-[var(--text-secondary)] mb-6 max-w-lg mx-auto">
-              Join businesses using AI to deliver exceptional customer experiences.
+            <p className="text-white/40 mb-10 max-w-lg mx-auto relative leading-relaxed">
+              Every unanswered question is a lost customer. Set up Golum in 5 minutes and never miss a conversation again.
             </p>
             <Link
               href="/register"
-              className="inline-block px-6 py-3 bg-[var(--accent)] text-white font-medium rounded-lg hover:bg-[var(--accent-hover)] transition-colors"
+              className="relative inline-flex px-8 py-3.5 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_50px_rgba(124,58,237,0.4)] hover:scale-[1.02] active:scale-[0.98]"
             >
-              Start free trial
+              Get Started Free
             </Link>
-            <p className="mt-3 text-sm text-[var(--text-muted)]">No credit card required</p>
+            <p className="mt-5 text-sm text-white/20 relative">Free forever for small sites. No credit card needed.</p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-[var(--border-color)] py-12 px-4 sm:px-6">
+      {/* ====== Footer ====== */}
+      <footer className="border-t border-white/[0.06] py-14 md:py-16 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
-            <div>
-              <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-10">
+            <div className="col-span-2 md:col-span-1">
+              <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-white">
                 <GolumIcon size={22} />
                 Golum
               </Link>
-              <p className="text-[var(--text-secondary)] mt-3 text-sm">
-                AI-powered assistants for modern businesses.
+              <p className="text-white/25 mt-3 text-sm leading-relaxed">
+                AI support that never sleeps, so you can.
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                <li><a href="#features" className="hover:text-[var(--text-primary)]">Features</a></li>
-                <li><a href="#contact" className="hover:text-[var(--text-primary)]">Contact</a></li>
-                <li><a href="#faq" className="hover:text-[var(--text-primary)]">FAQ</a></li>
+              <h4 className="font-semibold mb-4 text-white/80">Product</h4>
+              <ul className="space-y-3 text-sm text-white/30">
+                <li><a href="#features" className="hover:text-white transition-colors duration-300">Features</a></li>
+                <li><a href="#contact" className="hover:text-white transition-colors duration-300">Contact</a></li>
+                <li><a href="#faq" className="hover:text-white transition-colors duration-300">FAQ</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                <li><a href="/privacy" className="hover:text-[var(--text-primary)]">About</a></li>
-                <li><a href="mailto:support@golum.ai" className="hover:text-[var(--text-primary)]">Contact</a></li>
+              <h4 className="font-semibold mb-4 text-white/80">Company</h4>
+              <ul className="space-y-3 text-sm text-white/30">
+                <li><a href="/privacy" className="hover:text-white transition-colors duration-300">About</a></li>
+                <li><a href="mailto:support@golum.ai" className="hover:text-white transition-colors duration-300">Contact</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                <li><a href="/privacy" className="hover:text-[var(--text-primary)]">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-[var(--text-primary)]">Terms of Service</a></li>
+              <h4 className="font-semibold mb-4 text-white/80">Legal</h4>
+              <ul className="space-y-3 text-sm text-white/30">
+                <li><a href="/privacy" className="hover:text-white transition-colors duration-300">Privacy Policy</a></li>
+                <li><a href="/terms" className="hover:text-white transition-colors duration-300">Terms of Service</a></li>
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-[var(--border-color)] flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-[var(--text-muted)]">
-              © {new Date().getFullYear()} Golum. All rights reserved.
+          <div className="pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-white/25">
+              &copy; {new Date().getFullYear()} Golum. All rights reserved.
             </p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="text-[var(--text-muted)] hover:text-[var(--text-primary)]">
-                <TwitterIcon />
-              </a>
-              <a href="#" className="text-[var(--text-muted)] hover:text-[var(--text-primary)]">
-                <GitHubIcon />
-              </a>
-              <a href="#" className="text-[var(--text-muted)] hover:text-[var(--text-primary)]">
-                <LinkedInIcon />
-              </a>
+            <div className="flex items-center gap-5">
+              <a href="#" className="text-white/25 hover:text-purple-400 transition-colors duration-300"><TwitterIcon /></a>
+              <a href="#" className="text-white/25 hover:text-purple-400 transition-colors duration-300"><GitHubIcon /></a>
+              <a href="#" className="text-white/25 hover:text-purple-400 transition-colors duration-300"><LinkedInIcon /></a>
             </div>
           </div>
         </div>
@@ -623,54 +672,45 @@ export default function LandingPage() {
   );
 }
 
-// Feature Card Component
-function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string; gradient?: string }) {
-  return (
-    <div className="feature-card">
-      <div className="w-10 h-10 rounded-lg bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center text-[var(--accent)] mb-3">
-        {icon}
-      </div>
-      <h3 className="text-base font-semibold mb-1.5">{title}</h3>
-      <p className="text-sm text-[var(--text-secondary)]">{description}</p>
-    </div>
-  );
-}
-
-// Step Card Component
+/* ——— Step Card — Glass timeline node ——— */
 function StepCard({ number, title, description }: { number: string; title: string; description: string }) {
   return (
-    <div className="text-center">
-      <div className="w-12 h-12 rounded-full bg-[var(--accent)] text-white text-lg font-semibold flex items-center justify-center mx-auto mb-3">
-        {number}
+    <div className="relative text-center group">
+      <div className="apple-glass p-8 md:p-10">
+        {/* Step number */}
+        <div className="inline-flex w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-violet-500/5 border border-purple-500/15 items-center justify-center mb-6 group-hover:from-purple-500/30 group-hover:border-purple-500/30 transition-all duration-500">
+          <span className="text-lg font-bold bg-gradient-to-br from-purple-400 to-violet-300 bg-clip-text text-transparent">{number}</span>
+        </div>
+        <h3 className="text-xl font-semibold text-white mb-3">{title}</h3>
+        <p className="text-sm text-white/40 leading-relaxed">{description}</p>
       </div>
-      <h3 className="text-base font-semibold mb-1.5">{title}</h3>
-      <p className="text-sm text-[var(--text-secondary)]">{description}</p>
     </div>
   );
 }
 
-// FAQ Item Component
-function FAQItem({ question, answer }: { question: string; answer: string }) {
+/* ——— FAQ Item ——— */
+function FAQItem({ number, question, answer }: { number: string; question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border border-[var(--border-color)] rounded-xl overflow-hidden">
+    <div>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[var(--bg-tertiary)] transition-colors"
+        className="w-full py-6 flex items-center gap-4 text-left group"
       >
-        <span className="font-medium">{question}</span>
+        <span className="text-sm font-mono text-white/20 group-hover:text-purple-400 transition-colors duration-300 flex-shrink-0">{number}</span>
+        <span className="flex-1 font-medium text-white/80 group-hover:text-white transition-colors duration-300">{question}</span>
         <svg
-          className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 text-white/20 group-hover:text-purple-400 transition-all duration-300 flex-shrink-0 ${isOpen ? 'rotate-45' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v12M6 12h12" />
         </svg>
       </button>
       {isOpen && (
-        <div className="px-6 pb-4 text-[var(--text-secondary)] animate-fade-in">
+        <div className="pb-6 pl-11 pr-4 text-white/40 leading-relaxed animate-fade-in">
           {answer}
         </div>
       )}
@@ -678,51 +718,51 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   );
 }
 
-// Icons
+/* ——— Icons ——— */
 function BrainIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
     </svg>
   );
 }
 
 function ChatIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
     </svg>
   );
 }
 
 function CodeIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
     </svg>
   );
 }
 
 function PaletteIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
     </svg>
   );
 }
 
 function ShieldIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
     </svg>
   );
 }
 
 function ChartIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
     </svg>
   );
 }

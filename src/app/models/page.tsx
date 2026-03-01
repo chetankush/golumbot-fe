@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
 import { assistantsApi } from '@/lib/api';
-import { ThemeToggle } from '@/components/ThemeProvider';
 import { GolumIcon } from '@/components/Logo';
 
 interface ModelInfo {
@@ -109,11 +108,11 @@ export default function ModelsPage() {
 
   const providerBadge = (provider: string) => {
     const colors: Record<string, string> = {
-      openrouter: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
-      groq: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
-      openai: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300',
+      openrouter: 'bg-blue-900/30 text-blue-300',
+      groq: 'bg-orange-900/30 text-orange-300',
+      openai: 'bg-green-900/30 text-green-300',
     };
-    return colors[provider] || 'bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-300';
+    return colors[provider] || 'bg-gray-900/30 text-gray-300';
   };
 
   if (!isAuthenticated) return null;
@@ -124,8 +123,8 @@ export default function ModelsPage() {
       {showToast && (
         <div className={`fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg animate-fade-in ${
           showToast.type === 'success'
-            ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800'
-            : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800'
+            ? 'bg-green-900/30 text-green-200 border border-green-800'
+            : 'bg-red-900/30 text-red-200 border border-red-800'
         }`}>
           <div className="flex items-center gap-3">
             <span>{showToast.message}</span>
@@ -163,7 +162,6 @@ export default function ModelsPage() {
           </div>
           <div className="flex items-center gap-3">
             <span className="hidden sm:block text-sm text-[var(--text-muted)]">{tenant?.name}</span>
-            <ThemeToggle />
             <button onClick={() => { logout(); router.push('/login'); }} className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
               Logout
             </button>
@@ -232,7 +230,7 @@ export default function ModelsPage() {
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-base font-semibold text-[var(--text-primary)]">Free Models</h2>
-                  <span className="px-2 py-0.5 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">No cost</span>
+                  <span className="px-2 py-0.5 text-xs font-medium bg-green-900/30 text-green-300 rounded-full">No cost</span>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {grouped.free.map(model => (
@@ -255,7 +253,7 @@ export default function ModelsPage() {
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-base font-semibold text-[var(--text-primary)]">Budget Models</h2>
-                  <span className="px-2 py-0.5 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full">Low cost</span>
+                  <span className="px-2 py-0.5 text-xs font-medium bg-yellow-900/30 text-yellow-300 rounded-full">Low cost</span>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {grouped.budget.map(model => (
@@ -278,7 +276,7 @@ export default function ModelsPage() {
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-base font-semibold text-[var(--text-primary)]">Premium Models</h2>
-                  <span className="px-2 py-0.5 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full">Best quality</span>
+                  <span className="px-2 py-0.5 text-xs font-medium bg-purple-900/30 text-purple-300 rounded-full">Best quality</span>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {grouped.premium.map(model => (
@@ -349,7 +347,7 @@ function ModelCard({
         </div>
         <div className="flex items-center justify-between">
           <span className="text-xs text-[var(--text-muted)]">Cost</span>
-          <span className={`text-xs font-medium ${model.isFree ? 'text-green-600 dark:text-green-400' : 'text-[var(--text-primary)]'}`}>
+          <span className={`text-xs font-medium ${model.isFree ? 'text-green-400' : 'text-[var(--text-primary)]'}`}>
             {model.isFree ? 'Free' : `${model.costPerMessage}¢ / msg`}
           </span>
         </div>
