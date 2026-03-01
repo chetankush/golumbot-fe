@@ -795,7 +795,7 @@ export default function LandingPage() {
           <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
             <div className="grid lg:grid-cols-2">
               {/* Left content */}
-              <div className="p-8 md:p-10 lg:p-14 flex flex-col">
+              <div className="p-8 md:p-10 lg:p-14 flex flex-col order-2 lg:order-1">
                 <div className="flex items-center gap-3 mb-5">
                   <svg className="w-6 h-6 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <rect x="3" y="3" width="7" height="7" rx="1.5" />
@@ -824,7 +824,7 @@ export default function LandingPage() {
               </div>
 
               {/* Right — Landscape image with stats overlay */}
-              <div className="relative min-h-[360px] lg:min-h-0">
+              <div className="relative min-h-[280px] sm:min-h-[360px] lg:min-h-0 order-1 lg:order-2">
                 <img src="/showcase-bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/25" />
 
