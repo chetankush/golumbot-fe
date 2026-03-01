@@ -80,9 +80,9 @@ export default function LandingPage() {
               )}
               <button
                 onClick={() => setMobileNav(!mobileNav)}
-                className="md:hidden p-2 text-white/50 hover:text-white transition-colors"
+                className="md:hidden relative p-2 text-white/60 hover:text-white transition-colors duration-300"
               >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className={`w-5 h-5 transition-all duration-500 ${mobileNav ? 'rotate-180 scale-90' : 'rotate-0 scale-100'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   {mobileNav ? (
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   ) : (
@@ -94,15 +94,69 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Mobile nav dropdown */}
-        {mobileNav && (
-          <div className="md:hidden border-t border-white/[0.06] bg-[rgba(8,8,22,0.85)] backdrop-blur-[60px] px-6 py-4 space-y-1">
-            <a href="#features" onClick={() => setMobileNav(false)} className="block py-3 text-white/50 hover:text-white transition-colors">Features</a>
-            <a href="#how-it-works" onClick={() => setMobileNav(false)} className="block py-3 text-white/50 hover:text-white transition-colors">How it works</a>
-            <a href="#contact" onClick={() => setMobileNav(false)} className="block py-3 text-white/50 hover:text-white transition-colors">Contact</a>
-            <a href="#faq" onClick={() => setMobileNav(false)} className="block py-3 text-white/50 hover:text-white transition-colors">FAQ</a>
+        {/* Mobile nav overlay */}
+        <div
+          className={`md:hidden fixed inset-0 top-0 z-[-1] transition-all duration-500 ${
+            mobileNav ? 'opacity-100 visible' : 'opacity-0 invisible'
+          }`}
+        >
+          {/* Frosted glass background */}
+          <div className={`absolute inset-0 backdrop-blur-[80px] bg-gradient-to-b from-white/[0.06] via-white/[0.03] to-transparent transition-opacity duration-500 ${mobileNav ? 'opacity-100' : 'opacity-0'}`} />
+
+          {/* Nav content */}
+          <div className="relative pt-24 px-8 pb-10 flex flex-col h-full">
+            {/* Links */}
+            <div className="space-y-1">
+              {[
+                { href: '#features', label: 'Features', icon: 'M13 10V3L4 14h7v7l9-11h-7z', delay: '0ms' },
+                { href: '#how-it-works', label: 'How it works', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', delay: '50ms' },
+                { href: '#contact', label: 'Contact', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', delay: '100ms' },
+                { href: '#faq', label: 'FAQ', icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', delay: '150ms' },
+              ].map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileNav(false)}
+                  className={`group flex items-center gap-4 py-4 px-4 rounded-2xl transition-all duration-500 hover:bg-white/[0.06] ${
+                    mobileNav ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+                  }`}
+                  style={{ transitionDelay: mobileNav ? item.delay : '0ms' }}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center group-hover:bg-white/[0.1] group-hover:border-white/[0.15] transition-all duration-300">
+                    <svg className="w-4 h-4 text-white/50 group-hover:text-white/80 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                    </svg>
+                  </div>
+                  <span className="text-[15px] font-medium text-white/70 group-hover:text-white transition-colors duration-300 tracking-tight">{item.label}</span>
+                  <svg className="w-4 h-4 text-white/20 group-hover:text-white/50 ml-auto transition-all duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              ))}
+            </div>
+
+            {/* Divider */}
+            <div className={`my-6 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent transition-all duration-700 ${mobileNav ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} style={{ transitionDelay: mobileNav ? '200ms' : '0ms' }} />
+
+            {/* Auth buttons */}
+            <div className={`flex flex-col gap-3 transition-all duration-500 ${mobileNav ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: mobileNav ? '250ms' : '0ms' }}>
+              <Link
+                href="/login"
+                onClick={() => setMobileNav(false)}
+                className="flex items-center justify-center py-3.5 px-6 rounded-2xl border border-white/[0.1] bg-white/[0.04] text-white/80 text-[15px] font-medium hover:bg-white/[0.08] hover:border-white/[0.18] hover:text-white transition-all duration-300"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/register"
+                onClick={() => setMobileNav(false)}
+                className="flex items-center justify-center py-3.5 px-6 rounded-2xl bg-white text-[#080816] text-[15px] font-semibold hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] transition-all duration-300"
+              >
+                Get Started
+              </Link>
+            </div>
           </div>
-        )}
+        </div>
       </nav>
 
       {/* ====== HERO — Full landscape, Giga-style ====== */}
@@ -165,211 +219,321 @@ export default function LandingPage() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#080816] to-transparent pointer-events-none" />
       </section>
 
-      {/* ====== MacBook Demo Section ====== */}
+      {/* ====== MacBook + Phone Demo Section ====== */}
       <section className="py-20 md:py-28 px-6 overflow-hidden">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <p className="text-center text-sm text-[var(--text-muted)] mb-10">
             See it in action — a custom AI assistant that matches your brand and answers using your own content
           </p>
 
-          {/* MacBook Frame */}
-          <div className="relative origin-top scale-[0.6] sm:scale-75 md:scale-100 -mb-[40%] sm:-mb-[20%] md:mb-0">
-            {/* Screen lid */}
-            <div className="relative bg-[#0d0d0d] rounded-[12px] md:rounded-[16px] p-[6px] md:p-[8px] pt-[28px] md:pt-[32px] shadow-[0_20px_60px_-10px_rgba(124,58,237,0.2)]">
-              {/* Camera notch */}
-              <div className="absolute top-[10px] md:top-[12px] left-1/2 -translate-x-1/2 w-[6px] h-[6px] rounded-full bg-[#1c1c1e] ring-1 ring-[#2a2a2c]"></div>
+          {/* Devices Container */}
+          <div className="relative flex items-end justify-center gap-4 md:gap-6 lg:gap-8">
 
-              {/* Screen */}
-              <div className="relative bg-white rounded-[4px] md:rounded-[6px] overflow-hidden shadow-[inset_0_0_0_1px_rgba(0,0,0,0.2)]" style={{ aspectRatio: '16 / 10' }}>
-                {/* Browser bar */}
-                <div className="bg-[#f2f2f2] border-b border-[#e0e0e0] px-3 py-1.5 flex items-center gap-2">
-                  <div className="flex gap-[5px]">
-                    <div className="w-[10px] h-[10px] rounded-full bg-[#ff5f57]"></div>
-                    <div className="w-[10px] h-[10px] rounded-full bg-[#febc2e]"></div>
-                    <div className="w-[10px] h-[10px] rounded-full bg-[#28c840]"></div>
+            {/* ===== MacBook Frame ===== */}
+            <div className="relative origin-bottom-left scale-[0.55] sm:scale-[0.65] md:scale-[0.85] lg:scale-100 -mb-[35%] sm:-mb-[20%] md:-mb-[5%] lg:mb-0 flex-shrink-0">
+              {/* Screen lid */}
+              <div className="relative bg-[#0d0d0d] rounded-[16px] p-[8px] pt-[32px] shadow-[0_20px_60px_-10px_rgba(124,58,237,0.2)]" style={{ width: '680px' }}>
+                {/* Camera notch */}
+                <div className="absolute top-[12px] left-1/2 -translate-x-1/2 w-[6px] h-[6px] rounded-full bg-[#1c1c1e] ring-1 ring-[#2a2a2c]"></div>
+
+                {/* Screen */}
+                <div className="relative bg-white rounded-[6px] overflow-hidden shadow-[inset_0_0_0_1px_rgba(0,0,0,0.2)]" style={{ aspectRatio: '16 / 10' }}>
+                  {/* Browser bar */}
+                  <div className="bg-[#f2f2f2] border-b border-[#e0e0e0] px-3 py-1.5 flex items-center gap-2">
+                    <div className="flex gap-[5px]">
+                      <div className="w-[10px] h-[10px] rounded-full bg-[#ff5f57]"></div>
+                      <div className="w-[10px] h-[10px] rounded-full bg-[#febc2e]"></div>
+                      <div className="w-[10px] h-[10px] rounded-full bg-[#28c840]"></div>
+                    </div>
+                    <div className="flex-1 max-w-xs mx-auto">
+                      <div className="bg-white border border-[#ddd] rounded-md px-3 py-[3px] text-[10px] text-[#666] text-center flex items-center justify-center gap-1">
+                        <svg className="w-2.5 h-2.5 text-[#4caf50]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" /></svg>
+                        brewandco.com
+                      </div>
+                    </div>
+                    <div className="w-[52px]"></div>
                   </div>
-                  <div className="flex-1 max-w-xs mx-auto">
-                    <div className="bg-white border border-[#ddd] rounded-md px-3 py-[3px] text-[10px] text-[#666] text-center flex items-center justify-center gap-1">
-                      <svg className="w-2.5 h-2.5 text-[#4caf50]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" /></svg>
+
+                  {/* Site content */}
+                  <div className="absolute inset-0 top-[30px] flex flex-col bg-[#fafaf9]">
+                    {/* Site nav */}
+                    <div className="bg-white border-b border-[#eee] px-5 py-2.5 flex items-center justify-between flex-shrink-0">
+                      <div className="flex items-center gap-6">
+                        <span className="text-sm font-bold text-[#1a1a1a] tracking-tight">Brew & Co.</span>
+                        <div className="flex gap-4">
+                          <span className="text-[9px] text-[#888] font-medium">Menu</span>
+                          <span className="text-[9px] text-[#888] font-medium">Locations</span>
+                          <span className="text-[9px] text-[#888] font-medium">About</span>
+                          <span className="text-[9px] text-[#888] font-medium">Contact</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-[9px] text-[#888] font-medium">Sign in</span>
+                        <div className="px-2.5 py-1 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold">Order Now</div>
+                      </div>
+                    </div>
+
+                    <div className="relative flex-1 min-h-0 overflow-hidden">
+                      <div className="h-full overflow-y-auto">
+                        {/* Hero */}
+                        <div className="flex flex-row items-center gap-4 px-5 py-7">
+                          <div className="flex-1">
+                            <div className="inline-block px-2 py-0.5 bg-[#f0ebe3] rounded text-[7px] text-[#8b7355] font-semibold tracking-wide uppercase mb-2">Fresh Daily</div>
+                            <h2 className="text-[20px] font-extrabold text-[#1a1a1a] leading-[1.15] mb-2">Craft coffee,{' '}<br />delivered fresh</h2>
+                            <p className="text-[9px] text-[#777] leading-relaxed mb-3 max-w-[200px]">Premium single-origin beans roasted locally every morning. Subscribe and save 15% on every order.</p>
+                            <div className="flex gap-2">
+                              <div className="px-3 py-1.5 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold">Shop Beans</div>
+                              <div className="px-3 py-1.5 bg-white border border-[#ddd] rounded-md text-[8px] text-[#333] font-semibold">Our Story</div>
+                            </div>
+                          </div>
+                          <div className="w-[45%] rounded-xl overflow-hidden flex-shrink-0 h-[160px] shadow-sm">
+                            <img src="/c5.avif" alt="Coffee shop interior" className="w-full h-full object-cover" />
+                          </div>
+                        </div>
+
+                        {/* Best Sellers */}
+                        <div className="px-5 pb-3">
+                          <p className="text-[12px] font-bold text-[#1a1a1a] mb-2">Best Sellers</p>
+                          <div className="grid grid-cols-3 gap-2">
+                            {[
+                              { img: '/cofi1.jpg', name: 'Ethiopian Yirga', price: '$18.99' },
+                              { img: '/cofi2.avif', name: 'Colombian Dark', price: '$16.99' },
+                              { img: '/cofi3.avif', name: 'House Blend', price: '$14.99' },
+                            ].map((item) => (
+                              <div key={item.name} className="bg-white border border-[#eee] rounded-lg overflow-hidden">
+                                <div className="w-full h-36 overflow-hidden"><img src={item.img} alt={item.name} className="w-full h-full object-cover" /></div>
+                                <div className="p-1.5">
+                                  <p className="text-[7px] font-semibold text-[#1a1a1a]">{item.name}</p>
+                                  <p className="text-[6px] text-[#5c3d2e] font-semibold">{item.price}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* About */}
+                        <div className="px-5 pb-4">
+                          <div className="bg-white border border-[#eee] rounded-lg overflow-hidden flex">
+                            <div className="w-[40%] flex-shrink-0 overflow-hidden">
+                              <img src="/c4.jpg" alt="Our roastery" className="w-full h-full object-cover" />
+                            </div>
+                            <div className="p-4 flex-1">
+                              <p className="text-[7px] font-semibold text-[#5c3d2e] uppercase tracking-wider mb-1">About Us</p>
+                              <p className="text-[13px] font-bold text-[#1a1a1a] mb-2 leading-tight">Our Story</p>
+                              <p className="text-[9px] text-[#555] leading-relaxed">Founded in 2019, Brew & Co. started with a simple idea: everyone deserves freshly roasted, ethically sourced coffee.</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Gallery */}
+                        <div className="px-5 pb-3">
+                          <p className="text-[12px] font-bold text-[#1a1a1a] mb-2">From Our Roastery</p>
+                          <div className="grid grid-cols-2 gap-1.5">
+                            <div className="h-14 rounded-lg overflow-hidden"><img src="/c6.jpeg" alt="Latte art" className="w-full h-full object-cover" /></div>
+                            <div className="h-14 rounded-lg overflow-hidden"><img src="/c1.avif" alt="Coffee beans" className="w-full h-full object-cover" /></div>
+                          </div>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="px-5 py-2 border-t border-[#eee] bg-white">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[6px] text-[#bbb]">&copy; 2026 Brew & Co. All rights reserved.</span>
+                            <div className="flex gap-2">
+                              <span className="text-[6px] text-[#bbb]">Privacy</span>
+                              <span className="text-[6px] text-[#bbb]">Terms</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Chat Widget */}
+                      <div className="absolute bottom-3 right-3 w-[220px] bg-white rounded-[14px] shadow-[0_8px_40px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
+                        <div className="px-2.5 py-2 flex items-center gap-1.5 border-b border-[#f1f5f9] bg-white">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-[#0f172a] text-[10px] font-semibold leading-tight">Brew & Co.</p>
+                            <p className="text-[#5c3d2e] text-[7px] font-medium leading-tight">The team can also help</p>
+                          </div>
+                          <div className="flex items-center gap-0.5">
+                            <div className="w-4 h-4 rounded flex items-center justify-center text-[#94a3b8]">
+                              <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                              </svg>
+                            </div>
+                            <div className="w-4 h-4 rounded-full bg-[#f1f5f9] flex items-center justify-center text-[#64748b]">
+                              <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="bg-[#fafbfc] border-b border-[#f1f5f9] px-2 py-1 text-center">
+                          <p className="text-[7px] text-[#94a3b8]">Ask us anything, or share your feedback.</p>
+                        </div>
+                        <div className="p-2.5 space-y-2 bg-white flex-1">
+                          <div className="flex flex-col gap-0.5">
+                            <div className="self-start bg-[#f1f5f9] rounded-sm rounded-tr-xl rounded-br-xl rounded-bl-xl px-2 py-1.5 text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
+                              Welcome to Brew & Co! Ask me anything about our beans or brewing tips
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-0.5">
+                            <div className="self-end bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl rounded-tr-xl rounded-bl-xl rounded-br-sm px-2 py-1.5 text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
+                              Which blend is best for cold brew?
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-0.5">
+                            <div className="self-start bg-[#f1f5f9] rounded-sm rounded-tr-xl rounded-br-xl rounded-bl-xl px-2 py-1.5 text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
+                              Our <span className="font-semibold">Colombian Dark Roast</span> is perfect! Smooth, low acidity, with chocolate notes. Steep 12-18hrs
+                            </div>
+                            <div className="self-start mt-0.5">
+                              <div className="inline-flex items-center gap-1 px-2 py-1 bg-[#1e293b] text-white rounded-xl text-[7px] font-medium">
+                                <svg className="w-2 h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                                </svg>
+                                Book a Call
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="px-2 py-1.5 bg-white">
+                          <div className="border-2 border-[#e2e8f0] rounded-xl px-2 py-1.5">
+                            <p className="text-[7px] text-[#94a3b8] mb-0.5">Type a message...</p>
+                            <div className="flex items-center justify-between">
+                              <div className="w-3.5 h-3.5 rounded text-[#94a3b8] flex items-center justify-center">
+                                <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                  <circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><line x1="9" y1="9" x2="9.01" y2="9" /><line x1="15" y1="9" x2="15.01" y2="9" />
+                                </svg>
+                              </div>
+                              <div className="w-4 h-4 bg-[#5c3d2e] rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                  <line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* MacBook hinge */}
+              <div className="relative mx-auto" style={{ width: '90%' }}>
+                <div className="h-[6px] bg-gradient-to-b from-[#272727] to-[#1a1a1a] rounded-b-sm"></div>
+              </div>
+              {/* MacBook base */}
+              <div className="relative mx-auto" style={{ width: '100%' }}>
+                <div className="h-[10px] bg-gradient-to-b from-[#333] to-[#2a2a2a] rounded-b-xl shadow-[0_2px_8px_rgba(0,0,0,0.15)]">
+                  <div className="absolute top-[2px] left-1/2 -translate-x-1/2 w-14 h-[4px] bg-[#2a2a2a] rounded-b-sm border-t border-[#3a3a3a]"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* ===== iPhone Mockup ===== */}
+            <div className="hidden md:block relative origin-bottom-right scale-[0.85] lg:scale-100 flex-shrink-0 -ml-8 lg:-ml-4 z-10 mb-4 lg:mb-6">
+              {/* Phone Frame */}
+              <div className="relative bg-[#0d0d0d] rounded-[32px] p-[6px] shadow-[0_20px_60px_-10px_rgba(124,58,237,0.25),0_8px_24px_rgba(0,0,0,0.3)]" style={{ width: '200px' }}>
+                {/* Dynamic Island / Notch */}
+                <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[60px] h-[16px] bg-[#0d0d0d] rounded-full z-20"></div>
+                {/* Side button accents */}
+                <div className="absolute -right-[2px] top-[70px] w-[3px] h-[24px] bg-[#1a1a1a] rounded-r-sm"></div>
+                <div className="absolute -left-[2px] top-[60px] w-[3px] h-[16px] bg-[#1a1a1a] rounded-l-sm"></div>
+                <div className="absolute -left-[2px] top-[90px] w-[3px] h-[28px] bg-[#1a1a1a] rounded-l-sm"></div>
+                <div className="absolute -left-[2px] top-[124px] w-[3px] h-[28px] bg-[#1a1a1a] rounded-l-sm"></div>
+
+                {/* Phone Screen */}
+                <div className="relative bg-white rounded-[26px] overflow-hidden" style={{ aspectRatio: '9 / 19.5' }}>
+                  {/* Status bar */}
+                  <div className="bg-white px-4 pt-3 pb-1 flex items-center justify-between">
+                    <span className="text-[7px] font-semibold text-[#1a1a1a]">9:41</span>
+                    <div className="flex items-center gap-0.5">
+                      <svg className="w-2.5 h-2.5 text-[#1a1a1a]" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 8a1 1 0 011-1h2a1 1 0 011 1v8a1 1 0 01-1 1H9a1 1 0 01-1-1V8zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" /></svg>
+                      <svg className="w-3 h-2.5 text-[#1a1a1a]" fill="currentColor" viewBox="0 0 24 16"><rect x="0" y="2" width="20" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" /><rect x="21" y="5" width="2" height="6" rx="1" /><rect x="2" y="4" width="14" height="8" rx="1" fill="currentColor" /></svg>
+                    </div>
+                  </div>
+
+                  {/* Mobile browser bar */}
+                  <div className="mx-2 mb-1.5">
+                    <div className="bg-[#f2f2f2] rounded-lg px-2 py-[3px] text-[7px] text-[#666] text-center flex items-center justify-center gap-0.5">
+                      <svg className="w-1.5 h-1.5 text-[#4caf50]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" /></svg>
                       brewandco.com
                     </div>
                   </div>
-                  <div className="w-[52px]"></div>
-                </div>
 
-                {/* Site content */}
-                <div className="absolute inset-0 top-[30px] flex flex-col bg-[#fafaf9]">
-                  {/* Site nav */}
-                  <div className="bg-white border-b border-[#eee] px-4 md:px-5 py-2.5 flex items-center justify-between flex-shrink-0">
-                    <div className="flex items-center gap-4 md:gap-6">
-                      <span className="text-[11px] md:text-sm font-bold text-[#1a1a1a] tracking-tight">Brew & Co.</span>
-                      <div className="hidden md:flex gap-4">
-                        <span className="text-[9px] text-[#888] font-medium">Menu</span>
-                        <span className="text-[9px] text-[#888] font-medium">Locations</span>
-                        <span className="text-[9px] text-[#888] font-medium">About</span>
-                        <span className="text-[9px] text-[#888] font-medium">Contact</span>
+                  {/* Mobile site content */}
+                  <div className="flex flex-col bg-[#fafaf9] overflow-hidden" style={{ height: 'calc(100% - 44px)' }}>
+                    {/* Mobile nav */}
+                    <div className="bg-white border-b border-[#eee] px-2.5 py-1.5 flex items-center justify-between flex-shrink-0">
+                      <span className="text-[8px] font-bold text-[#1a1a1a]">Brew & Co.</span>
+                      <div className="flex items-center gap-1">
+                        <svg className="w-2.5 h-2.5 text-[#888]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+                        <div className="px-1.5 py-0.5 bg-[#5c3d2e] rounded text-[5px] text-white font-semibold">Order</div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2.5">
-                      <span className="hidden md:block text-[9px] text-[#888] font-medium">Sign in</span>
-                      <div className="px-2.5 py-1 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold">Order Now</div>
-                    </div>
-                  </div>
 
-                  <div className="relative flex-1 min-h-0 overflow-hidden">
-                    <div className="h-full overflow-y-auto">
-                      {/* Hero */}
-                      <div className="flex flex-col md:flex-row items-center gap-0 md:gap-4 px-4 md:px-5 py-5 md:py-7">
-                        <div className="flex-1">
-                          <div className="inline-block px-2 py-0.5 bg-[#f0ebe3] rounded text-[7px] text-[#8b7355] font-semibold tracking-wide uppercase mb-2">Fresh Daily</div>
-                          <h2 className="text-[16px] md:text-[20px] font-extrabold text-[#1a1a1a] leading-[1.15] mb-2">Craft coffee,{' '}<br className="hidden md:block" />delivered fresh</h2>
-                          <p className="text-[8px] md:text-[9px] text-[#777] leading-relaxed mb-3 max-w-[200px]">Premium single-origin beans roasted locally every morning. Subscribe and save 15% on every order.</p>
-                          <div className="flex gap-2">
-                            <div className="px-3 py-1.5 bg-[#5c3d2e] rounded-md text-[8px] text-white font-semibold">Shop Beans</div>
-                            <div className="px-3 py-1.5 bg-white border border-[#ddd] rounded-md text-[8px] text-[#333] font-semibold">Our Story</div>
+                    <div className="relative flex-1 min-h-0 overflow-hidden">
+                      <div className="h-full overflow-y-auto">
+                        {/* Mobile Hero */}
+                        <div className="px-2.5 py-3">
+                          <div className="inline-block px-1.5 py-0.5 bg-[#f0ebe3] rounded text-[5px] text-[#8b7355] font-semibold tracking-wide uppercase mb-1.5">Fresh Daily</div>
+                          <h2 className="text-[12px] font-extrabold text-[#1a1a1a] leading-[1.15] mb-1.5">Craft coffee,<br />delivered fresh</h2>
+                          <p className="text-[6px] text-[#777] leading-relaxed mb-2">Premium single-origin beans roasted locally every morning.</p>
+                          <div className="flex gap-1.5">
+                            <div className="px-2 py-1 bg-[#5c3d2e] rounded text-[5px] text-white font-semibold">Shop Beans</div>
+                            <div className="px-2 py-1 bg-white border border-[#ddd] rounded text-[5px] text-[#333] font-semibold">Our Story</div>
                           </div>
                         </div>
-                        <div className="hidden md:block w-[45%] rounded-xl overflow-hidden flex-shrink-0 h-[160px] shadow-sm">
-                          <img src="/c5.avif" alt="Coffee shop interior" className="w-full h-full object-cover" />
-                        </div>
-                      </div>
 
-                      {/* Best Sellers */}
-                      <div className="hidden md:block px-4 md:px-5 pb-3">
-                        <p className="text-[12px] font-bold text-[#1a1a1a] mb-2">Best Sellers</p>
-                        <div className="grid grid-cols-3 gap-2">
-                          {[
-                            { img: '/cofi1.jpg', name: 'Ethiopian Yirga', price: '$18.99' },
-                            { img: '/cofi2.avif', name: 'Colombian Dark', price: '$16.99' },
-                            { img: '/cofi3.avif', name: 'House Blend', price: '$14.99' },
-                          ].map((item) => (
-                            <div key={item.name} className="bg-white border border-[#eee] rounded-lg overflow-hidden">
-                              <div className="w-full h-36 overflow-hidden"><img src={item.img} alt={item.name} className="w-full h-full object-cover" /></div>
-                              <div className="p-1.5">
-                                <p className="text-[7px] font-semibold text-[#1a1a1a]">{item.name}</p>
-                                <p className="text-[6px] text-[#5c3d2e] font-semibold">{item.price}</p>
+                        {/* Mobile Hero Image */}
+                        <div className="px-2.5 pb-2.5">
+                          <div className="rounded-lg overflow-hidden h-[60px]">
+                            <img src="/c5.avif" alt="Coffee shop" className="w-full h-full object-cover" />
+                          </div>
+                        </div>
+
+                        {/* Mobile Best Sellers */}
+                        <div className="px-2.5 pb-2">
+                          <p className="text-[8px] font-bold text-[#1a1a1a] mb-1.5">Best Sellers</p>
+                          <div className="flex gap-1.5 overflow-hidden">
+                            {[
+                              { img: '/cofi1.jpg', name: 'Ethiopian', price: '$18.99' },
+                              { img: '/cofi2.avif', name: 'Colombian', price: '$16.99' },
+                            ].map((item) => (
+                              <div key={item.name} className="bg-white border border-[#eee] rounded-md overflow-hidden flex-1">
+                                <div className="w-full h-[36px] overflow-hidden"><img src={item.img} alt={item.name} className="w-full h-full object-cover" /></div>
+                                <div className="p-1">
+                                  <p className="text-[5px] font-semibold text-[#1a1a1a]">{item.name}</p>
+                                  <p className="text-[4px] text-[#5c3d2e] font-semibold">{item.price}</p>
+                                </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* About */}
-                      <div className="hidden md:block px-4 md:px-5 pb-4">
-                        <div className="bg-white border border-[#eee] rounded-lg overflow-hidden flex">
-                          <div className="w-[40%] flex-shrink-0 overflow-hidden">
-                            <img src="/c4.jpg" alt="Our roastery" className="w-full h-full object-cover" />
+                            ))}
                           </div>
-                          <div className="p-4 flex-1">
-                            <p className="text-[7px] font-semibold text-[#5c3d2e] uppercase tracking-wider mb-1">About Us</p>
-                            <p className="text-[13px] font-bold text-[#1a1a1a] mb-2 leading-tight">Our Story</p>
-                            <p className="text-[9px] text-[#555] leading-relaxed">Founded in 2019, Brew & Co. started with a simple idea: everyone deserves freshly roasted, ethically sourced coffee.</p>
+                        </div>
+
+                        {/* Mobile Gallery */}
+                        <div className="px-2.5 pb-2">
+                          <div className="grid grid-cols-2 gap-1">
+                            <div className="h-[36px] rounded-md overflow-hidden"><img src="/c6.jpeg" alt="Latte art" className="w-full h-full object-cover" /></div>
+                            <div className="h-[36px] rounded-md overflow-hidden"><img src="/c1.avif" alt="Coffee beans" className="w-full h-full object-cover" /></div>
                           </div>
                         </div>
                       </div>
 
-                      {/* Gallery */}
-                      <div className="hidden md:block px-4 md:px-5 pb-3">
-                        <p className="text-[12px] font-bold text-[#1a1a1a] mb-2">From Our Roastery</p>
-                        <div className="grid grid-cols-2 gap-1.5">
-                          <div className="h-14 rounded-lg overflow-hidden"><img src="/c6.jpeg" alt="Latte art" className="w-full h-full object-cover" /></div>
-                          <div className="h-14 rounded-lg overflow-hidden"><img src="/c1.avif" alt="Coffee beans" className="w-full h-full object-cover" /></div>
-                        </div>
-                      </div>
-
-                      {/* Footer */}
-                      <div className="hidden md:block px-4 md:px-5 py-2 border-t border-[#eee] bg-white">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[6px] text-[#bbb]">&copy; 2026 Brew & Co. All rights reserved.</span>
-                          <div className="flex gap-2">
-                            <span className="text-[6px] text-[#bbb]">Privacy</span>
-                            <span className="text-[6px] text-[#bbb]">Terms</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Chat Widget */}
-                    <div className="absolute bottom-2 md:bottom-3 right-2 md:right-3 w-[180px] md:w-[220px] bg-white rounded-[10px] md:rounded-[14px] shadow-[0_8px_40px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
-                      <div className="px-2 md:px-2.5 py-1.5 md:py-2 flex items-center gap-1.5 border-b border-[#f1f5f9] bg-white">
-                        <div className="flex-1 min-w-0">
-                          <p className="text-[#0f172a] text-[9px] md:text-[10px] font-semibold leading-tight">Brew & Co.</p>
-                          <p className="text-[#5c3d2e] text-[6px] md:text-[7px] font-medium leading-tight">The team can also help</p>
-                        </div>
-                        <div className="flex items-center gap-0.5">
-                          <div className="w-3.5 h-3.5 md:w-4 md:h-4 rounded flex items-center justify-center text-[#94a3b8]">
-                            <svg className="w-2 h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                              <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
-                            </svg>
-                          </div>
-                          <div className="w-3.5 h-3.5 md:w-4 md:h-4 rounded-full bg-[#f1f5f9] flex items-center justify-center text-[#64748b]">
-                            <svg className="w-2 h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bg-[#fafbfc] border-b border-[#f1f5f9] px-2 py-1 text-center">
-                        <p className="text-[6px] md:text-[7px] text-[#94a3b8]">Ask us anything, or share your feedback.</p>
-                      </div>
-                      <div className="p-1.5 md:p-2.5 space-y-1.5 md:space-y-2 bg-white flex-1">
-                        <div className="flex flex-col gap-0.5">
-                          <div className="self-start bg-[#f1f5f9] rounded-sm rounded-tr-xl rounded-br-xl rounded-bl-xl px-1.5 md:px-2 py-1 md:py-1.5 text-[7px] md:text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
-                            Welcome to Brew & Co! Ask me anything about our beans or brewing tips
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-0.5">
-                          <div className="self-end bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl rounded-tr-xl rounded-bl-xl rounded-br-sm px-1.5 md:px-2 py-1 md:py-1.5 text-[7px] md:text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
-                            Which blend is best for cold brew?
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-0.5">
-                          <div className="self-start bg-[#f1f5f9] rounded-sm rounded-tr-xl rounded-br-xl rounded-bl-xl px-1.5 md:px-2 py-1 md:py-1.5 text-[7px] md:text-[8px] text-[#1e293b] max-w-[85%] leading-relaxed">
-                            Our <span className="font-semibold">Colombian Dark Roast</span> is perfect! Smooth, low acidity, with chocolate notes. Steep 12-18hrs
-                          </div>
-                          <div className="self-start mt-0.5">
-                            <div className="inline-flex items-center gap-1 px-1.5 md:px-2 py-0.5 md:py-1 bg-[#1e293b] text-white rounded-xl text-[6px] md:text-[7px] font-medium">
-                              <svg className="w-1.5 h-1.5 md:w-2 md:h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
-                              </svg>
-                              Book a Call
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="px-1.5 md:px-2 py-1 md:py-1.5 bg-white">
-                        <div className="border-2 border-[#e2e8f0] rounded-lg md:rounded-xl px-1.5 md:px-2 py-1 md:py-1.5">
-                          <p className="text-[6px] md:text-[7px] text-[#94a3b8] mb-0.5">Type a message...</p>
-                          <div className="flex items-center justify-between">
-                            <div className="w-3 h-3 md:w-3.5 md:h-3.5 rounded text-[#94a3b8] flex items-center justify-center">
-                              <svg className="w-2 h-2 md:w-2.5 md:h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><line x1="9" y1="9" x2="9.01" y2="9" /><line x1="15" y1="9" x2="15.01" y2="9" />
-                              </svg>
-                            </div>
-                            <div className="w-3.5 h-3.5 md:w-4 md:h-4 bg-[#5c3d2e] rounded-full flex items-center justify-center flex-shrink-0">
-                              <svg className="w-1.5 h-1.5 md:w-2 md:h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                <line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
+                      {/* Mobile Golum Chat Launcher */}
+                      <div className="absolute bottom-2 right-2 w-[28px] h-[28px] bg-[#5c3d2e] rounded-full flex items-center justify-center shadow-[0_4px_16px_rgba(92,61,46,0.3)]">
+                        <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
                       </div>
                     </div>
                   </div>
+
+                  {/* Home indicator */}
+                  <div className="absolute bottom-[4px] left-1/2 -translate-x-1/2 w-[40%] h-[3px] bg-[#1a1a1a] rounded-full"></div>
                 </div>
               </div>
             </div>
 
-            {/* MacBook hinge */}
-            <div className="relative mx-auto" style={{ width: '90%' }}>
-              <div className="h-[6px] bg-gradient-to-b from-[#272727] to-[#1a1a1a] rounded-b-sm"></div>
-            </div>
-            {/* MacBook base */}
-            <div className="relative mx-auto" style={{ width: '100%' }}>
-              <div className="h-[10px] bg-gradient-to-b from-[#333] to-[#2a2a2a] rounded-b-xl shadow-[0_2px_8px_rgba(0,0,0,0.15)]">
-                <div className="absolute top-[2px] left-1/2 -translate-x-1/2 w-14 h-[4px] bg-[#2a2a2a] rounded-b-sm border-t border-[#3a3a3a]"></div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
