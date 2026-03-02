@@ -995,6 +995,15 @@ export default function LandingPage() {
               Get Started
             </Link>
             <p className="mt-5 text-sm text-white/20 relative">Free to get started. Upgrade anytime.</p>
+
+            {/* Custom work CTA */}
+            <div className="mt-10 pt-8 border-t border-white/[0.06] relative">
+              <p className="text-sm text-white/50">
+                <span className="font-medium text-white/70">Need something custom?</span>{' '}
+                We build AI chatbots and agents tailored to your business.{' '}
+                <a href="#contact" className="text-white underline underline-offset-4 decoration-white/30 hover:decoration-white/60 transition-all">Talk to us &rarr;</a>
+              </p>
+            </div>
           </div>
         </div>
       </section>
