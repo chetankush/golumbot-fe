@@ -198,8 +198,8 @@ export default function LandingPage() {
 
           {/* Subtitle */}
           <p className="text-sm md:text-base text-white/75 mb-9 max-w-xl mx-auto leading-relaxed">
-            <span className="hidden sm:inline">Golum adds a smart chat widget to your website that answers visitor questions about your products, pricing, and services — automatically, 24/7. Just upload your info and paste one line of code.</span>
-            <span className="sm:hidden">Add a chat widget to your site that answers customer questions about your business — 24/7, automatically.</span>
+            <span className="hidden sm:inline">Golum puts a chatbot on your website that answers visitor questions about your products, pricing, and services — automatically, 24/7. Just upload your info and paste one line of code.</span>
+            <span className="sm:hidden">Put a chatbot on your site that answers customer questions about your business — 24/7, automatically.</span>
           </p>
 
           {/* White pill CTA */}
@@ -229,7 +229,7 @@ export default function LandingPage() {
       <section className="py-16 md:py-28 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <p className="text-center text-xs sm:text-sm text-white/30 mb-8 md:mb-12">
-            See how the chat widget looks on your website — desktop &amp; mobile
+            See how the chatbot looks on your website — desktop &amp; mobile
           </p>
 
           {/* Devices — MacBook on top (mobile) or left (desktop), phones beside it */}
@@ -875,7 +875,7 @@ export default function LandingPage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 md:gap-5">
-              <StepCard number="01" title="Create a Chatbot" description="Give it a name and pick a style. This is the chat widget that will appear on your website for visitors." />
+              <StepCard number="01" title="Create a Chatbot" description="Give it a name and pick a style. This is the chatbot that will appear on your website for visitors." />
               <StepCard number="02" title="Add Your Business Info" description="Upload your FAQ, product pages, pricing, or just paste your website URL. The chatbot reads it all and learns your business." />
               <StepCard number="03" title="Paste Code on Your Site" description="Copy one small code snippet and paste it on your website. The chatbot appears and starts answering visitor questions instantly." />
             </div>
@@ -961,11 +961,11 @@ export default function LandingPage() {
           </div>
 
           <div className="divide-y divide-white/[0.06] border-t border-white/[0.06]">
-            <FAQItem number="01" question="What exactly is Golum?" answer="Golum is a tool that adds a chat widget to your website. When visitors have questions about your products, pricing, or services, the chatbot answers them instantly — using the information you provide. Think of it as a 24/7 support agent that lives on your site." />
+            <FAQItem number="01" question="What exactly is Golum?" answer="Golum lets you add a chatbot to your website. When visitors have questions about your products, pricing, or services, the chatbot answers them instantly — using the information you provide. Think of it as a 24/7 support agent that lives on your site." />
             <FAQItem number="02" question="How does the chatbot know about my business?" answer="You upload your documents (FAQ, product info, pricing) or paste your website URL. Golum reads everything and trains the chatbot to answer questions about your business accurately — no manual setup required." />
             <FAQItem number="03" question="Do I need a developer to set it up?" answer="No. You copy one small code snippet and paste it into your website. That's it. It works on WordPress, Shopify, Wix, Squarespace, or any website. If you can paste text, you can add Golum." />
             <FAQItem number="04" question="Is my business data safe?" answer="100%. All data is encrypted and never shared. You own it, and you can delete it anytime. We're fully GDPR compliant." />
-            <FAQItem number="05" question="Will the chatbot match my website design?" answer="Yes. You can customize the chat widget's colors, position, welcome message, icon, and even the chatbot's name and personality. It looks like a natural part of your website." />
+            <FAQItem number="05" question="Will the chatbot match my website design?" answer="Yes. You can customize the chatbot's colors, position, welcome message, icon, and even its name and personality. It looks like a natural part of your website." />
             <FAQItem number="06" question="What if the chatbot doesn't know the answer?" answer="It will say so honestly — no making things up. You can set a fallback message like 'Email us at...' or collect the visitor's contact info so you can follow up manually." />
           </div>
         </div>
