@@ -10,6 +10,13 @@ export default function LandingPage() {
   const [mounted, setMounted] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Demo section — commented out for now
+  // const [demoUrl, setDemoUrl] = useState('');
+  // const [demoActive, setDemoActive] = useState(false);
+  // const [demoMessages, setDemoMessages] = useState<Array<{ role: 'user' | 'assistant'; content: string }>>([]);
+  // const [demoInput, setDemoInput] = useState('');
+  // const [demoLoading, setDemoLoading] = useState(false);
+  // const [demoError, setDemoError] = useState('');
 
   useEffect(() => {
     setMounted(true);
@@ -20,6 +27,11 @@ export default function LandingPage() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Demo functions — commented out for now
+  // const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+  // const startDemo = async () => { ... };
+  // const sendDemoMessage = async () => { ... };
 
   if (!mounted) {
     return (
@@ -922,6 +934,11 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ====== Free Trial Demo — commented out for now ====== */}
+      {/* <section id="demo" className="py-24 md:py-32 px-6">
+        ...
+      </section> */}
 
       {/* ====== Pricing Section ====== */}
       <section id="pricing" className="py-24 md:py-32 px-6">

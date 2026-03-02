@@ -15,6 +15,7 @@ interface ConversationItem {
   lastMessage: { content: string; role: string; createdAt: string } | null;
   hasSummary: boolean;
   summaryPreview: string | null;
+  handoffRequested: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -207,6 +208,12 @@ export default function ConversationsPage() {
               <Link href="/conversations" className="px-3 py-1.5 text-sm font-medium text-[var(--text-primary)] bg-[var(--bg-tertiary)] rounded-lg">
                 Conversations
               </Link>
+              <Link href="/leads" className="px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors">
+                Leads
+              </Link>
+              <Link href="/analytics" className="px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors">
+                Analytics
+              </Link>
               <Link href="/models" className="px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors">
                 Models
               </Link>
@@ -236,6 +243,8 @@ export default function ConversationsPage() {
             <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors mb-1">Assistants</Link>
             <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors mb-1">Knowledge Base</Link>
             <Link href="/conversations" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-primary)] bg-[var(--bg-tertiary)] rounded-lg mb-1">Conversations</Link>
+            <Link href="/leads" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors mb-1">Leads</Link>
+            <Link href="/analytics" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors mb-1">Analytics</Link>
             <Link href="/models" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors">Models</Link>
           </div>
         )}
@@ -303,6 +312,11 @@ export default function ConversationsPage() {
                         <span className="px-2 py-0.5 text-xs bg-[var(--bg-tertiary)] rounded-full text-[var(--text-muted)]">
                           {convo.assistantName}
                         </span>
+                        {convo.handoffRequested && (
+                          <span className="px-2 py-0.5 text-xs bg-orange-500/20 text-orange-400 rounded-full">
+                            Needs attention
+                          </span>
+                        )}
                         {convo.hasSummary && (
                           <span className="px-2 py-0.5 text-xs bg-purple-900/30 text-purple-300 rounded-full">
                             Summarized
@@ -350,6 +364,11 @@ export default function ConversationsPage() {
                           <span className="text-sm font-medium text-[var(--text-primary)] truncate">
                             {convo.visitorId.slice(0, 10)}...
                           </span>
+                          {convo.handoffRequested && (
+                            <span className="px-1.5 py-0.5 text-[10px] bg-orange-500/20 text-orange-400 rounded-full flex-shrink-0">
+                              !!
+                            </span>
+                          )}
                           {convo.hasSummary && (
                             <span className="px-1.5 py-0.5 text-[10px] bg-purple-900/30 text-purple-300 rounded-full flex-shrink-0">
                               AI

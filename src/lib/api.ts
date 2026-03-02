@@ -261,6 +261,86 @@ export const creditsApi = {
     }, token),
 };
 
+// Leads API
+export const leadsApi = {
+  list: (token: string, page = 1, limit = 20, status?: string) =>
+    apiClient<{
+      success: boolean;
+      data: {
+        leads: Array<{
+          id: string;
+          name: string;
+          email: string;
+          phone: string | null;
+          source: string;
+          status: string;
+          assistantName: string;
+          metadata: any;
+          createdAt: string;
+          updatedAt: string;
+        }>;
+        pagination: { page: number; limit: number; total: number; totalPages: number };
+      };
+    }>(`/api/leads?page=${page}&limit=${limit}${status ? `&status=${status}` : ''}`, {}, token),
+
+  get: (token: string, id: string) =>
+    apiClient<{ success: boolean; data: { lead: any } }>(`/api/leads/${id}`, {}, token),
+
+  updateStatus: (token: string, id: string, status: string) =>
+    apiClient(`/api/leads/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status }),
+    }, token),
+
+  delete: (token: string, id: string) =>
+    apiClient(`/api/leads/${id}`, { method: 'DELETE' }, token),
+
+  stats: (token: string) =>
+    apiClient<{
+      success: boolean;
+      data: { total: number; newThisWeek: number; newToday: number; pendingReview: number };
+    }>('/api/leads/stats', {}, token),
+};
+
+// Analytics API
+export const analyticsApi = {
+  overview: (token: string, period = '30d') =>
+    apiClient<{ success: boolean; data: any }>(`/api/analytics/overview?period=${period}`, {}, token),
+
+  conversationsOverTime: (token: string, period = '30d') =>
+    apiClient<{
+      success: boolean;
+      data: { dataPoints: Array<{ date: string; count: number }> };
+    }>(`/api/analytics/conversations-over-time?period=${period}`, {}, token),
+
+  busiestHours: (token: string) =>
+    apiClient<{
+      success: boolean;
+      data: { hours: Array<{ hour: number; count: number }> };
+    }>('/api/analytics/busiest-hours', {}, token),
+
+  topQuestions: (token: string) =>
+    apiClient<{
+      success: boolean;
+      data: { questions: Array<{ text: string; count: number }> };
+    }>('/api/analytics/top-questions', {}, token),
+};
+
+// Settings API
+export const settingsApi = {
+  getNotifications: (token: string) =>
+    apiClient<{
+      success: boolean;
+      data: { emailNewLead: boolean; emailUnanswered: boolean; notifyEmail: string | null };
+    }>('/api/settings/notifications', {}, token),
+
+  updateNotifications: (token: string, data: { emailNewLead?: boolean; emailUnanswered?: boolean; notifyEmail?: string | null }) =>
+    apiClient('/api/settings/notifications', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    }, token),
+};
+
 // Plans API
 export const plansApi = {
   list: () =>
