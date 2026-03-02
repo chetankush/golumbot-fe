@@ -3,19 +3,19 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
-  title: 'Golum - AI Chat Assistant for Your Website',
-  description: 'Build and deploy custom AI chat assistants in minutes. No coding required. Train with your content, embed with one line of code.',
-  keywords: ['AI chatbot', 'website chat assistant', 'customer support AI', 'no-code chatbot'],
+  title: 'Golum - Add an AI Chatbot to Your Website',
+  description: 'Add a chatbot to your website that answers visitor questions about your business — automatically, 24/7. Upload your info, paste one line of code, done.',
+  keywords: ['AI chatbot for website', 'website chat widget', 'customer support chatbot', 'add chatbot to website', 'no-code chatbot'],
   openGraph: {
-    title: 'Golum - AI Chat Assistant for Your Website',
-    description: 'Build and deploy custom AI chat assistants in minutes. No coding required.',
+    title: 'Golum - Add an AI Chatbot to Your Website',
+    description: 'Add a chatbot to your website that answers visitor questions about your business — automatically, 24/7.',
     type: 'website',
     siteName: 'Golum',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Golum - AI Chat Assistant for Your Website',
-    description: 'Build and deploy custom AI chat assistants in minutes. No coding required.',
+    title: 'Golum - Add an AI Chatbot to Your Website',
+    description: 'Add a chatbot to your website that answers visitor questions about your business — automatically, 24/7.',
   },
   robots: {
     index: true,

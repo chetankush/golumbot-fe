@@ -183,7 +183,7 @@ export default function LandingPage() {
         <div className="relative text-center max-w-7xl mx-auto px-6 pt-36 sm:pt-32 pb-32 flex-1 flex flex-col items-center justify-center">
           {/* Announcement badge */}
           <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/[0.12] backdrop-blur-xl border border-white/[0.15] text-[8px] sm:text-[10px] font-medium tracking-[0.12em] sm:tracking-[0.15em] uppercase text-white/70 mb-8 sm:mb-10 cursor-pointer hover:bg-white/[0.18] transition-all duration-300">
-            Turn Every Visitor Into a Customer
+            Add AI Chat Support to Your Website
             <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
@@ -191,15 +191,15 @@ export default function LandingPage() {
 
           {/* Heading */}
           <h1 className="text-[2.1rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]">
-            Your website answers
+            A chatbot for your website
             <br />
-            questions 24/7. Instantly.
+            that knows your business.
           </h1>
 
           {/* Subtitle */}
           <p className="text-sm md:text-base text-white/75 mb-9 max-w-xl mx-auto leading-relaxed">
-            <span className="hidden sm:inline">Stop losing customers to unanswered questions. Golum trains an AI assistant on your content and deploys it on your site in minutes — so every visitor gets the help they need, the moment they need it.</span>
-            <span className="sm:hidden">Train an AI assistant on your content. Deploy it on your site in minutes. Never miss a customer again.</span>
+            <span className="hidden sm:inline">Golum adds a smart chat widget to your website that answers visitor questions about your products, pricing, and services — automatically, 24/7. Just upload your info and paste one line of code.</span>
+            <span className="sm:hidden">Add a chat widget to your site that answers customer questions about your business — 24/7, automatically.</span>
           </p>
 
           {/* White pill CTA */}
@@ -229,7 +229,7 @@ export default function LandingPage() {
       <section className="py-16 md:py-28 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <p className="text-center text-xs sm:text-sm text-white/30 mb-8 md:mb-12">
-            See it in action — your AI assistant, on any device
+            See how the chat widget looks on your website — desktop &amp; mobile
           </p>
 
           {/* Devices — MacBook on top (mobile) or left (desktop), phones beside it */}
@@ -765,9 +765,9 @@ export default function LandingPage() {
                 Why Golum
               </div>
               <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-[1.1] tracking-tight">
-                Replace your help desk.
+                Your own support agent.
                 <br />
-                Keep your customers.
+                On your website.
               </h2>
             </div>
 
@@ -775,18 +775,18 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-10 lg:max-w-2xl lg:pt-8">
               <div>
                 <div className="text-white/45 mb-3"><PaletteIcon /></div>
-                <h4 className="text-white font-medium mb-1.5">Your Brand, Your Voice</h4>
-                <p className="text-sm text-white/35 leading-relaxed">Colors, tone, personality — your AI sounds like you, not a robot</p>
+                <h4 className="text-white font-medium mb-1.5">Matches Your Brand</h4>
+                <p className="text-sm text-white/35 leading-relaxed">Pick your colors, logo, and tone. The chatbot looks and feels like part of your website</p>
               </div>
               <div>
                 <div className="text-white/45 mb-3"><BrainIcon /></div>
-                <h4 className="text-white font-medium mb-1.5">Learns in Seconds</h4>
-                <p className="text-sm text-white/35 leading-relaxed">Drop a PDF or paste a URL — the AI knows your business instantly</p>
+                <h4 className="text-white font-medium mb-1.5">Trained on Your Info</h4>
+                <p className="text-sm text-white/35 leading-relaxed">Upload your FAQ, product details, or website URL — it learns your business in seconds</p>
               </div>
               <div>
                 <div className="text-white/45 mb-3"><CodeIcon /></div>
-                <h4 className="text-white font-medium mb-1.5">One Line, Done</h4>
-                <p className="text-sm text-white/35 leading-relaxed">Copy one snippet, paste it on your site. Live in under 60 seconds</p>
+                <h4 className="text-white font-medium mb-1.5">Paste &amp; Go Live</h4>
+                <p className="text-sm text-white/35 leading-relaxed">Copy one line of code, paste it on your site. The chatbot appears instantly for visitors</p>
               </div>
             </div>
           </div>
@@ -803,10 +803,10 @@ export default function LandingPage() {
                     <rect x="3" y="14" width="7" height="7" rx="1.5" />
                     <rect x="14" y="14" width="7" height="7" rx="1.5" />
                   </svg>
-                  <h3 className="text-2xl md:text-3xl font-semibold text-white">Your Command Center</h3>
+                  <h3 className="text-2xl md:text-3xl font-semibold text-white">Manage From One Dashboard</h3>
                 </div>
                 <p className="text-white/40 mb-8 leading-relaxed max-w-sm text-[15px]">
-                  See every conversation, measure customer satisfaction, and improve your AI — all from one dashboard you&apos;ll actually enjoy using.
+                  See what visitors are asking, read full conversations, and improve your chatbot&apos;s answers — all from a simple dashboard.
                 </p>
                 <Link
                   href="/register"
@@ -817,9 +817,9 @@ export default function LandingPage() {
 
                 {/* Bottom list items with dividers */}
                 <div className="mt-auto pt-10">
-                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Upload PDFs, docs, or your site URL to train</div>
-                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Match your brand colors and personality</div>
-                  <div className="py-4 text-[15px] text-white/80 font-medium">Go live on any website with one line of code</div>
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Upload your FAQ, product docs, or website URL</div>
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Customize colors and chat style to match your site</div>
+                  <div className="py-4 text-[15px] text-white/80 font-medium">Paste one code snippet — chatbot goes live on your site</div>
                 </div>
               </div>
 
@@ -861,10 +861,10 @@ export default function LandingPage() {
           <div className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">How It Works</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
-              Live in 5 minutes. Seriously.
+              3 steps. 5 minutes. Done.
             </h2>
             <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto leading-relaxed">
-              No developers needed. No complicated setup. Just three steps between you and an AI that sells, supports, and scales for you.
+              No coding skills needed. No developer required. Just follow these three steps and your website gets its own AI chatbot.
             </p>
           </div>
 
@@ -875,9 +875,9 @@ export default function LandingPage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 md:gap-5">
-              <StepCard number="01" title="Create Your Assistant" description="Pick a name, set the tone. Make it feel like a real team member — friendly, professional, or anything in between." />
-              <StepCard number="02" title="Feed It Your Knowledge" description="Upload your FAQs, product docs, or just paste your website URL. The AI reads everything and becomes an expert on your business." />
-              <StepCard number="03" title="Go Live Instantly" description="Copy one snippet, paste it on your site. Your AI assistant starts answering customers immediately — while you sleep." />
+              <StepCard number="01" title="Create a Chatbot" description="Give it a name and pick a style. This is the chat widget that will appear on your website for visitors." />
+              <StepCard number="02" title="Add Your Business Info" description="Upload your FAQ, product pages, pricing, or just paste your website URL. The chatbot reads it all and learns your business." />
+              <StepCard number="03" title="Paste Code on Your Site" description="Copy one small code snippet and paste it on your website. The chatbot appears and starts answering visitor questions instantly." />
             </div>
           </div>
         </div>
@@ -891,7 +891,7 @@ export default function LandingPage() {
             Questions? We&apos;re here.
           </h2>
           <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto mb-14 leading-relaxed">
-            Whether you need a custom plan, have a technical question, or just want to see a demo — reach out. We respond fast.
+            Need help setting up? Have a question about your chatbot? Just want to see a demo? Reach out — we respond fast.
           </p>
 
           <div className="apple-glass p-2 sm:p-3 inline-block w-full max-w-md">
@@ -961,12 +961,12 @@ export default function LandingPage() {
           </div>
 
           <div className="divide-y divide-white/[0.06] border-t border-white/[0.06]">
-            <FAQItem number="01" question="How does Golum learn my business?" answer="Just upload your documents (PDF, DOCX, TXT) or paste your website URL. Golum reads everything, understands the context, and builds a knowledge base your AI assistant uses to answer customers accurately — no manual training required." />
-            <FAQItem number="02" question="Do I need to write any code?" answer="Not really. You'll copy one small snippet and paste it into your website. That's it. Works on WordPress, Shopify, Wix, Squarespace, or any custom site. If you can paste text, you can set up Golum." />
-            <FAQItem number="03" question="What AI models are available?" answer="We offer access to top-tier models including Llama, GPT, and more. Pick the one that fits your needs — whether you want the fastest responses or the most nuanced answers. Switch anytime." />
-            <FAQItem number="04" question="Is my business data safe?" answer="100%. All data is encrypted in transit and at rest. We never sell or share your data. You own it, and you can delete it anytime. We're fully GDPR compliant." />
-            <FAQItem number="05" question="Can it really match my brand?" answer="Completely. Customize the widget colors, position, welcome message, avatar, and even the AI's personality and tone. Your customers will think it's built in-house." />
-            <FAQItem number="06" question="What if the AI can't answer a question?" answer="It'll be honest — no making things up. You can set custom fallback messages, collect the visitor's email, or automatically escalate to your human support team. You stay in control." />
+            <FAQItem number="01" question="What exactly is Golum?" answer="Golum is a tool that adds a chat widget to your website. When visitors have questions about your products, pricing, or services, the chatbot answers them instantly — using the information you provide. Think of it as a 24/7 support agent that lives on your site." />
+            <FAQItem number="02" question="How does the chatbot know about my business?" answer="You upload your documents (FAQ, product info, pricing) or paste your website URL. Golum reads everything and trains the chatbot to answer questions about your business accurately — no manual setup required." />
+            <FAQItem number="03" question="Do I need a developer to set it up?" answer="No. You copy one small code snippet and paste it into your website. That's it. It works on WordPress, Shopify, Wix, Squarespace, or any website. If you can paste text, you can add Golum." />
+            <FAQItem number="04" question="Is my business data safe?" answer="100%. All data is encrypted and never shared. You own it, and you can delete it anytime. We're fully GDPR compliant." />
+            <FAQItem number="05" question="Will the chatbot match my website design?" answer="Yes. You can customize the chat widget's colors, position, welcome message, icon, and even the chatbot's name and personality. It looks like a natural part of your website." />
+            <FAQItem number="06" question="What if the chatbot doesn't know the answer?" answer="It will say so honestly — no making things up. You can set a fallback message like 'Email us at...' or collect the visitor's contact info so you can follow up manually." />
           </div>
         </div>
       </section>
@@ -981,12 +981,12 @@ export default function LandingPage() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-20 bg-white/[0.03] blur-[40px]" />
 
             <h2 className="text-2xl md:text-4xl font-bold mb-5 text-white relative tracking-tight">
-              Your competitors already have AI support.
+              Your visitors have questions.
               <br />
-              <span className="text-white/60">Do you?</span>
+              <span className="text-white/60">Let your website answer them.</span>
             </h2>
             <p className="text-white/40 mb-10 max-w-lg mx-auto relative leading-relaxed">
-              Every unanswered question is a lost customer. Set up Golum in 5 minutes and never miss a conversation again.
+              Every unanswered question is a lost customer. Add Golum to your website in 5 minutes and let the chatbot handle it.
             </p>
             <Link
               href="/register"
@@ -1009,7 +1009,7 @@ export default function LandingPage() {
                 Golum
               </Link>
               <p className="text-white/25 mt-3 text-sm leading-relaxed">
-                AI support that never sleeps, so you can.
+                Add an AI chatbot to your website in minutes.
               </p>
             </div>
             <div>
