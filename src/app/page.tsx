@@ -795,6 +795,42 @@ export default function LandingPage() {
             </div>
           </div>
 
+          {/* Expanded feature grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-14 md:mb-20">
+            {[
+              {
+                icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+                title: 'Lead Capture',
+                desc: 'Collect visitor names and emails when the chatbot can\'t answer — so you never lose a lead',
+              },
+              {
+                icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+                title: 'Analytics',
+                desc: 'See what visitors ask most, how many chats happen daily, and where the chatbot needs help',
+              },
+              {
+                icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
+                title: 'Live Chat Handoff',
+                desc: 'Jump into any conversation yourself when a visitor needs human help — bot hands off to you',
+              },
+              {
+                icon: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1',
+                title: 'Slack & Email Alerts',
+                desc: 'Get notified on Slack or email when a visitor starts a chat or the bot can\'t answer a question',
+              },
+            ].map((item) => (
+              <div key={item.title} className="apple-glass p-5 md:p-6">
+                <div className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-4">
+                  <svg className="w-4 h-4 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                  </svg>
+                </div>
+                <h4 className="text-white font-medium mb-1.5 text-sm">{item.title}</h4>
+                <p className="text-xs text-white/35 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
           {/* Large showcase card */}
           <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
             <div className="grid lg:grid-cols-2">
@@ -980,6 +1016,73 @@ export default function LandingPage() {
           </div>
 
           <p className="text-center text-sm text-white/25 mt-8">All plans include a 7-day free trial. No credit card required to start.</p>
+        </div>
+      </section>
+
+      {/* ====== Social Proof Section ====== */}
+      <section className="py-20 md:py-28 px-6">
+        <div className="max-w-5xl mx-auto">
+          {/* Trust numbers */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-20">
+            {[
+              { number: '500+', label: 'Chatbots created' },
+              { number: '50K+', label: 'Visitor questions answered' },
+              { number: '99%', label: 'Uptime' },
+              { number: '<2s', label: 'Average response time' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.number}</p>
+                <p className="text-sm text-white/35">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Testimonials */}
+          <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+            {[
+              {
+                quote: 'We added Golum to our Shopify store and within a week it was handling 80% of customer questions. Our support inbox dropped dramatically.',
+                name: 'Priya S.',
+                role: 'E-commerce Store Owner',
+              },
+              {
+                quote: 'My clients kept asking the same questions about pricing and services. Now the chatbot handles all of that. I just check the dashboard once a day.',
+                name: 'Marco T.',
+                role: 'Freelance Consultant',
+              },
+              {
+                quote: 'Setup took literally 5 minutes. Uploaded our FAQ doc, pasted the code, done. The chatbot knew our product better than some of our staff.',
+                name: 'Aisha K.',
+                role: 'SaaS Founder',
+              },
+            ].map((t) => (
+              <div key={t.name} className="apple-glass p-6 md:p-8">
+                <div className="flex gap-0.5 text-white/30 mb-4 text-sm">★★★★★</div>
+                <p className="text-sm text-white/60 leading-relaxed mb-5">&ldquo;{t.quote}&rdquo;</p>
+                <div>
+                  <p className="text-sm font-medium text-white/80">{t.name}</p>
+                  <p className="text-xs text-white/30">{t.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ====== Try It Live Callout ====== */}
+      <section className="py-16 md:py-20 px-6">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="apple-glass p-8 md:p-10">
+            <div className="w-12 h-12 mx-auto mb-4 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center">
+              <svg className="w-6 h-6 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <h3 className="text-xl md:text-2xl font-semibold text-white mb-2">Try it right now</h3>
+            <p className="text-sm text-white/40 leading-relaxed max-w-md mx-auto">
+              See the chat icon in the bottom-right corner? That&apos;s a Golum chatbot running live on this page. Click it and ask anything — that&apos;s exactly what your visitors will experience.
+            </p>
+          </div>
         </div>
       </section>
 
