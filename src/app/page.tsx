@@ -48,6 +48,9 @@ export default function LandingPage() {
               <a href="#how-it-works" className="text-sm text-white/80 hover:text-white transition-colors duration-300">
                 How it works
               </a>
+              <a href="#pricing" className="text-sm text-white/80 hover:text-white transition-colors duration-300">
+                Pricing
+              </a>
               <a href="#contact" className="text-sm text-white/80 hover:text-white transition-colors duration-300">
                 Contact
               </a>
@@ -116,8 +119,9 @@ export default function LandingPage() {
             {[
               { href: '#features', label: 'Features', icon: 'M13 10V3L4 14h7v7l9-11h-7z', delay: '60ms' },
               { href: '#how-it-works', label: 'How it works', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', delay: '120ms' },
-              { href: '#contact', label: 'Contact', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', delay: '180ms' },
-              { href: '#faq', label: 'FAQ', icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', delay: '240ms' },
+              { href: '#pricing', label: 'Pricing', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', delay: '180ms' },
+              { href: '#contact', label: 'Contact', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', delay: '240ms' },
+              { href: '#faq', label: 'FAQ', icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', delay: '300ms' },
             ].map((item) => (
               <a
                 key={item.href}
@@ -883,6 +887,102 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ====== Pricing Section ====== */}
+      <section id="pricing" className="py-24 md:py-32 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16 md:mb-20">
+            <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">Pricing</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+              Simple, transparent pricing.
+            </h2>
+            <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto leading-relaxed">
+              Start free. Upgrade when you need more chatbots or messages.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+            {/* Free */}
+            <div className="apple-glass p-6 md:p-8 flex flex-col">
+              <p className="text-sm font-medium text-white/50 mb-2">Free</p>
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-4xl font-bold text-white">$0</span>
+                <span className="text-sm text-white/30">/month</span>
+              </div>
+              <p className="text-sm text-white/35 mb-6">Try it out on your website</p>
+              <ul className="space-y-3 mb-8 flex-1">
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>1 chatbot</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>50 messages / month</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>10 AI summaries</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>Basic customization</li>
+              </ul>
+              <Link href="/register" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
+                Get Started
+              </Link>
+            </div>
+
+            {/* Starter */}
+            <div className="apple-glass p-6 md:p-8 flex flex-col">
+              <p className="text-sm font-medium text-white/50 mb-2">Starter</p>
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-4xl font-bold text-white">$12</span>
+                <span className="text-sm text-white/30">/month</span>
+              </div>
+              <p className="text-sm text-white/35 mb-6">For small businesses</p>
+              <ul className="space-y-3 mb-8 flex-1">
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>3 chatbots</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>2,000 messages / month</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>50 AI summaries</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>WhatsApp &amp; Calendly</li>
+              </ul>
+              <Link href="/register" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
+                Get Started
+              </Link>
+            </div>
+
+            {/* Pro — Popular */}
+            <div className="relative apple-glass p-6 md:p-8 flex flex-col ring-1 ring-white/20">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-white text-[#080816] text-xs font-semibold rounded-full">Most Popular</div>
+              <p className="text-sm font-medium text-white/50 mb-2">Pro</p>
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-4xl font-bold text-white">$29</span>
+                <span className="text-sm text-white/30">/month</span>
+              </div>
+              <p className="text-sm text-white/35 mb-6">For growing businesses</p>
+              <ul className="space-y-3 mb-8 flex-1">
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>10 chatbots</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>10,000 messages / month</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>100 AI summaries</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>All integrations + priority support</li>
+              </ul>
+              <Link href="/register" className="block text-center px-5 py-2.5 bg-white text-[#080816] text-sm font-semibold rounded-full hover:bg-white/90 transition-all">
+                Get Started
+              </Link>
+            </div>
+
+            {/* Business */}
+            <div className="apple-glass p-6 md:p-8 flex flex-col">
+              <p className="text-sm font-medium text-white/50 mb-2">Business</p>
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-4xl font-bold text-white">$59</span>
+                <span className="text-sm text-white/30">/month</span>
+              </div>
+              <p className="text-sm text-white/35 mb-6">For teams &amp; agencies</p>
+              <ul className="space-y-3 mb-8 flex-1">
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>Unlimited chatbots</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>50,000 messages / month</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>200 AI summaries</li>
+                <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>Custom branding + API access</li>
+              </ul>
+              <Link href="/register" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
+                Get Started
+              </Link>
+            </div>
+          </div>
+
+          <p className="text-center text-sm text-white/25 mt-8">All plans include a 7-day free trial. No credit card required to start.</p>
+        </div>
+      </section>
+
       {/* ====== Contact Section — Minimal glass card ====== */}
       <section id="contact" className="py-24 md:py-32 px-6">
         <div className="max-w-2xl mx-auto text-center">
@@ -1025,6 +1125,7 @@ export default function LandingPage() {
               <h4 className="font-semibold mb-4 text-white/80">Product</h4>
               <ul className="space-y-3 text-sm text-white/30">
                 <li><a href="#features" className="hover:text-white transition-colors duration-300">Features</a></li>
+                <li><a href="#pricing" className="hover:text-white transition-colors duration-300">Pricing</a></li>
                 <li><a href="#contact" className="hover:text-white transition-colors duration-300">Contact</a></li>
                 <li><a href="#faq" className="hover:text-white transition-colors duration-300">FAQ</a></li>
               </ul>
