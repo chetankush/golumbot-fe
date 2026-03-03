@@ -410,13 +410,29 @@ function DashboardContent() {
                 Add this code before the closing <code className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-sm">&lt;/body&gt;</code> tag:
               </p>
               <pre className="p-3 sm:p-4 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg text-xs sm:text-sm overflow-x-auto font-mono text-[var(--text-primary)]">
-{`<script>
+{(() => {
+  const embedAssistant = selectedEmbedAssistant
+    ? assistants.find(a => a.id === selectedEmbedAssistant)
+    : assistants[0];
+  const wc = embedAssistant?.widgetConfig;
+  const configLines = [
+    `    apiKey: '${apiKey}'`,
+    `    apiUrl: '${process.env.NEXT_PUBLIC_API_URL || 'YOUR_API_URL_HERE'}'`,
+  ];
+  if (selectedEmbedAssistant) configLines.push(`    assistantId: '${selectedEmbedAssistant}'`);
+  if (wc?.primaryColor) configLines.push(`    primaryColor: '${wc.primaryColor}'`);
+  if (wc?.position) configLines.push(`    position: '${wc.position}'`);
+  if (wc?.borderRadius) configLines.push(`    borderRadius: '${wc.borderRadius}'`);
+  if (wc?.launcherIcon) configLines.push(`    launcherIcon: '${wc.launcherIcon}'`);
+  if (wc?.launcherStyle) configLines.push(`    launcherStyle: '${wc.launcherStyle}'`);
+  if (wc?.launcherColorScheme) configLines.push(`    launcherColorScheme: '${wc.launcherColorScheme}'`);
+  return `<script>
   window.GOLUM_CONFIG = {
-    apiKey: '${apiKey}',
-    apiUrl: '${process.env.NEXT_PUBLIC_API_URL || 'YOUR_API_URL_HERE'}'${selectedEmbedAssistant ? `,\n    assistantId: '${selectedEmbedAssistant}'` : ''}
+${configLines.join(',\n')}
   };
 </script>
-<script src="${process.env.NEXT_PUBLIC_WIDGET_URL || 'YOUR_WIDGET_URL_HERE'}/widget.js"></script>`}
+<script src="${process.env.NEXT_PUBLIC_WIDGET_URL || 'YOUR_WIDGET_URL_HERE'}/widget.js"></script>`;
+})()}
               </pre>
             </div>
           </div>
