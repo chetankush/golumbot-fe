@@ -204,8 +204,13 @@ export const creditsApi = {
           documentUpload: number;
           webScrape: number;
         };
+        subscription?: {
+          planId: string;
+          status: string;
+          currentPeriodEnd: string | null;
+        };
       };
-    }>('/api/stripe/credits', {}, token),
+    }>('/api/dodo/credits', {}, token),
 
   // Get transaction history
   getHistory: (token: string) =>
@@ -221,7 +226,7 @@ export const creditsApi = {
           createdAt: string;
         }>;
       };
-    }>('/api/stripe/credits/history', {}, token),
+    }>('/api/dodo/credits/history', {}, token),
 
   // Get available packages
   getPackages: () =>
@@ -233,7 +238,7 @@ export const creditsApi = {
           name: string;
           credits: number;
           price: number;
-          priceId: string;
+          productId: string;
           popular: boolean;
           savings: string | null;
           pricePerCredit: string;
@@ -245,20 +250,65 @@ export const creditsApi = {
           webScrape: number;
         };
       };
-    }>('/api/stripe/packages', {}),
+    }>('/api/dodo/packages', {}),
 
-  // Purchase credits
+  // Get available subscription plans
+  getPlans: () =>
+    apiClient<{
+      success: boolean;
+      data: {
+        plans: Array<{
+          id: string;
+          name: string;
+          price: number;
+          productId: string;
+          monthlyCredits: number;
+          maxAssistants: number;
+          summaryLimit: number;
+          popular: boolean;
+        }>;
+      };
+    }>('/api/dodo/plans', {}),
+
+  // Purchase credits (one-time)
   purchase: (token: string, packageId: string) =>
     apiClient<{
       success: boolean;
       data: {
-        sessionId: string;
-        url: string;
+        paymentLink: string;
       };
-    }>('/api/stripe/purchase', {
+    }>('/api/dodo/purchase', {
       method: 'POST',
       body: JSON.stringify({ packageId }),
     }, token),
+
+  // Subscribe to a plan
+  subscribe: (token: string, planId: string) =>
+    apiClient<{
+      success: boolean;
+      data: {
+        paymentLink: string;
+      };
+    }>('/api/dodo/subscribe', {
+      method: 'POST',
+      body: JSON.stringify({ planId }),
+    }, token),
+
+  // Get current subscription
+  getSubscription: (token: string) =>
+    apiClient<{
+      success: boolean;
+      data: {
+        plan: string;
+        planName: string;
+        status: string;
+        subscriptionId?: string;
+        currentPeriodEnd?: string;
+        monthlyCredits: number;
+        maxAssistants: number;
+        summaryLimit: number;
+      };
+    }>('/api/dodo/subscription/current', {}, token),
 };
 
 // Leads API

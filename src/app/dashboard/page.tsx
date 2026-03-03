@@ -77,6 +77,15 @@ function DashboardContent() {
       router.replace('/dashboard');
     }
 
+    // Check for subscription success
+    const subscriptionStatus = searchParams.get('subscription');
+    const planName = searchParams.get('plan');
+
+    if (subscriptionStatus === 'success' && planName) {
+      setShowToast({ type: 'success', message: `Subscription activated! You're now on the ${planName.charAt(0).toUpperCase() + planName.slice(1)} plan.` });
+      router.replace('/dashboard');
+    }
+
     if (!isAuthenticated) {
       router.push('/login');
       return;
