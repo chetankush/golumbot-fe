@@ -228,30 +228,6 @@ export const creditsApi = {
       };
     }>('/api/dodo/credits/history', {}, token),
 
-  // Get available packages
-  getPackages: () =>
-    apiClient<{
-      success: boolean;
-      data: {
-        packages: Array<{
-          id: string;
-          name: string;
-          credits: number;
-          price: number;
-          productId: string;
-          popular: boolean;
-          savings: string | null;
-          pricePerCredit: string;
-        }>;
-        freeCredits: number;
-        costs: {
-          message: number;
-          documentUpload: number;
-          webScrape: number;
-        };
-      };
-    }>('/api/dodo/packages', {}),
-
   // Get available subscription plans
   getPlans: () =>
     apiClient<{
@@ -269,18 +245,6 @@ export const creditsApi = {
         }>;
       };
     }>('/api/dodo/plans', {}),
-
-  // Purchase credits (one-time)
-  purchase: (token: string, packageId: string) =>
-    apiClient<{
-      success: boolean;
-      data: {
-        paymentLink: string;
-      };
-    }>('/api/dodo/purchase', {
-      method: 'POST',
-      body: JSON.stringify({ packageId }),
-    }, token),
 
   // Subscribe to a plan
   subscribe: (token: string, planId: string) =>
