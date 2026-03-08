@@ -25,7 +25,7 @@ export default function PrivacyPage() {
           <p>We use industry-standard encryption and security measures. Your data is stored securely on cloud infrastructure with access controls and monitoring.</p>
 
           <h2 className="text-xl font-semibold text-[var(--text-primary)]">4. Third-Party Services</h2>
-          <p>We use Supabase for authentication and storage, Stripe for payments, and AI model providers (OpenRouter) for generating responses. Each service has its own privacy policy.</p>
+          <p>We use Supabase for authentication and storage, Dodo Payments for payments, and AI model providers (OpenRouter) for generating responses. Each service has its own privacy policy.</p>
 
           <h2 className="text-xl font-semibold text-[var(--text-primary)]">5. Your Rights</h2>
           <p>You can request access to, correction of, or deletion of your personal data at any time by contacting us. You can delete your account and all associated data from the dashboard.</p>
