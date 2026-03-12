@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
 import { authApi } from '@/lib/api';
@@ -12,7 +12,17 @@ import { createBrowserSupabaseClient } from '@/lib/supabase';
 type AuthMethod = 'password' | 'magic-link';
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#080816]"><div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/dashboard';
   const login = useAuthStore((state) => state.login);
   const [authMethod, setAuthMethod] = useState<AuthMethod>('password');
   const [email, setEmail] = useState('');
@@ -53,7 +63,7 @@ export default function LoginPage() {
         token: response.data.token,
         apiKey: response.data.apiKey,
       });
-      router.push('/dashboard');
+      router.push(redirectTo);
     } catch (err: any) {
       setError(err.message || 'Login failed');
     } finally {

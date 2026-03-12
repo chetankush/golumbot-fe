@@ -62,7 +62,7 @@ export default function PricingPage() {
 
   const handleSubscribe = async (planId: string) => {
     if (!isAuthenticated || !token) {
-      router.push('/login');
+      router.push('/login?redirect=/pricing');
       return;
     }
     if (planId === 'free') {
