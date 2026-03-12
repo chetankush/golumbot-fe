@@ -16,7 +16,7 @@ interface ModelInfo {
   speedRating: number;
   description: string;
   isFree: boolean;
-  category: 'free' | 'budget' | 'premium';
+  category: 'budget' | 'standard' | 'premium' | 'enterprise';
 }
 
 interface Assistant {
@@ -92,11 +92,41 @@ export default function ModelsPage() {
   };
 
   const currentAssistant = assistantsList.find(a => a.id === selectedAssistant);
-  const grouped = {
-    free: models.filter(m => m.category === 'free'),
-    budget: models.filter(m => m.category === 'budget'),
-    premium: models.filter(m => m.category === 'premium'),
-  };
+
+  const tiers = [
+    {
+      key: 'budget',
+      title: 'Starter',
+      badge: '1 credit / message',
+      badgeClass: 'bg-emerald-900/30 text-emerald-300',
+      subtitle: 'Great for most chatbots. Fast, reliable, and cost-effective.',
+      models: models.filter(m => m.category === 'budget'),
+    },
+    {
+      key: 'standard',
+      title: 'Pro',
+      badge: '2 credits / message',
+      badgeClass: 'bg-blue-900/30 text-blue-300',
+      subtitle: 'Smarter responses for complex questions and technical topics.',
+      models: models.filter(m => m.category === 'standard'),
+    },
+    {
+      key: 'premium',
+      title: 'Premium',
+      badge: '5 credits / message',
+      badgeClass: 'bg-purple-900/30 text-purple-300',
+      subtitle: 'Top-tier models for the best conversation quality.',
+      models: models.filter(m => m.category === 'premium'),
+    },
+    {
+      key: 'enterprise',
+      title: 'Enterprise',
+      badge: '10 credits / message',
+      badgeClass: 'bg-amber-900/30 text-amber-300',
+      subtitle: 'Frontier AI for high-stakes, mission-critical use cases.',
+      models: models.filter(m => m.category === 'enterprise'),
+    },
+  ];
 
   const RatingBar = ({ value, max = 5 }: { value: number; max?: number }) => (
     <div className="flex gap-1">
@@ -105,15 +135,6 @@ export default function ModelsPage() {
       ))}
     </div>
   );
-
-  const providerBadge = (provider: string) => {
-    const colors: Record<string, string> = {
-      openrouter: 'bg-blue-900/30 text-blue-300',
-      groq: 'bg-orange-900/30 text-orange-300',
-      openai: 'bg-green-900/30 text-green-300',
-    };
-    return colors[provider] || 'bg-gray-900/30 text-gray-300';
-  };
 
   if (!isAuthenticated) return null;
 
@@ -201,13 +222,13 @@ export default function ModelsPage() {
         {/* Page Header */}
         <div className="mb-6">
           <h1 className="text-xl font-semibold text-[var(--text-primary)]">AI Models</h1>
-          <p className="text-[var(--text-secondary)] mt-1">Choose the AI model that powers your assistant</p>
+          <p className="text-[var(--text-secondary)] mt-1">Pick a model for your chatbot. Smarter models use more credits per message.</p>
         </div>
 
         {/* Assistant Selector */}
         {assistantsList.length > 0 && (
           <div className="card p-5 mb-6">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
               <label className="text-sm font-medium text-[var(--text-secondary)]">Select Assistant:</label>
               <select
                 value={selectedAssistant}
@@ -220,7 +241,7 @@ export default function ModelsPage() {
               </select>
               {currentAssistant && (
                 <span className="text-sm text-[var(--text-muted)]">
-                  Current model: <span className="font-medium text-[var(--text-primary)]">{currentAssistant.model}</span>
+                  Current: <span className="font-medium text-[var(--text-primary)]">{models.find(m => m.id === currentAssistant.model)?.name || currentAssistant.model}</span>
                 </span>
               )}
             </div>
@@ -232,75 +253,28 @@ export default function ModelsPage() {
             <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : (
-          <div className="space-y-8">
-            {/* Free Models */}
-            {grouped.free.length > 0 && (
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <h2 className="text-base font-semibold text-[var(--text-primary)]">Free Models</h2>
-                  <span className="px-2 py-0.5 text-xs font-medium bg-green-900/30 text-green-300 rounded-full">No cost</span>
+          <div className="space-y-10">
+            {tiers.map(tier => tier.models.length > 0 && (
+              <div key={tier.key}>
+                <div className="flex items-center gap-3 mb-2">
+                  <h2 className="text-base font-semibold text-[var(--text-primary)]">{tier.title}</h2>
+                  <span className={`px-2.5 py-0.5 text-xs font-medium rounded-full ${tier.badgeClass}`}>{tier.badge}</span>
                 </div>
+                <p className="text-sm text-[var(--text-muted)] mb-4">{tier.subtitle}</p>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {grouped.free.map(model => (
+                  {tier.models.map(model => (
                     <ModelCard
                       key={model.id}
                       model={model}
                       isActive={currentAssistant?.model === model.id}
                       isUpdating={updatingModel === model.id}
                       onSelect={() => selectModel(model.id)}
-                      providerBadgeClass={providerBadge(model.provider)}
                       RatingBar={RatingBar}
                     />
                   ))}
                 </div>
               </div>
-            )}
-
-            {/* Budget Models */}
-            {grouped.budget.length > 0 && (
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <h2 className="text-base font-semibold text-[var(--text-primary)]">Budget Models</h2>
-                  <span className="px-2 py-0.5 text-xs font-medium bg-yellow-900/30 text-yellow-300 rounded-full">Low cost</span>
-                </div>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {grouped.budget.map(model => (
-                    <ModelCard
-                      key={model.id}
-                      model={model}
-                      isActive={currentAssistant?.model === model.id}
-                      isUpdating={updatingModel === model.id}
-                      onSelect={() => selectModel(model.id)}
-                      providerBadgeClass={providerBadge(model.provider)}
-                      RatingBar={RatingBar}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Premium Models */}
-            {grouped.premium.length > 0 && (
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <h2 className="text-base font-semibold text-[var(--text-primary)]">Premium Models</h2>
-                  <span className="px-2 py-0.5 text-xs font-medium bg-purple-900/30 text-purple-300 rounded-full">Best quality</span>
-                </div>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {grouped.premium.map(model => (
-                    <ModelCard
-                      key={model.id}
-                      model={model}
-                      isActive={currentAssistant?.model === model.id}
-                      isUpdating={updatingModel === model.id}
-                      onSelect={() => selectModel(model.id)}
-                      providerBadgeClass={providerBadge(model.provider)}
-                      RatingBar={RatingBar}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
+            ))}
           </div>
         )}
       </main>
@@ -313,14 +287,12 @@ function ModelCard({
   isActive,
   isUpdating,
   onSelect,
-  providerBadgeClass,
   RatingBar,
 }: {
   model: ModelInfo;
   isActive: boolean;
   isUpdating: boolean;
   onSelect: () => void;
-  providerBadgeClass: string;
   RatingBar: ({ value, max }: { value: number; max?: number }) => React.ReactNode;
 }) {
   return (
@@ -328,9 +300,7 @@ function ModelCard({
       <div className="flex items-start justify-between mb-3">
         <div>
           <h3 className="font-medium text-[var(--text-primary)]">{model.name}</h3>
-          <span className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full mt-1 ${providerBadgeClass}`}>
-            {model.provider}
-          </span>
+          <span className="text-xs text-[var(--text-muted)] mt-0.5 block">{model.costPerMessage} {model.costPerMessage === 1 ? 'credit' : 'credits'} per message</span>
         </div>
         {isActive && (
           <span className="flex items-center gap-1 px-2 py-1 text-xs font-medium bg-primary-500/10 text-primary-500 rounded-full">
@@ -352,12 +322,6 @@ function ModelCard({
         <div className="flex items-center justify-between">
           <span className="text-xs text-[var(--text-muted)]">Speed</span>
           <RatingBar value={model.speedRating} />
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-[var(--text-muted)]">Cost</span>
-          <span className={`text-xs font-medium ${model.isFree ? 'text-green-400' : 'text-[var(--text-primary)]'}`}>
-            {model.isFree ? 'Free' : `${model.costPerMessage}¢ / msg`}
-          </span>
         </div>
       </div>
 

@@ -907,9 +907,9 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ====== How It Works — Connected glass timeline ====== */}
+      {/* ====== How It Works — Vertical Timeline ====== */}
       <section id="how-it-works" className="py-24 md:py-32 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">How It Works</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
@@ -921,16 +921,24 @@ export default function LandingPage() {
           </div>
 
           <div className="relative">
-            {/* Connecting gradient line — desktop */}
-            <div className="hidden md:block absolute top-[4.5rem] left-[calc(16.67%+12px)] right-[calc(16.67%+12px)] h-px">
-              <div className="w-full h-full bg-gradient-to-r from-white/20 via-white/10 to-white/20" />
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 md:gap-5">
-              <StepCard number="01" title="Create a Chatbot" description="Give it a name and pick a style. This is the chatbot that will appear on your website for visitors." />
-              <StepCard number="02" title="Add Your Business Info" description="Upload your FAQ, product pages, pricing, or just paste your website URL. The chatbot reads it all and learns your business." />
-              <StepCard number="03" title="Paste Code on Your Site" description="Copy one small code snippet and paste it on your website. The chatbot appears and starts answering visitor questions instantly." />
-            </div>
+            <TimelineStep
+              number="01"
+              title="Create a Chatbot"
+              description="Give it a name and pick a style. This is the chatbot that will appear on your website for visitors."
+              isLast={false}
+            />
+            <TimelineStep
+              number="02"
+              title="Add Your Business Info"
+              description="Upload your FAQ, product pages, pricing, or just paste your website URL. The chatbot reads it all and learns your business."
+              isLast={false}
+            />
+            <TimelineStep
+              number="03"
+              title="Paste Code on Your Site"
+              description="Copy one small code snippet and paste it on your website. The chatbot appears and starts answering visitor questions instantly."
+              isLast={true}
+            />
           </div>
         </div>
       </section>
@@ -1281,17 +1289,24 @@ export default function LandingPage() {
   );
 }
 
-/* ——— Step Card — Glass timeline node ——— */
-function StepCard({ number, title, description }: { number: string; title: string; description: string }) {
+/* ——— Timeline Step — Vertical connected step ——— */
+function TimelineStep({ number, title, description, isLast }: { number: string; title: string; description: string; isLast: boolean }) {
   return (
-    <div className="relative text-center group">
-      <div className="apple-glass p-8 md:p-10">
-        {/* Step number */}
-        <div className="inline-flex w-14 h-14 rounded-2xl bg-white/[0.06] border border-white/[0.1] items-center justify-center mb-6 group-hover:bg-white/[0.1] group-hover:border-white/[0.18] transition-all duration-500">
-          <span className="text-lg font-bold text-white/70">{number}</span>
+    <div className="relative flex gap-6 md:gap-10 group">
+      {/* Left: circle + vertical line */}
+      <div className="flex flex-col items-center">
+        <div className="relative z-10 flex-shrink-0 w-12 h-12 rounded-full bg-white/[0.08] border border-white/[0.15] flex items-center justify-center group-hover:bg-white/[0.14] group-hover:border-white/[0.25] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.06)] transition-all duration-500">
+          <span className="text-sm font-bold text-white/70 group-hover:text-white/90 transition-colors duration-500">{number}</span>
         </div>
-        <h3 className="text-xl font-semibold text-white mb-3">{title}</h3>
-        <p className="text-sm text-white/40 leading-relaxed">{description}</p>
+        {!isLast && (
+          <div className="w-px flex-1 my-2 bg-gradient-to-b from-white/20 to-white/[0.04]" />
+        )}
+      </div>
+
+      {/* Right: content */}
+      <div className={`pt-2 ${isLast ? 'pb-0' : 'pb-12 md:pb-16'}`}>
+        <h3 className="text-xl md:text-2xl font-semibold text-white mb-2 group-hover:text-white/90 transition-colors duration-300">{title}</h3>
+        <p className="text-sm md:text-base text-white/40 leading-relaxed max-w-md">{description}</p>
       </div>
     </div>
   );
