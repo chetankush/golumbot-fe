@@ -977,7 +977,7 @@ export default function LandingPage() {
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>Basic customization</li>
               </ul>
               <Link href="/register" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
-                Get Started
+                Get Started Free
               </Link>
             </div>
 
@@ -995,7 +995,7 @@ export default function LandingPage() {
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>50 AI summaries</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>WhatsApp &amp; Calendly</li>
               </ul>
-              <Link href="/register" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
+              <Link href="/pricing" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
                 Get Started
               </Link>
             </div>
@@ -1015,7 +1015,7 @@ export default function LandingPage() {
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>100 AI summaries</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>All integrations + priority support</li>
               </ul>
-              <Link href="/register" className="block text-center px-5 py-2.5 bg-white text-[#080816] text-sm font-semibold rounded-full hover:bg-white/90 transition-all">
+              <Link href="/pricing" className="block text-center px-5 py-2.5 bg-white text-[#080816] text-sm font-semibold rounded-full hover:bg-white/90 transition-all">
                 Get Started
               </Link>
             </div>
@@ -1034,7 +1034,7 @@ export default function LandingPage() {
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>200 AI summaries</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>Custom branding + API access</li>
               </ul>
-              <Link href="/register" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
+              <Link href="/pricing" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
                 Get Started
               </Link>
             </div>
