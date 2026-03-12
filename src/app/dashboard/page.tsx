@@ -58,6 +58,7 @@ function DashboardContent() {
   const [selectedEmbedAssistant, setSelectedEmbedAssistant] = useState<string>('');
   const [showToast, setShowToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [modelMap, setModelMap] = useState<Record<string, { name: string; costPerMessage: number; category: string }>>({});
 
   // Auto-dismiss toasts
   useEffect(() => {
@@ -90,7 +91,7 @@ function DashboardContent() {
       router.push('/login');
       return;
     }
-    Promise.all([loadAssistants(), loadCredits(), loadPlan()]);
+    Promise.all([loadAssistants(), loadCredits(), loadPlan(), loadModels()]);
   }, [isAuthenticated, router, searchParams]);
 
   const loadCredits = async () => {
@@ -125,6 +126,20 @@ function DashboardContent() {
       }
     } catch {
       setCurrentPlan({ name: 'Free', slug: 'free' });
+    }
+  };
+
+  const loadModels = async () => {
+    if (!token) return;
+    try {
+      const response = await assistantsApi.models(token);
+      const map: Record<string, { name: string; costPerMessage: number; category: string }> = {};
+      for (const m of response.data.models) {
+        map[m.id] = { name: m.name, costPerMessage: m.costPerMessage, category: m.category };
+      }
+      setModelMap(map);
+    } catch {
+      // non-critical
     }
   };
 
@@ -262,6 +277,81 @@ function DashboardContent() {
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 animate-fade-in">
+        {/* Credits & Plan Overview */}
+        {credits && (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {/* Credit Balance */}
+            <div className="card p-5">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-emerald-500/10">
+                  <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <span className="text-sm text-[var(--text-secondary)]">Credits</span>
+              </div>
+              <p className={`text-2xl font-bold ${credits.lowBalance ? 'text-red-400' : 'text-[var(--text-primary)]'}`}>
+                {credits.balance.toLocaleString()}
+              </p>
+              {credits.lowBalance && (
+                <p className="text-xs text-red-400 mt-1">Low balance</p>
+              )}
+            </div>
+
+            {/* Current Plan */}
+            <div className="card p-5">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-blue-500/10">
+                  <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                  </svg>
+                </div>
+                <span className="text-sm text-[var(--text-secondary)]">Plan</span>
+              </div>
+              <p className="text-2xl font-bold text-[var(--text-primary)]">{currentPlan?.name || 'Free'}</p>
+              <Link href="/pricing" className="text-xs text-primary-500 hover:text-primary-400 mt-1 inline-block">
+                Upgrade
+              </Link>
+            </div>
+
+            {/* Assistants Used */}
+            <div className="card p-5">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-purple-500/10">
+                  <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                  </svg>
+                </div>
+                <span className="text-sm text-[var(--text-secondary)]">Assistants</span>
+              </div>
+              <p className="text-2xl font-bold text-[var(--text-primary)]">
+                {assistantUsage ? `${assistantUsage.current}/${assistantUsage.limit === -1 ? '\u221e' : assistantUsage.limit}` : `${assistants.length}`}
+              </p>
+            </div>
+
+            {/* Model Credit Cost Guide */}
+            <div className="card p-5">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-amber-500/10">
+                  <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <span className="text-sm text-[var(--text-secondary)]">Cost / msg</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5 mt-1">
+                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-900/30 text-emerald-300">1cr</span>
+                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-blue-900/30 text-blue-300">2cr</span>
+                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-purple-900/30 text-purple-300">5cr</span>
+                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-amber-900/30 text-amber-300">10cr</span>
+              </div>
+              <Link href="/models" className="text-xs text-primary-500 hover:text-primary-400 mt-2 inline-block">
+                View models
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* Contact Banner & API Key Section */}
         <div className="grid md:grid-cols-2 gap-4 mb-8">
           {/* Contact Us Banner */}
@@ -388,6 +478,7 @@ function DashboardContent() {
                 onUpdate={() => { loadAssistants(); loadPlan(); }}
                 onCustomize={() => setShowCustomizeModal(assistant)}
                 token={token!}
+                modelMap={modelMap}
               />
             ))}
           </div>
@@ -477,16 +568,25 @@ ${configLines.join(',\n')}
   );
 }
 
+const MODEL_CREDIT_BADGE: Record<string, string> = {
+  budget: 'bg-emerald-900/30 text-emerald-300',
+  standard: 'bg-blue-900/30 text-blue-300',
+  premium: 'bg-purple-900/30 text-purple-300',
+  enterprise: 'bg-amber-900/30 text-amber-300',
+};
+
 function AssistantCard({
   assistant,
   onUpdate,
   onCustomize,
   token,
+  modelMap,
 }: {
   assistant: Assistant;
   onUpdate: () => void;
   onCustomize: () => void;
   token: string;
+  modelMap: Record<string, { name: string; costPerMessage: number; category: string }>;
 }) {
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to delete this assistant?')) return;
@@ -509,7 +609,14 @@ function AssistantCard({
           </div>
           <div>
             <h3 className="font-medium text-[var(--text-primary)]">{assistant.name}</h3>
-            <p className="text-xs text-[var(--text-muted)]">{assistant.model}</p>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <p className="text-xs text-[var(--text-muted)]">{modelMap[assistant.model]?.name || assistant.model}</p>
+              {modelMap[assistant.model] && (
+                <span className={`px-1.5 py-0.5 text-[10px] font-medium rounded-full ${MODEL_CREDIT_BADGE[modelMap[assistant.model].category] || 'bg-zinc-800 text-zinc-400'}`}>
+                  {modelMap[assistant.model].costPerMessage}cr/msg
+                </span>
+              )}
+            </div>
           </div>
         </div>
         <span
