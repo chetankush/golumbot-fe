@@ -78,12 +78,24 @@ function DashboardContent() {
       router.replace('/dashboard');
     }
 
-    // Check for subscription success
+    // Check for subscription success — verify with Dodo and sync DB
     const subscriptionStatus = searchParams.get('subscription');
     const planName = searchParams.get('plan');
 
-    if (subscriptionStatus === 'success' && planName) {
-      setShowToast({ type: 'success', message: `Subscription activated! You're now on the ${planName.charAt(0).toUpperCase() + planName.slice(1)} plan.` });
+    if (subscriptionStatus === 'success' && planName && token) {
+      // Verify and sync subscription with Dodo API
+      creditsApi.verifySubscription(token).then((res) => {
+        if (res.data?.synced && res.data?.creditsAdded) {
+          setShowToast({ type: 'success', message: `${planName.charAt(0).toUpperCase() + planName.slice(1)} plan activated! ${res.data.creditsAdded} credits added.` });
+        } else {
+          setShowToast({ type: 'success', message: `You're now on the ${planName.charAt(0).toUpperCase() + planName.slice(1)} plan.` });
+        }
+        // Reload credits and plan after sync
+        loadCredits();
+        loadPlan();
+      }).catch(() => {
+        setShowToast({ type: 'success', message: `Subscription activated! You're now on the ${planName.charAt(0).toUpperCase() + planName.slice(1)} plan.` });
+      });
       router.replace('/dashboard');
     }
 
