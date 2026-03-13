@@ -423,9 +423,9 @@ function DashboardContent() {
           </div>
           <div className="grid sm:grid-cols-3 gap-4">
             {[
-              { id: 'small', credits: 500, price: 5, label: 'Starter Pack' },
-              { id: 'medium', credits: 2000, price: 15, label: 'Growth Pack', popular: true },
-              { id: 'large', credits: 5000, price: 30, label: 'Pro Pack' },
+              { id: 'small', credits: 500, price: 6, originalPrice: 7, label: 'Starter Pack' },
+              { id: 'medium', credits: 2000, price: 15, originalPrice: 18, label: 'Growth Pack', popular: true },
+              { id: 'large', credits: 5000, price: 35, originalPrice: 40, label: 'Pro Pack' },
             ].map((pack) => (
               <CreditPackCard
                 key={pack.id}
@@ -1582,7 +1582,7 @@ function CreditPackCard({
   token,
   onSuccess,
 }: {
-  pack: { id: string; credits: number; price: number; label: string; popular?: boolean };
+  pack: { id: string; credits: number; price: number; originalPrice: number; label: string; popular?: boolean };
   token: string;
   onSuccess: () => void;
 }) {
@@ -1603,6 +1603,7 @@ function CreditPackCard({
   };
 
   const perCredit = (pack.price / pack.credits * 1000).toFixed(1);
+  const discount = Math.round((1 - pack.price / pack.originalPrice) * 100);
 
   return (
     <div className={`card p-5 relative ${pack.popular ? 'border-primary-500/50 ring-1 ring-primary-500/20' : ''}`}>
@@ -1611,11 +1612,17 @@ function CreditPackCard({
           Best Value
         </div>
       )}
+      <div className="absolute top-3 right-3">
+        <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-green-900/30 text-green-400">
+          {discount}% OFF
+        </span>
+      </div>
       <div className="text-center">
         <p className="text-xs font-medium text-[var(--text-muted)] mb-1">{pack.label}</p>
         <p className="text-2xl font-bold text-[var(--text-primary)]">{pack.credits.toLocaleString()}</p>
         <p className="text-sm text-[var(--text-secondary)]">credits</p>
         <div className="mt-3 mb-4">
+          <span className="text-sm text-[var(--text-muted)] line-through mr-1.5">${pack.originalPrice}</span>
           <span className="text-xl font-bold text-[var(--text-primary)]">${pack.price}</span>
           <p className="text-xs text-[var(--text-muted)] mt-0.5">${perCredit} per 1k credits</p>
         </div>
