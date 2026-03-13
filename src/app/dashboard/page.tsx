@@ -413,6 +413,30 @@ function DashboardContent() {
           </div>
         )}
 
+        {/* Buy Credits Section */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--text-primary)]">Buy Credits</h2>
+              <p className="text-sm text-[var(--text-secondary)] mt-0.5">One-time purchase. Credits never expire.</p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {[
+              { id: 'small', credits: 500, price: 5, label: 'Starter Pack' },
+              { id: 'medium', credits: 2000, price: 15, label: 'Growth Pack', popular: true },
+              { id: 'large', credits: 5000, price: 30, label: 'Pro Pack' },
+            ].map((pack) => (
+              <CreditPackCard
+                key={pack.id}
+                pack={pack}
+                token={token!}
+                onSuccess={() => loadCredits()}
+              />
+            ))}
+          </div>
+        </div>
+
         {/* Contact Banner & API Key Section */}
         <div className="grid md:grid-cols-2 gap-4 mb-8">
           {/* Contact Us Banner */}
@@ -1548,6 +1572,64 @@ function CustomizeWidgetModal({
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  );
+}
+
+function CreditPackCard({
+  pack,
+  token,
+  onSuccess,
+}: {
+  pack: { id: string; credits: number; price: number; label: string; popular?: boolean };
+  token: string;
+  onSuccess: () => void;
+}) {
+  const [loading, setLoading] = useState(false);
+
+  const handleBuy = async () => {
+    setLoading(true);
+    try {
+      const response = await creditsApi.buyCredits(token, pack.id);
+      if (response.data?.paymentLink) {
+        window.location.href = response.data.paymentLink;
+      }
+    } catch (error: any) {
+      alert(error.message || 'Failed to start purchase');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const perCredit = (pack.price / pack.credits * 1000).toFixed(1);
+
+  return (
+    <div className={`card p-5 relative ${pack.popular ? 'border-primary-500/50 ring-1 ring-primary-500/20' : ''}`}>
+      {pack.popular && (
+        <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-primary-500 text-white text-[10px] font-medium rounded-full">
+          Best Value
+        </div>
+      )}
+      <div className="text-center">
+        <p className="text-xs font-medium text-[var(--text-muted)] mb-1">{pack.label}</p>
+        <p className="text-2xl font-bold text-[var(--text-primary)]">{pack.credits.toLocaleString()}</p>
+        <p className="text-sm text-[var(--text-secondary)]">credits</p>
+        <div className="mt-3 mb-4">
+          <span className="text-xl font-bold text-[var(--text-primary)]">${pack.price}</span>
+          <p className="text-xs text-[var(--text-muted)] mt-0.5">${perCredit} per 1k credits</p>
+        </div>
+        <button
+          onClick={handleBuy}
+          disabled={loading}
+          className={`w-full py-2 text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
+            pack.popular
+              ? 'bg-primary-500 hover:bg-primary-600 text-white'
+              : 'bg-[var(--bg-tertiary)] hover:bg-[var(--border-color)] text-[var(--text-primary)]'
+          }`}
+        >
+          {loading ? 'Redirecting...' : 'Buy Credits'}
+        </button>
       </div>
     </div>
   );
