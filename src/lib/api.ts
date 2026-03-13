@@ -258,6 +258,34 @@ export const creditsApi = {
       body: JSON.stringify({ planId }),
     }, token),
 
+  // Get available credit packs
+  getCreditPacks: () =>
+    apiClient<{
+      success: boolean;
+      data: {
+        packs: Array<{
+          id: string;
+          name: string;
+          credits: number;
+          price: number;
+          perCredit: number;
+        }>;
+      };
+    }>('/api/dodo/credits/packs', {}),
+
+  // Buy a credit pack
+  buyCredits: (token: string, packId: string) =>
+    apiClient<{
+      success: boolean;
+      data: {
+        paymentLink: string;
+        paymentId: string;
+      };
+    }>('/api/dodo/credits/buy', {
+      method: 'POST',
+      body: JSON.stringify({ packId }),
+    }, token),
+
   // Verify & sync subscription after payment return
   verifySubscription: (token: string) =>
     apiClient<{
