@@ -258,6 +258,22 @@ export const creditsApi = {
       body: JSON.stringify({ planId }),
     }, token),
 
+  // Verify & sync subscription after payment return
+  verifySubscription: (token: string) =>
+    apiClient<{
+      success: boolean;
+      data: {
+        plan: string;
+        planName: string;
+        status: string;
+        creditsAdded?: number;
+        newBalance?: number;
+        synced: boolean;
+      };
+    }>('/api/dodo/subscription/verify', {
+      method: 'POST',
+    }, token),
+
   // Get current subscription
   getSubscription: (token: string) =>
     apiClient<{
