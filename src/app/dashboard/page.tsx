@@ -393,49 +393,82 @@ function DashboardContent() {
           </div>
         )}
 
-        {/* Low credits warning */}
-        {credits && credits.lowBalance && currentPlan && currentPlan.slug !== 'free' && (
+        {/* Low credits warning — only for free plan users (paid plans use the smart banner below) */}
+        {credits && credits.lowBalance && (!currentPlan || currentPlan.slug === 'free') && credits.balance > 0 && (
           <div className="card p-5 mb-8 border-amber-500/30 bg-gradient-to-r from-amber-500/5 to-transparent">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="font-medium text-amber-400 mb-1">Running low on credits</h3>
                 <p className="text-sm text-[var(--text-secondary)]">
-                  You have {credits.balance} credits remaining. Upgrade your plan for more monthly credits.
+                  You have {credits.balance} credits remaining. Subscribe to a plan or buy a credit pack.
                 </p>
               </div>
-              <Link
-                href="/pricing"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-amber-500/50 text-amber-400 hover:bg-amber-500/10 font-medium rounded-lg transition-all flex-shrink-0"
-              >
-                Upgrade Plan
-              </Link>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <Link
+                  href="/pricing#credit-packs"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-amber-500/50 text-amber-400 hover:bg-amber-500/10 text-sm font-medium rounded-lg transition-all"
+                >
+                  Buy Credits
+                </Link>
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium rounded-lg transition-all"
+                >
+                  View Plans
+                </Link>
+              </div>
             </div>
           </div>
         )}
 
-        {/* Buy Credits Section */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="text-lg font-semibold text-[var(--text-primary)]">Buy Credits</h2>
-              <p className="text-sm text-[var(--text-secondary)] mt-0.5">One-time purchase. Credits never expire.</p>
+        {/* Smart Credit Top-up Banner */}
+        {credits && !credits.devMode && (() => {
+          const planCredits: Record<string, number> = { starter: 200, pro: 1000, business: 5000 };
+          const monthlyCredits = planCredits[currentPlan?.slug || ''] || 75;
+          const usedPercent = Math.round(((monthlyCredits - credits.balance) / monthlyCredits) * 100);
+          const showBanner = credits.balance <= 0 || usedPercent >= 80;
+
+          if (!showBanner) return null;
+
+          const isEmpty = credits.balance <= 0;
+
+          return (
+            <div className={`card p-5 mb-8 ${isEmpty ? 'border-red-500/30 bg-gradient-to-r from-red-500/5 via-red-500/3 to-transparent' : 'border-amber-500/30 bg-gradient-to-r from-amber-500/5 to-transparent'}`}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${isEmpty ? 'bg-red-500/10' : 'bg-amber-500/10'}`}>
+                    <svg className={`w-5 h-5 ${isEmpty ? 'text-red-400' : 'text-amber-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className={`font-medium ${isEmpty ? 'text-red-400' : 'text-amber-400'}`}>
+                      {isEmpty ? 'Credits exhausted' : 'Running low on credits'}
+                    </h3>
+                    <p className="text-sm text-[var(--text-secondary)]">
+                      {isEmpty
+                        ? 'Your chatbots have stopped responding. Buy credits to get back online.'
+                        : `You have ${credits.balance} credits left (${100 - usedPercent}% remaining). Top up before they run out.`}
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/pricing#credit-packs"
+                  className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 font-medium rounded-lg transition-all flex-shrink-0 ${
+                    isEmpty
+                      ? 'bg-red-500 hover:bg-red-600 text-white'
+                      : 'border border-amber-500/50 text-amber-400 hover:bg-amber-500/10'
+                  }`}
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                  Buy Credits
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-4">
-            {[
-              { id: 'small', credits: 500, price: 6, originalPrice: 7, label: 'Starter Pack' },
-              { id: 'medium', credits: 2000, price: 15, originalPrice: 18, label: 'Growth Pack', popular: true },
-              { id: 'large', credits: 5000, price: 35, originalPrice: 40, label: 'Pro Pack' },
-            ].map((pack) => (
-              <CreditPackCard
-                key={pack.id}
-                pack={pack}
-                token={token!}
-                onSuccess={() => loadCredits()}
-              />
-            ))}
-          </div>
-        </div>
+          );
+        })()}
 
         {/* Contact Banner & API Key Section */}
         <div className="grid md:grid-cols-2 gap-4 mb-8">
@@ -1577,67 +1610,3 @@ function CustomizeWidgetModal({
   );
 }
 
-function CreditPackCard({
-  pack,
-  token,
-  onSuccess,
-}: {
-  pack: { id: string; credits: number; price: number; originalPrice: number; label: string; popular?: boolean };
-  token: string;
-  onSuccess: () => void;
-}) {
-  const [loading, setLoading] = useState(false);
-
-  const handleBuy = async () => {
-    setLoading(true);
-    try {
-      const response = await creditsApi.buyCredits(token, pack.id);
-      if (response.data?.paymentLink) {
-        window.location.href = response.data.paymentLink;
-      }
-    } catch (error: any) {
-      alert(error.message || 'Failed to start purchase');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const perCredit = (pack.price / pack.credits * 1000).toFixed(1);
-  const discount = Math.round((1 - pack.price / pack.originalPrice) * 100);
-
-  return (
-    <div className={`card p-5 relative ${pack.popular ? 'border-primary-500/50 ring-1 ring-primary-500/20' : ''}`}>
-      {pack.popular && (
-        <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-primary-500 text-white text-[10px] font-medium rounded-full">
-          Best Value
-        </div>
-      )}
-      <div className="absolute top-3 right-3">
-        <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-green-900/30 text-green-400">
-          {discount}% OFF
-        </span>
-      </div>
-      <div className="text-center">
-        <p className="text-xs font-medium text-[var(--text-muted)] mb-1">{pack.label}</p>
-        <p className="text-2xl font-bold text-[var(--text-primary)]">{pack.credits.toLocaleString()}</p>
-        <p className="text-sm text-[var(--text-secondary)]">credits</p>
-        <div className="mt-3 mb-4">
-          <span className="text-sm text-[var(--text-muted)] line-through mr-1.5">${pack.originalPrice}</span>
-          <span className="text-xl font-bold text-[var(--text-primary)]">${pack.price}</span>
-          <p className="text-xs text-[var(--text-muted)] mt-0.5">${perCredit} per 1k credits</p>
-        </div>
-        <button
-          onClick={handleBuy}
-          disabled={loading}
-          className={`w-full py-2 text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
-            pack.popular
-              ? 'bg-primary-500 hover:bg-primary-600 text-white'
-              : 'bg-[var(--bg-tertiary)] hover:bg-[var(--border-color)] text-[var(--text-primary)]'
-          }`}
-        >
-          {loading ? 'Redirecting...' : 'Buy Credits'}
-        </button>
-      </div>
-    </div>
-  );
-}
