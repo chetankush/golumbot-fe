@@ -633,13 +633,9 @@ function DashboardContent() {
     ? assistants.find(a => a.id === selectedEmbedAssistant)
     : assistants[0];
   const wc = embedAssistant?.widgetConfig;
-  const widgetUrl = process.env.NEXT_PUBLIC_WIDGET_URL || 'YOUR_WIDGET_URL_HERE';
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'YOUR_API_URL_HERE';
-  const color = wc?.primaryColor || '#00875A';
-  const pos = wc?.position === 'bottom-left' ? 'left:20px' : 'right:20px';
   const configLines = [
     `    apiKey: '${apiKey}'`,
-    `    apiUrl: '${apiUrl}'`,
+    `    apiUrl: '${process.env.NEXT_PUBLIC_API_URL || 'YOUR_API_URL_HERE'}'`,
   ];
   if (selectedEmbedAssistant) configLines.push(`    assistantId: '${selectedEmbedAssistant}'`);
   if (wc?.primaryColor) configLines.push(`    primaryColor: '${wc.primaryColor}'`);
@@ -649,27 +645,11 @@ function DashboardContent() {
   if (wc?.launcherStyle) configLines.push(`    launcherStyle: '${wc.launcherStyle}'`);
   if (wc?.launcherColorScheme) configLines.push(`    launcherColorScheme: '${wc.launcherColorScheme}'`);
   return `<script>
-window.GOLUM_CONFIG = {
+  window.GOLUM_CONFIG = {
 ${configLines.join(',\n')}
-};
-(function(){
-  var c=window.GOLUM_CONFIG,d=document,b=d.createElement('div');
-  b.id='golum-facade';b.setAttribute('role','button');
-  b.setAttribute('aria-label','Chat');
-  b.innerHTML='<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
-  b.style.cssText='position:fixed;bottom:20px;${pos};width:56px;height:56px;background:${color};border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2147483647;box-shadow:0 4px 16px rgba(0,0,0,0.16);border:none;transition:transform .2s;';
-  b.onmouseenter=function(){b.style.transform='scale(1.05)';w();};
-  b.onmouseleave=function(){b.style.transform='scale(1)';};
-  b.onclick=function(){w(1);};
-  var l=0;function w(o){if(l)return;l=1;var s=d.createElement('script');
-  s.src='${widgetUrl}/widget.js';s.onload=function(){var f=d.getElementById('golum-facade');if(f)f.remove();};
-  d.body.appendChild(s);}
-  if(window.requestIdleCallback)requestIdleCallback(function(){w();},{timeout:3000});
-  else setTimeout(function(){w();},3000);
-  if(d.body)d.body.appendChild(b);
-  else d.addEventListener('DOMContentLoaded',function(){d.body.appendChild(b);});
-})();
-</script>`;
+  };
+</script>
+<script src="${process.env.NEXT_PUBLIC_WIDGET_URL || 'YOUR_WIDGET_URL_HERE'}/widget.js" async></script>`;
 })()}
               </pre>
             </div>
