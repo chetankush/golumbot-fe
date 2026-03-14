@@ -298,35 +298,33 @@ function LoginContent() {
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080816]/90 via-transparent to-[#080816]/30" />
 
-        {/* Branding overlay */}
-        <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          <Link href="/" className="flex items-center gap-2.5 text-xl font-semibold text-white">
+        {/* Centered branding overlay */}
+        <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-12">
+          <Link href="/" className="flex items-center gap-2.5 text-xl font-semibold text-white mb-10">
             <GolumIcon size={28} />
             Golum
           </Link>
 
-          <div className="mb-16">
-            <h2 className="text-4xl font-bold text-white leading-[1.15] mb-4">
-              AI support that<br />never sleeps.
-            </h2>
-            <p className="text-white/50 text-base leading-relaxed max-w-sm">
-              Join hundreds of businesses using Golum to answer every customer question, instantly.
-            </p>
+          <h2 className="text-4xl font-bold text-white leading-[1.15] mb-4 text-center">
+            AI support that<br />never sleeps.
+          </h2>
+          <p className="text-white/50 text-base leading-relaxed max-w-sm text-center">
+            Join hundreds of businesses using Golum to answer every customer question, instantly.
+          </p>
 
-            {/* Glass stats */}
-            <div className="flex gap-3 mt-8">
-              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
-                <p className="text-lg font-bold text-white">99%</p>
-                <p className="text-[11px] text-white/40 mt-0.5">Accuracy</p>
-              </div>
-              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
-                <p className="text-lg font-bold text-white">24/7</p>
-                <p className="text-[11px] text-white/40 mt-0.5">Available</p>
-              </div>
-              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
-                <p className="text-lg font-bold text-white">&lt;2s</p>
-                <p className="text-[11px] text-white/40 mt-0.5">Response</p>
-              </div>
+          {/* Glass stats */}
+          <div className="flex gap-3 mt-10">
+            <div className="px-5 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1] text-center">
+              <p className="text-lg font-bold text-white">99%</p>
+              <p className="text-[11px] text-white/40 mt-0.5">Accuracy</p>
+            </div>
+            <div className="px-5 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1] text-center">
+              <p className="text-lg font-bold text-white">24/7</p>
+              <p className="text-[11px] text-white/40 mt-0.5">Available</p>
+            </div>
+            <div className="px-5 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1] text-center">
+              <p className="text-lg font-bold text-white">&lt;2s</p>
+              <p className="text-[11px] text-white/40 mt-0.5">Response</p>
             </div>
           </div>
         </div>
