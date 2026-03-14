@@ -25,30 +25,36 @@ export default function LandingPage() {
       setMobileNav(false);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    // Scroll-reveal observer — lightweight, GPU-only animations
-    const revealElements = document.querySelectorAll('[data-reveal]');
-    if (revealElements.length > 0) {
+  // Scroll-reveal observer — runs AFTER mounted so content is in the DOM
+  useEffect(() => {
+    if (!mounted) return;
+
+    // Small delay to ensure React has flushed the DOM
+    const timer = setTimeout(() => {
+      const revealElements = document.querySelectorAll('[data-reveal]');
+      if (revealElements.length === 0) return;
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add('revealed');
-              observer.unobserve(entry.target); // animate once only
+              observer.unobserve(entry.target);
             }
           });
         },
-        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
       );
       revealElements.forEach((el) => observer.observe(el));
-      return () => {
-        window.removeEventListener('scroll', onScroll);
-        observer.disconnect();
-      };
-    }
 
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+      return () => observer.disconnect();
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [mounted]);
 
   // Demo functions — commented out for now
   // const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
