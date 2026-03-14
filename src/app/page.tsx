@@ -10,6 +10,10 @@ export default function LandingPage() {
   const [mounted, setMounted] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+  const [contactSending, setContactSending] = useState(false);
+  const [contactSent, setContactSent] = useState(false);
+  const [contactError, setContactError] = useState('');
   // Demo section — commented out for now
   // const [demoUrl, setDemoUrl] = useState('');
   // const [demoActive, setDemoActive] = useState(false);
@@ -1169,63 +1173,100 @@ export default function LandingPage() {
       <section id="contact" className="py-24 md:py-32 px-6">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">Contact</p>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+          <h2 data-reveal="up" className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
             Questions? We&apos;re here.
           </h2>
           <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto mb-14 leading-relaxed">
-            Need help setting up? Have a question about your chatbot? Just want to see a demo? Reach out — we respond fast.
+            Need help setting up? Have a question? Reach out — we respond fast.
           </p>
 
-          <div className="apple-glass p-2 sm:p-3 inline-block w-full max-w-md">
-            <div className="space-y-1">
-              <a
-                href="tel:7987401227"
-                className="flex items-center gap-4 px-5 py-4 rounded-[18px] hover:bg-white/[0.04] transition-all duration-300 group"
-              >
-                <div className="w-10 h-10 rounded-[14px] bg-white/[0.05] border border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/10 group-hover:border-green-500/20 transition-all duration-300">
-                  <svg className="w-[18px] h-[18px] text-white/50 group-hover:text-green-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div className="text-left">
-                  <p className="font-medium text-white/90 group-hover:text-white transition-colors">798 740 1227</p>
-                  <p className="text-xs text-white/25 mt-0.5">Phone</p>
-                </div>
-              </a>
-
-              <a
-                href="tel:9303135537"
-                className="flex items-center gap-4 px-5 py-4 rounded-[18px] hover:bg-white/[0.04] transition-all duration-300 group"
-              >
-                <div className="w-10 h-10 rounded-[14px] bg-white/[0.05] border border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/10 group-hover:border-green-500/20 transition-all duration-300">
-                  <svg className="w-[18px] h-[18px] text-white/50 group-hover:text-green-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div className="text-left">
-                  <p className="font-medium text-white/90 group-hover:text-white transition-colors">930 313 5537</p>
-                  <p className="text-xs text-white/25 mt-0.5">Phone</p>
-                </div>
-              </a>
-
-              <a
-                href="mailto:chetankushwah929@gmail.com"
-                className="flex items-center gap-4 px-5 py-4 rounded-[18px] hover:bg-white/[0.04] transition-all duration-300 group"
-              >
-                <div className="w-10 h-10 rounded-[14px] bg-white/[0.05] border border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:bg-white/[0.08] group-hover:border-white/[0.15] transition-all duration-300">
-                  <svg className="w-[18px] h-[18px] text-white/50 group-hover:text-white/80 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div className="text-left">
-                  <p className="font-medium text-white/90 group-hover:text-white transition-colors break-all">chetankushwah929@gmail.com</p>
-                  <p className="text-xs text-white/25 mt-0.5">Email</p>
-                </div>
-              </a>
+          {contactSent ? (
+            <div data-reveal="scale" className="apple-glass p-8 max-w-md mx-auto">
+              <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-7 h-7 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">Message sent!</h3>
+              <p className="text-sm text-white/40">We&apos;ll get back to you shortly. Check your email for a confirmation.</p>
             </div>
-          </div>
+          ) : (
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!contactForm.name || !contactForm.email || !contactForm.message) return;
+                setContactSending(true);
+                setContactError('');
+                try {
+                  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+                  const res = await fetch(`${API_URL}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(contactForm),
+                  });
+                  if (!res.ok) throw new Error();
+                  setContactSent(true);
+                } catch {
+                  setContactError('Failed to send. Please try again or email us directly.');
+                } finally {
+                  setContactSending(false);
+                }
+              }}
+              className="apple-glass p-6 sm:p-8 max-w-md mx-auto text-left"
+            >
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-white/40 mb-1.5">Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={contactForm.name}
+                    onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))}
+                    className="w-full px-4 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.1] text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/[0.25] transition-colors"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-white/40 mb-1.5">Email</label>
+                  <input
+                    type="email"
+                    required
+                    value={contactForm.email}
+                    onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))}
+                    className="w-full px-4 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.1] text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/[0.25] transition-colors"
+                    placeholder="you@company.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-white/40 mb-1.5">Message</label>
+                  <textarea
+                    required
+                    rows={4}
+                    value={contactForm.message}
+                    onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))}
+                    className="w-full px-4 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.1] text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/[0.25] transition-colors resize-none"
+                    placeholder="How can we help?"
+                  />
+                </div>
+                {contactError && (
+                  <p className="text-sm text-red-400">{contactError}</p>
+                )}
+                <button
+                  type="submit"
+                  disabled={contactSending}
+                  className="w-full py-3 bg-white text-[#080816] text-sm font-semibold rounded-lg hover:bg-white/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {contactSending ? 'Sending...' : 'Send Message'}
+                </button>
+              </div>
+            </form>
+          )}
 
-          <p className="mt-10 text-sm text-white/20">We typically respond within a few hours.</p>
+          <div className="flex items-center justify-center gap-6 mt-10">
+            <a href="tel:7987401227" className="text-sm text-white/30 hover:text-white/60 transition-colors">798 740 1227</a>
+            <span className="text-white/10">|</span>
+            <a href="mailto:chetankushwah929@gmail.com" className="text-sm text-white/30 hover:text-white/60 transition-colors">chetankushwah929@gmail.com</a>
+          </div>
         </div>
       </section>
 
