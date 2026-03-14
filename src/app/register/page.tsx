@@ -240,28 +240,32 @@ export default function RegisterPage() {
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080816]/90 via-transparent to-[#080816]/30" />
 
-        <div className="relative z-10 flex flex-col justify-end p-12 w-full">
-          <div className="mb-16">
-            <h2 className="text-4xl font-bold text-white leading-[1.15] mb-4">
-              Your customers deserve<br />instant answers.
-            </h2>
-            <p className="text-white/50 text-base leading-relaxed max-w-sm">
-              Set up your AI assistant in minutes. No code, no hassle — just smarter customer support.
-            </p>
+        {/* Centered branding overlay */}
+        <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-12">
+          <Link href="/" className="flex items-center gap-2.5 text-xl font-semibold text-white mb-10">
+            <GolumIcon size={28} />
+            Golum
+          </Link>
 
-            <div className="flex gap-3 mt-8">
-              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
-                <p className="text-lg font-bold text-white">5 min</p>
-                <p className="text-[11px] text-white/40 mt-0.5">Setup</p>
-              </div>
-              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
-                <p className="text-lg font-bold text-white">Free</p>
-                <p className="text-[11px] text-white/40 mt-0.5">To start</p>
-              </div>
-              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
-                <p className="text-lg font-bold text-white">Any site</p>
-                <p className="text-[11px] text-white/40 mt-0.5">Compatible</p>
-              </div>
+          <h2 className="text-4xl font-bold text-white leading-[1.15] mb-4 text-center">
+            Your customers deserve<br />instant answers.
+          </h2>
+          <p className="text-white/50 text-base leading-relaxed max-w-sm text-center">
+            Set up your AI assistant in minutes. No code, no hassle — just smarter customer support.
+          </p>
+
+          <div className="flex gap-3 mt-10">
+            <div className="px-5 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1] text-center">
+              <p className="text-lg font-bold text-white">5 min</p>
+              <p className="text-[11px] text-white/40 mt-0.5">Setup</p>
+            </div>
+            <div className="px-5 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1] text-center">
+              <p className="text-lg font-bold text-white">Free</p>
+              <p className="text-[11px] text-white/40 mt-0.5">To start</p>
+            </div>
+            <div className="px-5 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1] text-center">
+              <p className="text-lg font-bold text-white">Any site</p>
+              <p className="text-[11px] text-white/40 mt-0.5">Compatible</p>
             </div>
           </div>
         </div>
