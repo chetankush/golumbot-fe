@@ -305,8 +305,18 @@ function DashboardContent() {
               <p className={`text-2xl font-bold ${credits.lowBalance ? 'text-red-400' : 'text-[var(--text-primary)]'}`}>
                 {credits.balance.toLocaleString()}
               </p>
+              <div className="mt-2 space-y-1">
+                <div className="flex justify-between text-[11px]">
+                  <span className="text-[var(--text-muted)]">Used</span>
+                  <span className="text-[var(--text-secondary)]">{credits.totalUsed?.toLocaleString() || 0}</span>
+                </div>
+                <div className="flex justify-between text-[11px]">
+                  <span className="text-[var(--text-muted)]">Purchased</span>
+                  <span className="text-[var(--text-secondary)]">{credits.totalPurchased?.toLocaleString() || 0}</span>
+                </div>
+              </div>
               {credits.lowBalance && (
-                <p className="text-xs text-red-400 mt-1">Low balance</p>
+                <p className="text-xs text-red-400 mt-2">Low balance — <Link href="/pricing" className="underline">buy more</Link></p>
               )}
             </div>
 
@@ -321,6 +331,11 @@ function DashboardContent() {
                 <span className="text-sm text-[var(--text-secondary)]">Plan</span>
               </div>
               <p className="text-2xl font-bold text-[var(--text-primary)]">{currentPlan?.name || 'Free'}</p>
+              <p className="text-[11px] text-[var(--text-muted)] mt-1">
+                {currentPlan?.slug === 'free' || !currentPlan
+                  ? '75 free credits included'
+                  : `${credits.subscription?.status === 'active' ? 'Active' : 'Inactive'} subscription`}
+              </p>
               <Link
                 href="/pricing"
                 className="mt-2 inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium rounded-md text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] hover:border-[var(--text-muted)] transition-colors"
@@ -345,9 +360,12 @@ function DashboardContent() {
               <p className="text-2xl font-bold text-[var(--text-primary)]">
                 {assistantUsage ? `${assistantUsage.current}/${assistantUsage.limit === -1 ? '\u221e' : assistantUsage.limit}` : `${assistants.length}`}
               </p>
+              <p className="text-[11px] text-[var(--text-muted)] mt-1">
+                {assistantUsage?.limit === -1 ? 'Unlimited chatbots' : `${Math.max(0, (assistantUsage?.limit || 1) - (assistantUsage?.current || assistants.length))} slots remaining`}
+              </p>
             </div>
 
-            {/* Model Credit Cost Guide */}
+            {/* Credit Cost Guide */}
             <div className="card p-5">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-amber-500/10">
@@ -355,16 +373,24 @@ function DashboardContent() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <span className="text-sm text-[var(--text-secondary)]">Cost / msg</span>
+                <span className="text-sm text-[var(--text-secondary)]">Credit Usage</span>
               </div>
-              <div className="flex flex-wrap gap-1.5 mt-1">
-                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-900/30 text-emerald-300">1cr</span>
-                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-blue-900/30 text-blue-300">2cr</span>
-                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-purple-900/30 text-purple-300">5cr</span>
-                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-amber-900/30 text-amber-300">10cr</span>
+              <div className="space-y-1.5 mt-1">
+                <div className="flex justify-between text-[11px]">
+                  <span className="text-[var(--text-muted)]">Chat message</span>
+                  <span className="text-emerald-400 font-medium">1 credit</span>
+                </div>
+                <div className="flex justify-between text-[11px]">
+                  <span className="text-[var(--text-muted)]">Web scrape</span>
+                  <span className="text-blue-400 font-medium">3 credits</span>
+                </div>
+                <div className="flex justify-between text-[11px]">
+                  <span className="text-[var(--text-muted)]">Doc upload</span>
+                  <span className="text-purple-400 font-medium">5 credits</span>
+                </div>
               </div>
-              <Link href="/models" className="text-xs text-primary-500 hover:text-primary-400 mt-2 inline-block">
-                View models
+              <Link href="/models" className="text-[11px] text-[var(--text-muted)] hover:text-[var(--text-secondary)] mt-2 inline-block transition-colors">
+                View AI models →
               </Link>
             </div>
           </div>
