@@ -382,6 +382,48 @@ export const analyticsApi = {
       success: boolean;
       data: { questions: Array<{ text: string; count: number }> };
     }>('/api/analytics/top-questions', {}, token),
+
+  missedQuestions: (token: string, period = '30d') =>
+    apiClient<{
+      success: boolean;
+      data: { missedQuestions: Array<{ question: string; count: number }> };
+    }>(`/api/analytics/missed-questions?period=${period}`, {}, token),
+
+  trainingSuggestions: (token: string) =>
+    apiClient<{
+      success: boolean;
+      data: { suggestions: Array<{ question: string; frequency: number }> };
+    }>('/api/analytics/training-suggestions', {}, token),
+
+  addTrainingAnswer: (token: string, data: { question: string; answer: string; assistantId: string }) =>
+    apiClient<{ success: boolean; data: { document: any } }>('/api/analytics/training-suggestions/add', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }, token),
+
+  visitors: (token: string, period = '30d') =>
+    apiClient<{
+      success: boolean;
+      data: {
+        uniqueVisitors: number;
+        returningVisitors: number;
+        avgConversationsPerVisitor: number;
+        period: string;
+      };
+    }>(`/api/analytics/visitors?period=${period}`, {}, token),
+};
+
+// Export API
+export const exportApi = {
+  downloadConversations: () =>
+    `${API_URL}/api/export/conversations`,
+
+  downloadLeads: () =>
+    `${API_URL}/api/export/leads`,
+
+  getExportHeaders: (token: string) => ({
+    'Authorization': `Bearer ${token}`,
+  }),
 };
 
 // Settings API

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
-import { leadsApi } from '@/lib/api';
+import { leadsApi, exportApi } from '@/lib/api';
 import { GolumIcon } from '@/components/Logo';
 
 interface LeadItem {
@@ -245,6 +245,32 @@ export default function LeadsPage() {
             <h1 className="text-xl font-semibold text-[var(--text-primary)]">Leads</h1>
             <p className="text-[var(--text-secondary)] mt-1">People who left their contact info via your chatbot</p>
           </div>
+          <button
+            onClick={async () => {
+              if (!token) return;
+              try {
+                const url = exportApi.downloadLeads();
+                const headers = exportApi.getExportHeaders(token);
+                const response = await fetch(url, { headers });
+                if (!response.ok) throw new Error();
+                const blob = await response.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = 'leads.csv';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(downloadUrl);
+                setShowToast({ type: 'success', message: 'Leads exported' });
+              } catch {
+                setShowToast({ type: 'error', message: 'Export failed' });
+              }
+            }}
+            className="px-4 py-2 text-sm font-medium rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] transition-colors"
+          >
+            Export CSV
+          </button>
         </div>
 
         {/* Stats Cards */}

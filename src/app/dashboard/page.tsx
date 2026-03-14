@@ -649,7 +649,7 @@ function DashboardContent() {
 ${configLines.join(',\n')}
   };
 </script>
-<script src="${process.env.NEXT_PUBLIC_WIDGET_URL || 'YOUR_WIDGET_URL_HERE'}/widget.js"></script>`;
+<script src="${process.env.NEXT_PUBLIC_WIDGET_URL || 'YOUR_WIDGET_URL_HERE'}/widget.js" async></script>`;
 })()}
               </pre>
             </div>

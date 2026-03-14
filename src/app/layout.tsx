@@ -38,6 +38,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Preconnect to widget CDN and API to shave off DNS+TLS time */}
+        <link rel="preconnect" href="https://golum-widget.netlify.app" />
+        <link rel="preconnect" href="https://golum-be.onrender.com" />
+        <link rel="preload" href="https://golum-widget.netlify.app/widget.js" as="script" />
+      </head>
       <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
         <ThemeProvider>
           {children}

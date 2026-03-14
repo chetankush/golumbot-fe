@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/store';
-import { conversationsApi } from '@/lib/api';
+import { conversationsApi, exportApi } from '@/lib/api';
 import { GolumIcon } from '@/components/Logo';
 
 interface ConversationItem {
@@ -258,6 +258,32 @@ export default function ConversationsPage() {
             <p className="text-[var(--text-secondary)] mt-1">View and manage all chat conversations</p>
           </div>
           <div className="flex items-center gap-3">
+            <button
+              onClick={async () => {
+                if (!token) return;
+                try {
+                  const url = exportApi.downloadConversations();
+                  const headers = exportApi.getExportHeaders(token);
+                  const response = await fetch(url, { headers });
+                  if (!response.ok) throw new Error();
+                  const blob = await response.blob();
+                  const downloadUrl = window.URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = downloadUrl;
+                  a.download = 'conversations.csv';
+                  document.body.appendChild(a);
+                  a.click();
+                  a.remove();
+                  window.URL.revokeObjectURL(downloadUrl);
+                  setShowToast({ type: 'success', message: 'Conversations exported' });
+                } catch {
+                  setShowToast({ type: 'error', message: 'Export failed' });
+                }
+              }}
+              className="px-4 py-2 text-sm font-medium rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] transition-colors"
+            >
+              Export CSV
+            </button>
             {summaryUsage && (
               <span className="px-3 py-1.5 text-xs font-medium bg-[var(--bg-tertiary)] rounded-full text-[var(--text-secondary)]">
                 Summaries: {summaryUsage.used}/{summaryUsage.limit}
