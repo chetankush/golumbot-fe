@@ -1263,9 +1263,9 @@ export default function LandingPage() {
           )}
 
           <div className="flex items-center justify-center gap-6 mt-10">
-            <a href="tel:7987401227" className="text-sm text-white/30 hover:text-white/60 transition-colors">798 740 1227</a>
+            <a href="tel:+917987401227" className="text-sm text-white/30 hover:text-white/60 transition-colors">+91 798 740 1227</a>
             <span className="text-white/10">|</span>
-            <a href="mailto:chanukushwah1111@gmail.com" className="text-sm text-white/30 hover:text-white/60 transition-colors">chanukushwah1111@gmail.com</a>
+            <a href="mailto:chetankush729@gmail.com" className="text-sm text-white/30 hover:text-white/60 transition-colors">chetankush729@gmail.com</a>
           </div>
         </div>
       </section>
