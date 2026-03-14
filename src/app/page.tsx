@@ -230,10 +230,10 @@ export default function LandingPage() {
         {/* Bottom stats bar — placed higher */}
         <div className="relative w-full mb-28 px-6">
           <div className="max-w-5xl mx-auto flex items-center justify-center gap-10 sm:gap-14 md:gap-20 flex-wrap">
-            <span className="text-white text-base md:text-lg font-semibold tracking-wide">99% Accuracy</span>
-            <span className="text-white text-base md:text-lg font-semibold tracking-wide">24/7 Available</span>
+            <span className="text-white text-base md:text-lg font-semibold tracking-wide">24/7 Support</span>
             <span className="text-white text-base md:text-lg font-semibold tracking-wide">5 Min Setup</span>
-            <span className="text-white text-base md:text-lg font-semibold tracking-wide">Any Website</span>
+            <span className="text-white text-base md:text-lg font-semibold tracking-wide">Lead Capture</span>
+            <span className="text-white text-base md:text-lg font-semibold tracking-wide">Full Analytics</span>
           </div>
         </div>
 
@@ -807,28 +807,52 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Expanded feature grid */}
+          {/* Everything You Get — full feature grid */}
+          <div className="mb-6 md:mb-8">
+            <h3 className="text-lg md:text-xl font-semibold text-white/80">Everything you get</h3>
+            <p className="text-sm text-white/30 mt-1">No hidden features. No premium tiers for basics. All of this is included.</p>
+          </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-14 md:mb-20">
             {[
               {
                 icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
                 title: 'Lead Capture',
-                desc: 'Collect visitor names and emails when the chatbot can\'t answer — so you never lose a lead',
+                desc: 'Automatically collect visitor names and emails when the chatbot can\'t answer — never lose a potential customer',
               },
               {
                 icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
-                title: 'Analytics',
-                desc: 'See what visitors ask most, how many chats happen daily, and where the chatbot needs help',
+                title: 'Analytics Dashboard',
+                desc: 'Conversations per day, busiest hours, top questions, visitor tracking — see exactly how your chatbot performs',
+              },
+              {
+                icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+                title: 'Missed Questions',
+                desc: 'See every question your AI couldn\'t answer. Know exactly what info to add so the bot gets smarter over time',
+              },
+              {
+                icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+                title: 'AI Training Suggestions',
+                desc: 'Golum tells you which questions need answers. Type the answer, click Add — bot learns it instantly',
+              },
+              {
+                icon: 'M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+                title: 'CSV Export',
+                desc: 'Export all conversations and leads as CSV files. Open in Excel, import to your CRM — your data, your way',
               },
               {
                 icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
-                title: 'Live Chat Handoff',
-                desc: 'Jump into any conversation yourself when a visitor needs human help — bot hands off to you',
+                title: 'WhatsApp Handoff',
+                desc: 'When visitors need a human, the bot offers your WhatsApp or phone — seamless escalation, no lost leads',
               },
               {
-                icon: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1',
-                title: 'Slack & Email Alerts',
-                desc: 'Get notified on Slack or email when a visitor starts a chat or the bot can\'t answer a question',
+                icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
+                title: 'Full Customization',
+                desc: 'Your brand colors, your logo, your welcome message. The chatbot looks native to your website — not like a third-party tool',
+              },
+              {
+                icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+                title: 'Visitor Tracking',
+                desc: 'Unique visitors, returning visitors, average chats per person — understand who\'s using your chatbot and how',
               },
             ].map((item) => (
               <div key={item.title} className="apple-glass p-5 md:p-6">
@@ -869,8 +893,9 @@ export default function LandingPage() {
 
                 {/* Bottom list items with dividers */}
                 <div className="mt-auto pt-10">
-                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Upload your FAQ, product docs, or website URL</div>
-                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Customize colors and chat style to match your site</div>
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Train from your website, PDFs, or just paste text</div>
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">See missed questions and teach the bot with one click</div>
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Export leads and conversations to CSV anytime</div>
                   <div className="py-4 text-[15px] text-white/80 font-medium">Paste one code snippet — chatbot goes live on your site</div>
                 </div>
               </div>
