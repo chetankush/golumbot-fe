@@ -52,7 +52,7 @@ function DashboardContent() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showCustomizeModal, setShowCustomizeModal] = useState<Assistant | null>(null);
   const [copied, setCopied] = useState(false);
-  const [credits, setCredits] = useState<{ balance: number; lowBalance: boolean; devMode?: boolean } | null>(null);
+  const [credits, setCredits] = useState<{ balance: number; lowBalance: boolean; devMode?: boolean; totalUsed?: number; totalPurchased?: number; subscription?: { status: string } } | null>(null);
   const [currentPlan, setCurrentPlan] = useState<{ name: string; slug: string } | null>(null);
   const [assistantUsage, setAssistantUsage] = useState<{ current: number; limit: number } | null>(null);
   const [selectedEmbedAssistant, setSelectedEmbedAssistant] = useState<string>('');
@@ -114,6 +114,9 @@ function DashboardContent() {
         balance: response.data.balance,
         lowBalance: response.data.lowBalance,
         devMode: (response.data as any).devMode,
+        totalUsed: response.data.totalUsed,
+        totalPurchased: response.data.totalPurchased,
+        subscription: response.data.subscription ? { status: response.data.subscription.status } : undefined,
       });
     } catch (error: any) {
       // If session expired, logout and redirect
