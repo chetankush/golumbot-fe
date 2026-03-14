@@ -496,11 +496,11 @@ function DashboardContent() {
                     </svg>
                     9303135537
                   </a>
-                  <a href="mailto:chetankushwah929@gmail.com" className="flex items-center gap-2 text-sm text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors">
+                  <a href="mailto:chanukushwah1111@gmail.com" className="flex items-center gap-2 text-sm text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors">
                     <svg className="w-4 h-4 text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    chetankushwah929@gmail.com
+                    chanukushwah1111@gmail.com
                   </a>
                 </div>
               </div>
