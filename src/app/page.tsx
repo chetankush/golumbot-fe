@@ -950,8 +950,8 @@ export default function LandingPage() {
                       <p className="text-xl font-bold text-white">99%</p>
                     </div>
                     <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.06]">
-                      <p className="text-[10px] text-white/35 mb-1">Customers Helped</p>
-                      <p className="text-xl font-bold text-white">1,240</p>
+                      <p className="text-[10px] text-white/35 mb-1">Conversations</p>
+                      <p className="text-xl font-bold text-white">5,000+</p>
                     </div>
                     <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.06]">
                       <p className="text-[10px] text-white/35 mb-1">Response Time</p>
@@ -1108,8 +1108,8 @@ export default function LandingPage() {
           {/* Trust numbers */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-20">
             {[
-              { number: '500+', label: 'Chatbots created' },
-              { number: '50K+', label: 'Visitor questions answered' },
+              { number: '10+', label: 'Chatbots working' },
+              { number: '5K+', label: 'Conversations handled' },
               { number: '99%', label: 'Uptime' },
               { number: '<2s', label: 'Average response time' },
             ].map((stat) => (
