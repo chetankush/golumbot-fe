@@ -25,6 +25,28 @@ export default function LandingPage() {
       setMobileNav(false);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Scroll-reveal observer — lightweight, GPU-only animations
+    const revealElements = document.querySelectorAll('[data-reveal]');
+    if (revealElements.length > 0) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target); // animate once only
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      );
+      revealElements.forEach((el) => observer.observe(el));
+      return () => {
+        window.removeEventListener('scroll', onScroll);
+        observer.disconnect();
+      };
+    }
+
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -198,7 +220,7 @@ export default function LandingPage() {
         {/* Content — centered, wider container */}
         <div className="relative text-center max-w-7xl mx-auto px-6 pt-36 sm:pt-32 pb-32 flex-1 flex flex-col items-center justify-center">
           {/* Announcement badge */}
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/[0.12] backdrop-blur-xl border border-white/[0.15] text-[8px] sm:text-[10px] font-medium tracking-[0.12em] sm:tracking-[0.15em] uppercase text-white/70 mb-8 sm:mb-10 cursor-pointer hover:bg-white/[0.18] transition-all duration-300">
+          <div data-reveal="up" className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/[0.12] backdrop-blur-xl border border-white/[0.15] text-[8px] sm:text-[10px] font-medium tracking-[0.12em] sm:tracking-[0.15em] uppercase text-white/70 mb-8 sm:mb-10 cursor-pointer hover:bg-white/[0.18] transition-all duration-300">
             Add AI Chat Support to Your Website
             <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -206,14 +228,14 @@ export default function LandingPage() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-[2.1rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]">
+          <h1 data-reveal="up" className="text-[2.1rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]">
             A chatbot for your website
             <br />
             that knows your business.
           </h1>
 
           {/* Subtitle */}
-          <p className="text-sm md:text-base text-white/75 mb-9 max-w-xl mx-auto leading-relaxed">
+          <p data-reveal="up" className="text-sm md:text-base text-white/75 mb-9 max-w-xl mx-auto leading-relaxed">
             <span className="hidden sm:inline">Golum puts a chatbot on your website that answers visitor questions about your products, pricing, and services — automatically, 24/7. Just upload your info and paste one line of code.</span>
             <span className="sm:hidden">Put a chatbot on your site that answers customer questions about your business — 24/7, automatically.</span>
           </p>
@@ -221,7 +243,8 @@ export default function LandingPage() {
           {/* White pill CTA */}
           <Link
             href="/register"
-            className="inline-flex px-7 py-3 bg-white text-[#080816] text-sm font-medium rounded-full hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+            data-reveal="scale"
+            className="inline-flex px-7 py-3 bg-white text-[#080816] text-sm font-medium rounded-full hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] animate-pulse-glow"
           >
             Get Started 
           </Link>
@@ -244,7 +267,7 @@ export default function LandingPage() {
       {/* ====== Device Demo Section ====== */}
       <section className="py-16 md:py-28 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <p className="text-center text-xs sm:text-sm text-white/30 mb-8 md:mb-12">
+          <p data-reveal="fade" className="text-center text-xs sm:text-sm text-white/30 mb-8 md:mb-12">
             See how the chatbot looks on your website — desktop &amp; mobile
           </p>
 
@@ -775,7 +798,7 @@ export default function LandingPage() {
           {/* Top row: heading left + mini features right */}
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12 lg:gap-20 mb-14 md:mb-20">
             {/* Left — Badge + Large heading */}
-            <div className="lg:max-w-lg flex-shrink-0">
+            <div data-reveal="left" className="lg:max-w-lg flex-shrink-0">
               <div className="flex items-center gap-2.5 text-[11px] font-medium tracking-[0.2em] uppercase text-white/45 mb-6">
                 <span className="w-2 h-2 rounded-full bg-white/60" />
                 Why Golum
@@ -788,7 +811,7 @@ export default function LandingPage() {
             </div>
 
             {/* Right — 3 mini features in a row */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-10 lg:max-w-2xl lg:pt-8">
+            <div data-reveal="right" className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-10 lg:max-w-2xl lg:pt-8">
               <div>
                 <div className="text-white/45 mb-3"><PaletteIcon /></div>
                 <h4 className="text-white font-medium mb-1.5">Matches Your Brand</h4>
@@ -808,11 +831,11 @@ export default function LandingPage() {
           </div>
 
           {/* Everything You Get — full feature grid */}
-          <div className="mb-6 md:mb-8">
+          <div data-reveal="up" className="mb-6 md:mb-8">
             <h3 className="text-lg md:text-xl font-semibold text-white/80">Everything you get</h3>
             <p className="text-sm text-white/30 mt-1">No hidden features. No premium tiers for basics. All of this is included.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-14 md:mb-20">
+          <div data-reveal-stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-14 md:mb-20">
             {[
               {
                 icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
@@ -855,7 +878,7 @@ export default function LandingPage() {
                 desc: 'Unique visitors, returning visitors, average chats per person — understand who\'s using your chatbot and how',
               },
             ].map((item) => (
-              <div key={item.title} className="apple-glass p-5 md:p-6">
+              <div key={item.title} data-reveal="up" className="apple-glass p-5 md:p-6">
                 <div className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-4">
                   <svg className="w-4 h-4 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
@@ -868,7 +891,7 @@ export default function LandingPage() {
           </div>
 
           {/* Large showcase card */}
-          <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+          <div data-reveal="up" className="rounded-3xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
             <div className="grid lg:grid-cols-2">
               {/* Left content */}
               <div className="p-8 md:p-10 lg:p-14 flex flex-col order-2 lg:order-1">
@@ -935,7 +958,7 @@ export default function LandingPage() {
       {/* ====== How It Works — Vertical Timeline ====== */}
       <section id="how-it-works" className="py-24 md:py-32 px-6">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16 md:mb-20">
+          <div data-reveal="up" className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">How It Works</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
               3 steps. 5 minutes. Done.
@@ -976,7 +999,7 @@ export default function LandingPage() {
       {/* ====== Pricing Section ====== */}
       <section id="pricing" className="py-24 md:py-32 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16 md:mb-20">
+          <div data-reveal="up" className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">Pricing</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
               Simple, transparent pricing.
