@@ -88,51 +88,7 @@ function LoginContent() {
 
   return (
     <div className="min-h-screen flex bg-[#080816]">
-      {/* Left — Nature image panel */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <img
-          src="/hero-bg.jpg"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080816]/90 via-transparent to-[#080816]/30" />
-
-        {/* Branding overlay */}
-        <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          <Link href="/" className="flex items-center gap-2.5 text-xl font-semibold text-white">
-            <GolumIcon size={28} />
-            Golum
-          </Link>
-
-          <div className="mb-16">
-            <h2 className="text-4xl font-bold text-white leading-[1.15] mb-4">
-              AI support that<br />never sleeps.
-            </h2>
-            <p className="text-white/50 text-base leading-relaxed max-w-sm">
-              Join hundreds of businesses using Golum to answer every customer question, instantly.
-            </p>
-
-            {/* Glass stats */}
-            <div className="flex gap-3 mt-8">
-              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
-                <p className="text-lg font-bold text-white">99%</p>
-                <p className="text-[11px] text-white/40 mt-0.5">Accuracy</p>
-              </div>
-              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
-                <p className="text-lg font-bold text-white">24/7</p>
-                <p className="text-[11px] text-white/40 mt-0.5">Available</p>
-              </div>
-              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
-                <p className="text-lg font-bold text-white">&lt;2s</p>
-                <p className="text-[11px] text-white/40 mt-0.5">Response</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Right — Auth form */}
+      {/* Left — Auth form */}
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Mobile header */}
         <header className="lg:hidden flex items-center justify-between px-6 py-4">
@@ -146,6 +102,12 @@ function LoginContent() {
           <div className="w-full max-w-sm animate-fade-in">
             {/* Header Text */}
             <div className="text-center mb-8">
+              <div className="hidden lg:block mb-6">
+                <Link href="/" className="inline-flex items-center gap-2 text-lg font-semibold text-white">
+                  <GolumIcon size={24} />
+                  Golum
+                </Link>
+              </div>
               <h1 className="text-2xl font-bold text-white mb-2">
                 Welcome back
               </h1>
@@ -288,11 +250,6 @@ function LoginContent() {
                       suppressHydrationWarning
                     />
                   </div>
-
-                  <p className="text-sm text-white/25">
-                    We&apos;ll send you a magic link to sign in without a password.
-                  </p>
-
                   <button
                     type="submit"
                     disabled={loading}
@@ -304,38 +261,77 @@ function LoginContent() {
                 </form>
               )}
 
-              {/* Magic Link Sent Success */}
+              {/* Magic Link Sent */}
               {authMethod === 'magic-link' && magicLinkSent && (
-                <div className="text-center py-4">
-                  <div className="mx-auto w-12 h-12 bg-green-500/10 border border-green-500/20 rounded-2xl flex items-center justify-center mb-4">
-                    <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <div className="text-center py-4" suppressHydrationWarning>
+                  <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-medium text-white mb-2">Check your email</h3>
-                  <p className="text-sm text-white/40 mb-4">
-                    We&apos;ve sent a magic link to <strong className="text-white/70">{email}</strong>
+                  <h3 className="text-lg font-medium text-white mb-1">Check your email</h3>
+                  <p className="text-sm text-white/40">
+                    We sent a sign-in link to <span className="text-white/70">{email}</span>
                   </p>
-                  <button
-                    type="button"
-                    onClick={() => setMagicLinkSent(false)}
-                    className="text-sm text-purple-400 hover:text-purple-300"
-                  >
-                    Send again
-                  </button>
                 </div>
               )}
-
-              <p className="text-center text-sm text-white/30 mt-6">
-                Don&apos;t have an account?{' '}
-                <Link href="/register" className="text-purple-400 hover:text-purple-300 font-medium">
-                  Sign up
-                </Link>
-              </p>
             </div>
+
+            {/* Footer link */}
+            <p className="text-center text-sm text-white/30 mt-6" suppressHydrationWarning>
+              Don&apos;t have an account?{' '}
+              <Link href="/register" className="text-purple-400 hover:text-purple-300 font-medium">
+                Sign up
+              </Link>
+            </p>
           </div>
         </main>
       </div>
+
+      {/* Right — Nature image panel */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        <img
+          src="/hero-bg.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080816]/90 via-transparent to-[#080816]/30" />
+
+        {/* Branding overlay */}
+        <div className="relative z-10 flex flex-col justify-between p-12 w-full">
+          <Link href="/" className="flex items-center gap-2.5 text-xl font-semibold text-white">
+            <GolumIcon size={28} />
+            Golum
+          </Link>
+
+          <div className="mb-16">
+            <h2 className="text-4xl font-bold text-white leading-[1.15] mb-4">
+              AI support that<br />never sleeps.
+            </h2>
+            <p className="text-white/50 text-base leading-relaxed max-w-sm">
+              Join hundreds of businesses using Golum to answer every customer question, instantly.
+            </p>
+
+            {/* Glass stats */}
+            <div className="flex gap-3 mt-8">
+              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
+                <p className="text-lg font-bold text-white">99%</p>
+                <p className="text-[11px] text-white/40 mt-0.5">Accuracy</p>
+              </div>
+              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
+                <p className="text-lg font-bold text-white">24/7</p>
+                <p className="text-[11px] text-white/40 mt-0.5">Available</p>
+              </div>
+              <div className="px-4 py-3 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1]">
+                <p className="text-lg font-bold text-white">&lt;2s</p>
+                <p className="text-[11px] text-white/40 mt-0.5">Response</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
