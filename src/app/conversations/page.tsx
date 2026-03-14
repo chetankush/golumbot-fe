@@ -262,7 +262,7 @@ export default function ConversationsPage() {
               onClick={async () => {
                 if (!token) return;
                 try {
-                  const url = exportApi.downloadConversations(token);
+                  const url = exportApi.downloadConversations();
                   const headers = exportApi.getExportHeaders(token);
                   const response = await fetch(url, { headers });
                   if (!response.ok) throw new Error();

@@ -415,10 +415,10 @@ export const analyticsApi = {
 
 // Export API
 export const exportApi = {
-  downloadConversations: (token: string) =>
+  downloadConversations: () =>
     `${API_URL}/api/export/conversations`,
 
-  downloadLeads: (token: string) =>
+  downloadLeads: () =>
     `${API_URL}/api/export/leads`,
 
   getExportHeaders: (token: string) => ({

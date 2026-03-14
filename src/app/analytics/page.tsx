@@ -156,8 +156,8 @@ export default function AnalyticsPage() {
     if (!token) return;
     try {
       const url = type === 'conversations'
-        ? exportApi.downloadConversations(token)
-        : exportApi.downloadLeads(token);
+        ? exportApi.downloadConversations()
+        : exportApi.downloadLeads();
       const headers = exportApi.getExportHeaders(token);
 
       const response = await fetch(url, { headers });
@@ -541,7 +541,7 @@ export default function AnalyticsPage() {
                             />
                             <button
                               onClick={() => handleAddAnswer(s.question)}
-                              disabled={!answerInput[s.question]?.trim() || addingAnswer === s.question}
+                              disabled={!answerInput[s.question]?.trim() || addingAnswer === s.question || !selectedAssistant}
                               className="px-4 py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                               {addingAnswer === s.question ? (

@@ -249,7 +249,7 @@ export default function LeadsPage() {
             onClick={async () => {
               if (!token) return;
               try {
-                const url = exportApi.downloadLeads(token);
+                const url = exportApi.downloadLeads();
                 const headers = exportApi.getExportHeaders(token);
                 const response = await fetch(url, { headers });
                 if (!response.ok) throw new Error();
