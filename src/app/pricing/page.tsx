@@ -54,10 +54,17 @@ const PLANS = [
   },
 ];
 
+const CREDIT_PACKS = [
+  { id: 'small', credits: 500, price: 6, originalPrice: 7, label: 'Starter Pack' },
+  { id: 'medium', credits: 2000, price: 15, originalPrice: 18, label: 'Growth Pack', popular: true },
+  { id: 'large', credits: 5000, price: 35, originalPrice: 40, label: 'Pro Pack' },
+];
+
 export default function PricingPage() {
   const { isAuthenticated, token } = useAuthStore();
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
+  const [buyingPack, setBuyingPack] = useState<string | null>(null);
   const [showToast, setShowToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   const handleSubscribe = async (planId: string) => {
@@ -80,6 +87,25 @@ export default function PricingPage() {
       setTimeout(() => setShowToast(null), 5000);
     } finally {
       setLoading(null);
+    }
+  };
+
+  const handleBuyCredits = async (packId: string) => {
+    if (!isAuthenticated || !token) {
+      router.push('/login?redirect=/pricing');
+      return;
+    }
+    setBuyingPack(packId);
+    try {
+      const response = await creditsApi.buyCredits(token, packId);
+      if (response.data?.paymentLink) {
+        window.location.href = response.data.paymentLink;
+      }
+    } catch (error: any) {
+      setShowToast({ type: 'error', message: error.message || 'Failed to start purchase.' });
+      setTimeout(() => setShowToast(null), 5000);
+    } finally {
+      setBuyingPack(null);
     }
   };
 
@@ -213,6 +239,63 @@ export default function PricingPage() {
                 Contact Us
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Credit Packs Section */}
+      <section id="credit-packs" className="pb-20 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-[var(--text-primary)]">
+              Need more credits?
+            </h2>
+            <p className="text-[var(--text-secondary)] max-w-lg mx-auto">
+              One-time credit packs. No subscription needed. Credits never expire.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-4">
+            {CREDIT_PACKS.map((pack) => {
+              const discount = Math.round((1 - pack.price / pack.originalPrice) * 100);
+              const perCredit = (pack.price / pack.credits * 1000).toFixed(1);
+              return (
+                <div
+                  key={pack.id}
+                  className={`card p-6 relative text-center ${pack.popular ? 'border-purple-500/50 ring-1 ring-purple-500/20' : ''}`}
+                >
+                  {pack.popular && (
+                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-purple-500 text-white text-[10px] font-medium rounded-full">
+                      Best Value
+                    </div>
+                  )}
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-green-900/30 text-green-400">
+                      {discount}% OFF
+                    </span>
+                  </div>
+                  <p className="text-xs font-medium text-[var(--text-muted)] mb-1">{pack.label}</p>
+                  <p className="text-3xl font-bold text-[var(--text-primary)]">{pack.credits.toLocaleString()}</p>
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">credits</p>
+                  <div className="mb-4">
+                    <span className="text-sm text-[var(--text-muted)] line-through mr-1.5">${pack.originalPrice}</span>
+                    <span className="text-2xl font-bold text-[var(--text-primary)]">${pack.price}</span>
+                    <p className="text-xs text-[var(--text-muted)] mt-0.5">${perCredit} per 1k credits</p>
+                  </div>
+                  <button
+                    onClick={() => handleBuyCredits(pack.id)}
+                    disabled={buyingPack === pack.id}
+                    className={`w-full py-2.5 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                      pack.popular
+                        ? 'bg-purple-500 hover:bg-purple-600 text-white'
+                        : 'border border-purple-500/50 text-purple-400 hover:bg-purple-500/10'
+                    }`}
+                  >
+                    {buyingPack === pack.id ? 'Redirecting...' : 'Buy Credits'}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
