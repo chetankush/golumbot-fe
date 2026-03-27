@@ -361,7 +361,7 @@ function DashboardContent() {
                 <span className="text-sm text-[var(--text-secondary)]">Assistants</span>
               </div>
               <p className="text-2xl font-bold text-[var(--text-primary)]">
-                {assistantUsage ? `${assistantUsage.current}/${assistantUsage.limit === -1 ? '\u221e' : assistantUsage.limit}` : `${assistants.length}`}
+                {assistantUsage ? (assistantUsage.limit === -1 ? `${assistantUsage.current}` : `${assistantUsage.current}/${assistantUsage.limit}`) : `${assistants.length}`}
               </p>
               <p className="text-[11px] text-[var(--text-muted)] mt-1">
                 {assistantUsage?.limit === -1 ? 'Unlimited chatbots' : `${Math.max(0, (assistantUsage?.limit || 1) - (assistantUsage?.current || assistants.length))} slots remaining`}
@@ -572,9 +572,9 @@ function DashboardContent() {
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div className="flex items-center gap-3">
             <h2 className="text-xl font-semibold text-[var(--text-primary)]">Assistants</h2>
-            {assistantUsage && (
+            {assistantUsage && assistantUsage.limit !== -1 && (
               <span className="px-2.5 py-1 text-xs font-medium bg-[var(--bg-tertiary)] text-[var(--text-secondary)] rounded-full">
-                {assistantUsage.current}/{assistantUsage.limit === -1 ? '\u221e' : assistantUsage.limit}
+                {assistantUsage.current}/{assistantUsage.limit}
               </span>
             )}
           </div>
@@ -673,6 +673,9 @@ function DashboardContent() {
   if (wc?.launcherIcon) configLines.push(`    launcherIcon: '${wc.launcherIcon}'`);
   if (wc?.launcherStyle) configLines.push(`    launcherStyle: '${wc.launcherStyle}'`);
   if (wc?.launcherColorScheme) configLines.push(`    launcherColorScheme: '${wc.launcherColorScheme}'`);
+  if (wc?.customIconUrl) configLines.push(`    customIconUrl: '${wc.customIconUrl}'`);
+  if (wc?.chatbotName) configLines.push(`    chatbotName: '${wc.chatbotName}'`);
+  if (wc?.greeting) configLines.push(`    greeting: '${wc.greeting}'`);
   return `<script>
   window.GOLUM_CONFIG = {
 ${configLines.join(',\n')}
