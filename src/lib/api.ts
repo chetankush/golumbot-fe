@@ -90,6 +90,18 @@ export const authApi = {
       method: 'POST',
       body: JSON.stringify({ access_token: accessToken }),
     }),
+
+  resetPassword: (email: string) =>
+    apiClient('/api/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    }),
+
+  updatePassword: (accessToken: string, password: string) =>
+    apiClient('/api/auth/update-password', {
+      method: 'POST',
+      body: JSON.stringify({ access_token: accessToken, password }),
+    }),
 };
 
 // Assistants API
