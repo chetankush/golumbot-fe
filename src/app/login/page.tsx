@@ -229,6 +229,12 @@ function LoginContent() {
                   >
                     {loading ? 'Signing in...' : 'Sign in'}
                   </button>
+
+                  <div className="text-center mt-2">
+                    <Link href="/reset-password" className="text-sm text-white/30 hover:text-purple-400 transition-colors">
+                      Forgot your password?
+                    </Link>
+                  </div>
                 </form>
               )}
 
