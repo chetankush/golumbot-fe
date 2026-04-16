@@ -15,7 +15,7 @@ const PLANS = [
     monthlyCredits: 0,
     maxAssistants: 1,
     summaryLimit: 10,
-    features: ['1 AI assistant', '100 welcome credits', '10 conversation summaries', 'Basic widget customization'],
+    features: ['1 AI assistant', '50 welcome credits', '10 conversation summaries', 'Basic widget customization'],
     popular: false,
     cta: 'Get Started',
   },
