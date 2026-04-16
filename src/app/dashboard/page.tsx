@@ -336,7 +336,7 @@ function DashboardContent() {
               <p className="text-2xl font-bold text-[var(--text-primary)]">{currentPlan?.name || 'Free'}</p>
               <p className="text-[11px] text-[var(--text-muted)] mt-1">
                 {currentPlan?.slug === 'free' || !currentPlan
-                  ? '75 free credits included'
+                  ? '50 free credits included'
                   : `${credits.subscription?.status === 'active' ? 'Active' : 'Inactive'} subscription`}
               </p>
               <Link
@@ -456,7 +456,7 @@ function DashboardContent() {
         {/* Smart Credit Top-up Banner */}
         {credits && !credits.devMode && (() => {
           const planCredits: Record<string, number> = { starter: 200, pro: 1000, business: 5000 };
-          const monthlyCredits = planCredits[currentPlan?.slug || ''] || 75;
+          const monthlyCredits = planCredits[currentPlan?.slug || ''] || 50;
           const usedPercent = Math.round(((monthlyCredits - credits.balance) / monthlyCredits) * 100);
           const showBanner = credits.balance <= 0 || usedPercent >= 80;
 
