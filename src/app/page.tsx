@@ -238,7 +238,7 @@ export default function LandingPage() {
           </Link>
 
           {/* Heading */}
-          <h1 data-reveal="up" className="text-[2.1rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]">
+          <h1 data-reveal="up" className="font-display text-[2.1rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]">
             A chatbot for your website
             <br />
             that knows your business.
@@ -813,7 +813,7 @@ export default function LandingPage() {
                 <span className="w-2 h-2 rounded-full bg-white/60" />
                 Why Golum
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-[1.1] tracking-tight">
+              <h2 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-[1.1] tracking-tight">
                 Your own support agent.
                 <br />
                 On your website.
@@ -842,7 +842,7 @@ export default function LandingPage() {
 
           {/* Everything You Get — full feature grid */}
           <div data-reveal="up" className="mb-6 md:mb-8">
-            <h3 className="text-lg md:text-xl font-semibold text-white/80">Everything you get</h3>
+            <h3 className="font-display text-lg md:text-xl font-semibold text-white/80">Everything you get</h3>
             <p className="text-sm text-white/30 mt-1">No hidden features. No premium tiers for basics. All of this is included.</p>
           </div>
           <div data-reveal-stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-14 md:mb-20">
@@ -912,7 +912,7 @@ export default function LandingPage() {
                     <rect x="3" y="14" width="7" height="7" rx="1.5" />
                     <rect x="14" y="14" width="7" height="7" rx="1.5" />
                   </svg>
-                  <h3 className="text-2xl md:text-3xl font-semibold text-white">Manage From One Dashboard</h3>
+                  <h3 className="font-display text-2xl md:text-3xl font-semibold text-white">Manage From One Dashboard</h3>
                 </div>
                 <p className="text-white/40 mb-8 leading-relaxed max-w-sm text-[15px]">
                   See what visitors are asking, read full conversations, and improve your chatbot&apos;s answers — all from a simple dashboard.
@@ -970,7 +970,7 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto">
           <div data-reveal="up" className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">How It Works</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
               3 steps. 5 minutes. Done.
             </h2>
             <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto leading-relaxed">
@@ -1011,7 +1011,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div data-reveal="up" className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">Pricing</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
               Simple, transparent pricing.
             </h2>
             <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto leading-relaxed">
@@ -1161,7 +1161,7 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <h3 className="text-xl md:text-2xl font-semibold text-white mb-2">Try it right now</h3>
+            <h3 className="font-display text-xl md:text-2xl font-semibold text-white mb-2">Try it right now</h3>
             <p className="text-sm text-white/40 leading-relaxed max-w-md mx-auto">
               See the chat icon in the bottom-right corner? That&apos;s a Golum chatbot running live on this page. Click it and ask anything — that&apos;s exactly what your visitors will experience.
             </p>
@@ -1173,7 +1173,7 @@ export default function LandingPage() {
       <section id="contact" className="py-24 md:py-32 px-6">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">Contact</p>
-          <h2 data-reveal="up" className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+          <h2 data-reveal="up" className="font-display text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
             Questions? We&apos;re here.
           </h2>
           <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto mb-14 leading-relaxed">
@@ -1187,7 +1187,7 @@ export default function LandingPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Message sent!</h3>
+              <h3 className="font-display text-xl font-semibold text-white mb-2">Message sent!</h3>
               <p className="text-sm text-white/40">We&apos;ll get back to you shortly. Check your email for a confirmation.</p>
             </div>
           ) : (
@@ -1275,7 +1275,7 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">FAQ</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
               Got questions? We&apos;ve got answers.
             </h2>
             <p className="text-base md:text-lg text-white/40">
@@ -1303,7 +1303,7 @@ export default function LandingPage() {
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-32 bg-white/[0.06] blur-[60px]" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-20 bg-white/[0.03] blur-[40px]" />
 
-            <h2 className="text-2xl md:text-4xl font-bold mb-5 text-white relative tracking-tight">
+            <h2 className="font-display text-2xl md:text-4xl font-bold mb-5 text-white relative tracking-tight">
               Your visitors have questions.
               <br />
               <span className="text-white/60">Let your website answer them.</span>
@@ -1400,7 +1400,7 @@ function TimelineStep({ number, title, description, isLast }: { number: string; 
 
       {/* Right: content */}
       <div className={`pt-2 ${isLast ? 'pb-0' : 'pb-12 md:pb-16'}`}>
-        <h3 className="text-xl md:text-2xl font-semibold text-white mb-2 group-hover:text-white/90 transition-colors duration-300">{title}</h3>
+        <h3 className="font-display text-xl md:text-2xl font-semibold text-white mb-2 group-hover:text-white/90 transition-colors duration-300">{title}</h3>
         <p className="text-sm md:text-base text-white/40 leading-relaxed max-w-md">{description}</p>
       </div>
     </div>

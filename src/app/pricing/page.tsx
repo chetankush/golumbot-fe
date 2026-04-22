@@ -149,7 +149,7 @@ export default function PricingPage() {
       <section className="pt-20 pb-16 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--text-primary)]">
+            <h1 className="font-display text-3xl md:text-4xl font-bold mb-4 text-[var(--text-primary)]">
               Choose Your Plan
             </h1>
             <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
@@ -172,7 +172,7 @@ export default function PricingPage() {
                 )}
 
                 <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-[var(--text-primary)]">{plan.name}</h3>
+                  <h3 className="font-display text-lg font-semibold text-[var(--text-primary)]">{plan.name}</h3>
                   <div className="mt-2">
                     <span className="text-3xl font-bold text-[var(--text-primary)]">${plan.price}</span>
                     {plan.price > 0 && <span className="text-sm text-[var(--text-muted)]">/month</span>}
@@ -214,7 +214,7 @@ export default function PricingPage() {
             {/* Enterprise - Contact Us */}
             <div className="card p-6 flex flex-col relative border-[var(--border-color)]">
               <div className="mb-4">
-                <h3 className="text-lg font-semibold text-[var(--text-primary)]">Enterprise</h3>
+                <h3 className="font-display text-lg font-semibold text-[var(--text-primary)]">Enterprise</h3>
                 <div className="mt-2">
                   <span className="text-3xl font-bold text-[var(--text-primary)]">Custom</span>
                 </div>
@@ -247,7 +247,7 @@ export default function PricingPage() {
       <section id="credit-packs" className="pb-20 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-[var(--text-primary)]">
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-3 text-[var(--text-primary)]">
               Need more credits?
             </h2>
             <p className="text-[var(--text-secondary)] max-w-lg mx-auto">
