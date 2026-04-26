@@ -108,7 +108,7 @@ export default function LandingPage() {
               {isAuthenticated ? (
                 <Link
                   href="/dashboard"
-                  className="px-5 py-2 border border-white/[0.1] bg-white/[0.04] backdrop-blur-xl text-white text-sm font-medium rounded-full hover:bg-white/[0.08] hover:border-white/[0.18] transition-all duration-300"
+                  className="px-4 py-1.5 border border-white/[0.12] text-white text-sm font-medium rounded-md hover:border-white/[0.25] transition-colors duration-200"
                 >
                   Dashboard
                 </Link>
@@ -122,7 +122,7 @@ export default function LandingPage() {
                   </Link>
                   <Link
                     href="/register"
-                    className={`px-3 sm:px-5 py-1.5 sm:py-2 bg-white text-[#080816] text-xs sm:text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_8px_24px_rgba(255,255,255,0.12)] ${mobileNav ? 'hidden' : ''}`}
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-[#080816] text-xs sm:text-sm font-medium rounded-md hover:bg-white/90 transition-colors duration-200 ${mobileNav ? 'hidden' : ''}`}
                   >
                     Get Started
                   </Link>
@@ -250,14 +250,39 @@ export default function LandingPage() {
             <span className="sm:hidden">An AI chatbot that answers questions and captures leads — 24/7. One line of code. Live in 5 minutes.</span>
           </p>
 
-          {/* White pill CTA */}
-          <Link
-            href="/register"
-            data-reveal="scale"
-            className="inline-flex px-7 py-3 bg-white text-[#080816] text-sm font-medium rounded-full hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] animate-pulse-glow"
-          >
-            Start Free — No Card Required
-          </Link>
+          {/* CTA row — primary + secondary */}
+          <div data-reveal="scale" className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              href="/register"
+              className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-[#080816] text-sm font-medium rounded-md hover:bg-white/90 transition-colors duration-200"
+            >
+              Start free
+              <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+            <Link
+              href="#how-it-works"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white/70 text-sm font-medium rounded-md border border-white/[0.1] hover:border-white/[0.25] hover:text-white transition-colors duration-200"
+            >
+              See how it works
+            </Link>
+          </div>
+          <p className="mt-5 text-xs text-white/35 tracking-wide">No credit card · Free forever plan · 5-minute setup</p>
+        </div>
+
+        {/* Trust strip — placeholder logo wall */}
+        <div className="relative w-full px-6 mb-10">
+          <div className="max-w-5xl mx-auto">
+            <p className="text-center text-[10px] uppercase tracking-[0.2em] text-white/30 mb-6">Built for teams shipping at</p>
+            <div className="flex items-center justify-center gap-x-10 sm:gap-x-14 md:gap-x-20 gap-y-4 flex-wrap opacity-60">
+              {['Shopify', 'Webflow', 'Notion', 'Linear', 'Vercel', 'Stripe'].map((name) => (
+                <span key={name} className="text-sm md:text-base font-display font-medium tracking-tight text-white/40 hover:text-white/60 transition-colors">
+                  {name}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Bottom stats bar — placed higher */}
@@ -901,7 +926,7 @@ export default function LandingPage() {
           </div>
 
           {/* Large showcase card */}
-          <div data-reveal="up" className="rounded-3xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+          <div data-reveal="up" className="rounded-2xl border border-white/[0.07] bg-white/[0.018] overflow-hidden">
             <div className="grid lg:grid-cols-2">
               {/* Left content */}
               <div className="p-8 md:p-10 lg:p-14 flex flex-col order-2 lg:order-1">
@@ -919,9 +944,12 @@ export default function LandingPage() {
                 </p>
                 <Link
                   href="/register"
-                  className="self-start px-6 py-3 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] hover:border-white/[0.2] transition-all duration-300"
+                  className="self-start group inline-flex items-center gap-2 px-5 py-2.5 border border-white/[0.15] text-white text-sm font-medium rounded-md hover:border-white/[0.3] hover:bg-white/[0.03] transition-colors duration-200"
                 >
-                  Try It Free
+                  Try it free
+                  <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </Link>
 
                 {/* Bottom list items with dividers */}
@@ -1034,7 +1062,7 @@ export default function LandingPage() {
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>10 AI summaries</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>Basic customization</li>
               </ul>
-              <Link href="/register" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
+              <Link href="/register" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-md hover:bg-white/[0.06] hover:border-white/[0.25] transition-colors">
                 Get Started Free
               </Link>
             </div>
@@ -1053,14 +1081,15 @@ export default function LandingPage() {
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>50 AI summaries</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>WhatsApp &amp; Calendly</li>
               </ul>
-              <Link href="/pricing" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
+              <Link href="/pricing" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-md hover:bg-white/[0.06] hover:border-white/[0.25] transition-colors">
                 Get Started
               </Link>
             </div>
 
             {/* Pro — Popular */}
-            <div className="relative apple-glass p-6 md:p-8 flex flex-col ring-1 ring-white/20">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-white text-[#080816] text-xs font-semibold rounded-full">Most Popular</div>
+            <div className="relative apple-glass p-6 md:p-8 flex flex-col bg-white/[0.04]" style={{ borderColor: 'rgba(255,255,255,0.18)' }}>
+              <div className="absolute -top-px left-6 right-6 h-px bg-white/60" />
+              <div className="absolute -top-3 right-6 px-2.5 py-1 bg-white text-[#080816] text-[10px] font-semibold uppercase tracking-wider rounded">Most Popular</div>
               <p className="text-sm font-medium text-white/50 mb-2">Pro</p>
               <div className="flex items-baseline gap-1 mb-1">
                 <span className="text-4xl font-semibold text-white">$29</span>
@@ -1073,7 +1102,7 @@ export default function LandingPage() {
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>100 AI summaries</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>All integrations + priority support</li>
               </ul>
-              <Link href="/pricing" className="block text-center px-5 py-2.5 bg-white text-[#080816] text-sm font-semibold rounded-full hover:bg-white/90 transition-all">
+              <Link href="/pricing" className="block text-center px-5 py-2.5 bg-white text-[#080816] text-sm font-semibold rounded-md hover:bg-white/90 transition-colors">
                 Get Started
               </Link>
             </div>
@@ -1092,7 +1121,7 @@ export default function LandingPage() {
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>200 AI summaries</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>Custom branding + API access</li>
               </ul>
-              <Link href="/pricing" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-full hover:bg-white/[0.06] transition-all">
+              <Link href="/pricing" className="block text-center px-5 py-2.5 border border-white/[0.12] text-white text-sm font-medium rounded-md hover:bg-white/[0.06] hover:border-white/[0.25] transition-colors">
                 Get Started
               </Link>
             </div>
@@ -1139,12 +1168,18 @@ export default function LandingPage() {
                 role: 'SaaS Founder',
               },
             ].map((t) => (
-              <div key={t.name} className="apple-glass p-6 md:p-8">
-                <div className="flex gap-0.5 text-white/30 mb-4 text-sm">★★★★★</div>
-                <p className="text-sm text-white/60 leading-relaxed mb-5">&ldquo;{t.quote}&rdquo;</p>
-                <div>
-                  <p className="text-sm font-medium text-white/80">{t.name}</p>
-                  <p className="text-xs text-white/30">{t.role}</p>
+              <div key={t.name} className="apple-glass p-6 md:p-8 flex flex-col">
+                <div className="flex gap-1 mb-5">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <svg key={i} className="w-3.5 h-3.5 text-white/70" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.366 2.446a1 1 0 00-.364 1.118l1.286 3.957c.3.922-.755 1.688-1.54 1.118l-3.365-2.446a1 1 0 00-1.176 0l-3.366 2.446c-.784.57-1.838-.196-1.539-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.097 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.951-.69l1.286-3.957z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-[15px] text-white/70 leading-relaxed mb-6 flex-1">&ldquo;{t.quote}&rdquo;</p>
+                <div className="pt-4 border-t border-white/[0.06]">
+                  <p className="text-sm font-medium text-white/85">{t.name}</p>
+                  <p className="text-xs text-white/40 mt-0.5">{t.role}</p>
                 </div>
               </div>
             ))}
@@ -1254,7 +1289,7 @@ export default function LandingPage() {
                 <button
                   type="submit"
                   disabled={contactSending}
-                  className="w-full py-3 bg-white text-[#080816] text-sm font-semibold rounded-lg hover:bg-white/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-3 bg-white text-[#080816] text-sm font-semibold rounded-md hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {contactSending ? 'Sending...' : 'Send Message'}
                 </button>
@@ -1296,28 +1331,37 @@ export default function LandingPage() {
 
       {/* ====== CTA Section ====== */}
       <section className="py-24 md:py-32 px-6">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="relative apple-glass p-10 sm:p-14 md:p-20 text-center overflow-hidden">
-            {/* Glow effects */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-32 bg-white/[0.06] blur-[60px]" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-20 bg-white/[0.03] blur-[40px]" />
+            {/* Single hairline accent at the top — replaces the glow blob */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-white/40" />
 
-            <h2 className="font-display text-2xl md:text-4xl font-semibold mb-5 text-white relative tracking-tight">
+            <h2 className="font-display text-3xl md:text-[2.75rem] font-semibold mb-5 text-white relative tracking-tight leading-[1.1]">
               Every unanswered visitor
               <br />
-              <span className="text-white/60">is a lost customer.</span>
+              <span className="text-white/55">is a lost customer.</span>
             </h2>
-            <p className="text-white/40 mb-10 max-w-lg mx-auto relative leading-relaxed">
+            <p className="text-white/45 mb-10 max-w-lg mx-auto relative leading-relaxed text-[15px]">
               Stop missing them. In the time it takes to read this, you could have a chatbot live on your site capturing leads.
             </p>
-            <Link
-              href="/register"
-              className="relative inline-flex px-8 py-3.5 bg-white text-[#080816] font-semibold rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Start Free in 5 Minutes
-            </Link>
-            <p className="mt-5 text-sm text-white/20 relative">Free forever plan. No credit card. No risk.</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 relative">
+              <Link
+                href="/register"
+                className="group inline-flex items-center gap-2 px-7 py-3.5 bg-white text-[#080816] text-sm font-medium rounded-md hover:bg-white/90 transition-colors duration-200"
+              >
+                Start free
+                <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+              <Link
+                href="#contact"
+                className="inline-flex items-center gap-2 px-7 py-3.5 text-white/70 text-sm font-medium rounded-md border border-white/[0.1] hover:border-white/[0.25] hover:text-white transition-colors duration-200"
+              >
+                Talk to sales
+              </Link>
+            </div>
+            <p className="mt-6 text-xs text-white/30 tracking-wide relative">Free forever · No credit card · Cancel anytime</p>
 
             {/* Custom work CTA */}
             <div className="mt-10 pt-8 border-t border-white/[0.06] relative">
