@@ -231,23 +231,23 @@ export default function LandingPage() {
         <div className="relative text-center max-w-7xl mx-auto px-6 pt-36 sm:pt-32 pb-32 flex-1 flex flex-col items-center justify-center">
           {/* Announcement badge */}
           <Link href={isAuthenticated ? '/dashboard' : '/login'} data-reveal="up" className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/[0.12] backdrop-blur-xl border border-white/[0.15] text-[8px] sm:text-[10px] font-medium tracking-[0.12em] sm:tracking-[0.15em] uppercase text-white/70 mb-8 sm:mb-10 cursor-pointer hover:bg-white/[0.18] transition-all duration-300">
-            Add AI Chat Support to Your Website
+            Live on your website in 5 minutes
             <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </Link>
 
           {/* Heading */}
-          <h1 data-reveal="up" className="font-display text-[2.1rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]">
-            A chatbot for your website
+          <h1 data-reveal="up" className="font-display text-[2.1rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.25rem] font-medium text-white mb-6 leading-[1.1] tracking-[-0.02em]">
+            Turn website visitors
             <br />
-            that knows your business.
+            into customers — 24/7.
           </h1>
 
           {/* Subtitle */}
           <p data-reveal="up" className="text-sm md:text-base text-white/75 mb-9 max-w-xl mx-auto leading-relaxed">
-            <span className="hidden sm:inline">Golum puts a chatbot on your website that answers visitor questions about your products, pricing, and services — automatically, 24/7. Just upload your info and paste one line of code.</span>
-            <span className="sm:hidden">Put a chatbot on your site that answers customer questions about your business — 24/7, automatically.</span>
+            <span className="hidden sm:inline">Golum adds an AI chatbot to your website that answers product, pricing, and support questions instantly — and captures leads while you sleep. Paste one line of code. Go live today.</span>
+            <span className="sm:hidden">An AI chatbot that answers questions and captures leads — 24/7. One line of code. Live in 5 minutes.</span>
           </p>
 
           {/* White pill CTA */}
@@ -256,7 +256,7 @@ export default function LandingPage() {
             data-reveal="scale"
             className="inline-flex px-7 py-3 bg-white text-[#080816] text-sm font-medium rounded-full hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] animate-pulse-glow"
           >
-            Get Started 
+            Start Free — No Card Required
           </Link>
         </div>
 
@@ -278,7 +278,7 @@ export default function LandingPage() {
       <section className="py-16 md:py-28 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <p data-reveal="fade" className="text-center text-xs sm:text-sm text-white/30 mb-8 md:mb-12">
-            See how the chatbot looks on your website — desktop &amp; mobile
+            Looks native on every device. Desktop, mobile — pixel-perfect.
           </p>
 
           {/* Devices — MacBook on top (mobile) or left (desktop), phones beside it */}
@@ -813,10 +813,10 @@ export default function LandingPage() {
                 <span className="w-2 h-2 rounded-full bg-white/60" />
                 Why Golum
               </div>
-              <h2 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-[1.1] tracking-tight">
-                Your own support agent.
+              <h2 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-semibold text-white leading-[1.1] tracking-tight">
+                A sales agent that
                 <br />
-                On your website.
+                never sleeps.
               </h2>
             </div>
 
@@ -824,68 +824,68 @@ export default function LandingPage() {
             <div data-reveal="right" className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-10 lg:max-w-2xl lg:pt-8">
               <div>
                 <div className="text-white/45 mb-3"><PaletteIcon /></div>
-                <h4 className="text-white font-medium mb-1.5">Matches Your Brand</h4>
-                <p className="text-sm text-white/35 leading-relaxed">Pick your colors, logo, and tone. The chatbot looks and feels like part of your website</p>
+                <h4 className="text-white font-medium mb-1.5">Looks Like Yours</h4>
+                <p className="text-sm text-white/35 leading-relaxed">Your colors, your logo, your voice. Visitors won&apos;t know it&apos;s a third-party tool.</p>
               </div>
               <div>
                 <div className="text-white/45 mb-3"><BrainIcon /></div>
-                <h4 className="text-white font-medium mb-1.5">Trained on Your Info</h4>
-                <p className="text-sm text-white/35 leading-relaxed">Upload your FAQ, product details, or website URL — it learns your business in seconds</p>
+                <h4 className="text-white font-medium mb-1.5">Knows Your Business</h4>
+                <p className="text-sm text-white/35 leading-relaxed">Drop in your website URL, FAQ, or PDFs. The bot learns everything in seconds.</p>
               </div>
               <div>
                 <div className="text-white/45 mb-3"><CodeIcon /></div>
-                <h4 className="text-white font-medium mb-1.5">Paste &amp; Go Live</h4>
-                <p className="text-sm text-white/35 leading-relaxed">Copy one line of code, paste it on your site. The chatbot appears instantly for visitors</p>
+                <h4 className="text-white font-medium mb-1.5">Live in One Paste</h4>
+                <p className="text-sm text-white/35 leading-relaxed">One line of code. Works on Shopify, WordPress, Wix — anywhere. No developer needed.</p>
               </div>
             </div>
           </div>
 
           {/* Everything You Get — full feature grid */}
           <div data-reveal="up" className="mb-6 md:mb-8">
-            <h3 className="font-display text-lg md:text-xl font-semibold text-white/80">Everything you get</h3>
-            <p className="text-sm text-white/30 mt-1">No hidden features. No premium tiers for basics. All of this is included.</p>
+            <h3 className="font-display text-lg md:text-xl font-medium text-white/80">Everything you get — no add-ons</h3>
+            <p className="text-sm text-white/30 mt-1">Lead capture, analytics, training, CSV export. All included on every plan.</p>
           </div>
           <div data-reveal-stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-14 md:mb-20">
             {[
               {
                 icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
-                title: 'Lead Capture',
-                desc: 'Automatically collect visitor names and emails when the chatbot can\'t answer — never lose a potential customer',
+                title: 'Capture Every Lead',
+                desc: 'When the bot can\'t answer, it asks for a name and email. Never lose a sales opportunity again.',
               },
               {
                 icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
-                title: 'Analytics Dashboard',
-                desc: 'Conversations per day, busiest hours, top questions, visitor tracking — see exactly how your chatbot performs',
+                title: 'Know What Sells',
+                desc: 'Top questions, busiest hours, returning visitors — every chat becomes business intelligence.',
               },
               {
                 icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-                title: 'Missed Questions',
-                desc: 'See every question your AI couldn\'t answer. Know exactly what info to add so the bot gets smarter over time',
+                title: 'Spot the Gaps',
+                desc: 'See every question the bot couldn\'t answer. Each one is a chance to win the next visitor.',
               },
               {
                 icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
-                title: 'AI Training Suggestions',
-                desc: 'Golum tells you which questions need answers. Type the answer, click Add — bot learns it instantly',
+                title: 'Teach in One Click',
+                desc: 'Type the missing answer, hit Add — your bot uses it on the very next chat. Smarter every day.',
               },
               {
                 icon: 'M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-                title: 'CSV Export',
-                desc: 'Export all conversations and leads as CSV files. Open in Excel, import to your CRM — your data, your way',
+                title: 'Your Data, Exportable',
+                desc: 'One-click CSV export of every lead and conversation. Open in Excel, push to your CRM, done.',
               },
               {
                 icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
-                title: 'WhatsApp Handoff',
-                desc: 'When visitors need a human, the bot offers your WhatsApp or phone — seamless escalation, no lost leads',
+                title: 'Hand Off to Humans',
+                desc: 'High-intent visitors get your WhatsApp, phone, or booking link instantly. No lead left waiting.',
               },
               {
                 icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
-                title: 'Full Customization',
-                desc: 'Your brand colors, your logo, your welcome message. The chatbot looks native to your website — not like a third-party tool',
+                title: 'On-Brand by Default',
+                desc: 'Match your colors, fonts, and tone in 30 seconds. Looks like part of your site, not a bolt-on widget.',
               },
               {
                 icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
-                title: 'Visitor Tracking',
-                desc: 'Unique visitors, returning visitors, average chats per person — understand who\'s using your chatbot and how',
+                title: 'Track Every Visitor',
+                desc: 'See unique vs. returning visitors and chats per person. Spot your warmest leads before they leave.',
               },
             ].map((item) => (
               <div key={item.title} data-reveal="up" className="apple-glass p-5 md:p-6">
@@ -912,10 +912,10 @@ export default function LandingPage() {
                     <rect x="3" y="14" width="7" height="7" rx="1.5" />
                     <rect x="14" y="14" width="7" height="7" rx="1.5" />
                   </svg>
-                  <h3 className="font-display text-2xl md:text-3xl font-semibold text-white">Manage From One Dashboard</h3>
+                  <h3 className="font-display text-2xl md:text-3xl font-medium text-white">One dashboard. Total control.</h3>
                 </div>
                 <p className="text-white/40 mb-8 leading-relaxed max-w-sm text-[15px]">
-                  See what visitors are asking, read full conversations, and improve your chatbot&apos;s answers — all from a simple dashboard.
+                  Read every conversation, see what visitors really want, and teach your bot in seconds — all in one clean dashboard.
                 </p>
                 <Link
                   href="/register"
@@ -926,10 +926,10 @@ export default function LandingPage() {
 
                 {/* Bottom list items with dividers */}
                 <div className="mt-auto pt-10">
-                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Train from your website, PDFs, or just paste text</div>
-                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">See missed questions and teach the bot with one click</div>
-                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Export leads and conversations to CSV anytime</div>
-                  <div className="py-4 text-[15px] text-white/80 font-medium">Paste one code snippet — chatbot goes live on your site</div>
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Train from your website, PDFs, or pasted text — in seconds</div>
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Spot missed questions and fix them in one click</div>
+                  <div className="py-4 border-b border-white/[0.06] text-[15px] text-white/80 font-medium">Export every lead and chat to CSV — keep your data forever</div>
+                  <div className="py-4 text-[15px] text-white/80 font-medium">Paste one snippet. Live on your site in under 5 minutes.</div>
                 </div>
               </div>
 
@@ -942,20 +942,20 @@ export default function LandingPage() {
                 <div className="absolute bottom-5 left-5 right-5 md:bottom-8 md:left-8 md:right-8 p-5 md:p-6 rounded-2xl bg-[rgba(12,12,28,0.85)] backdrop-blur-2xl border border-white/[0.08]">
                   <div className="flex items-center gap-2 mb-4">
                     <span className="w-2 h-2 rounded-full bg-green-400" />
-                    <span className="text-sm text-white/60 font-medium">Real Results, Live</span>
+                    <span className="text-sm text-white/60 font-medium">Live across customer sites</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2.5">
                     <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.06]">
                       <p className="text-[10px] text-white/35 mb-1">Questions Answered</p>
-                      <p className="text-xl font-bold text-white">99%</p>
+                      <p className="text-xl font-semibold text-white">99%</p>
                     </div>
                     <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.06]">
                       <p className="text-[10px] text-white/35 mb-1">Conversations</p>
-                      <p className="text-xl font-bold text-white">5,000+</p>
+                      <p className="text-xl font-semibold text-white">5,000+</p>
                     </div>
                     <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.06]">
                       <p className="text-[10px] text-white/35 mb-1">Response Time</p>
-                      <p className="text-xl font-bold text-white">&lt;2s</p>
+                      <p className="text-xl font-semibold text-white">&lt;2s</p>
                     </div>
                   </div>
                 </div>
@@ -970,31 +970,31 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto">
           <div data-reveal="up" className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">How It Works</p>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
-              3 steps. 5 minutes. Done.
+            <h2 className="font-display text-3xl md:text-5xl font-semibold text-white mb-5 tracking-tight">
+              3 steps. 5 minutes. Live.
             </h2>
             <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto leading-relaxed">
-              No coding skills needed. No developer required. Just follow these three steps and your website gets its own AI chatbot.
+              No code, no developer, no setup call. If you can copy and paste, you can launch a chatbot today.
             </p>
           </div>
 
           <div className="relative">
             <TimelineStep
               number="01"
-              title="Create a Chatbot"
-              description="Give it a name and pick a style. This is the chatbot that will appear on your website for visitors."
+              title="Sign up and pick a style"
+              description="Free account, 30-second signup. Choose your colors, name your bot, and you've got a chatbot ready to train."
               isLast={false}
             />
             <TimelineStep
               number="02"
-              title="Add Your Business Info"
-              description="Upload your FAQ, product pages, pricing, or just paste your website URL. The chatbot reads it all and learns your business."
+              title="Train it on your business"
+              description="Drop in your website URL, upload a PDF, or paste your FAQ. The bot reads everything in seconds — no manual data entry."
               isLast={false}
             />
             <TimelineStep
               number="03"
-              title="Paste Code on Your Site"
-              description="Copy one small code snippet and paste it on your website. The chatbot appears and starts answering visitor questions instantly."
+              title="Paste one line. Go live."
+              description="Copy your snippet, paste it on Shopify, WordPress, Wix, or any site. Your chatbot is live and answering visitors instantly."
               isLast={true}
             />
           </div>
@@ -1011,11 +1011,11 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div data-reveal="up" className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">Pricing</p>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
-              Simple, transparent pricing.
+            <h2 className="font-display text-3xl md:text-5xl font-semibold text-white mb-5 tracking-tight">
+              Pricing that scales with you.
             </h2>
             <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto leading-relaxed">
-              Start free. Upgrade when you need more chatbots or messages.
+              Start free forever. Upgrade only when you outgrow it. Cancel anytime — no contracts.
             </p>
           </div>
 
@@ -1024,10 +1024,10 @@ export default function LandingPage() {
             <div className="apple-glass p-6 md:p-8 flex flex-col">
               <p className="text-sm font-medium text-white/50 mb-2">Free</p>
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-bold text-white">$0</span>
+                <span className="text-4xl font-semibold text-white">$0</span>
                 <span className="text-sm text-white/30">/month</span>
               </div>
-              <p className="text-sm text-white/35 mb-6">Try it out on your website</p>
+              <p className="text-sm text-white/35 mb-6">Kick the tires. Forever free.</p>
               <ul className="space-y-3 mb-8 flex-1">
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>1 chatbot</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>50 messages / month</li>
@@ -1043,10 +1043,10 @@ export default function LandingPage() {
             <div className="apple-glass p-6 md:p-8 flex flex-col">
               <p className="text-sm font-medium text-white/50 mb-2">Starter</p>
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-bold text-white">$12</span>
+                <span className="text-4xl font-semibold text-white">$12</span>
                 <span className="text-sm text-white/30">/month</span>
               </div>
-              <p className="text-sm text-white/35 mb-6">For small businesses</p>
+              <p className="text-sm text-white/35 mb-6">For solo founders &amp; small sites</p>
               <ul className="space-y-3 mb-8 flex-1">
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>3 chatbots</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>2,000 messages / month</li>
@@ -1063,10 +1063,10 @@ export default function LandingPage() {
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-white text-[#080816] text-xs font-semibold rounded-full">Most Popular</div>
               <p className="text-sm font-medium text-white/50 mb-2">Pro</p>
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-bold text-white">$29</span>
+                <span className="text-4xl font-semibold text-white">$29</span>
                 <span className="text-sm text-white/30">/month</span>
               </div>
-              <p className="text-sm text-white/35 mb-6">For growing businesses</p>
+              <p className="text-sm text-white/35 mb-6">Most growing businesses pick this</p>
               <ul className="space-y-3 mb-8 flex-1">
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>10 chatbots</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>10,000 messages / month</li>
@@ -1082,10 +1082,10 @@ export default function LandingPage() {
             <div className="apple-glass p-6 md:p-8 flex flex-col">
               <p className="text-sm font-medium text-white/50 mb-2">Business</p>
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-bold text-white">$59</span>
+                <span className="text-4xl font-semibold text-white">$59</span>
                 <span className="text-sm text-white/30">/month</span>
               </div>
-              <p className="text-sm text-white/35 mb-6">For teams &amp; agencies</p>
+              <p className="text-sm text-white/35 mb-6">For agencies &amp; high-traffic sites</p>
               <ul className="space-y-3 mb-8 flex-1">
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>Unlimited chatbots</li>
                 <li className="flex items-start gap-2.5 text-sm text-white/60"><svg className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>50,000 messages / month</li>
@@ -1098,7 +1098,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <p className="text-center text-sm text-white/25 mt-8">All plans include a 7-day free trial. No credit card required to start.</p>
+          <p className="text-center text-sm text-white/25 mt-8">No credit card required. Switch plans or cancel anytime.</p>
         </div>
       </section>
 
@@ -1114,7 +1114,7 @@ export default function LandingPage() {
               { number: '<2s', label: 'Average response time' },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.number}</p>
+                <p className="text-3xl md:text-4xl font-semibold text-white mb-1">{stat.number}</p>
                 <p className="text-sm text-white/35">{stat.label}</p>
               </div>
             ))}
@@ -1161,9 +1161,9 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <h3 className="font-display text-xl md:text-2xl font-semibold text-white mb-2">Try it right now</h3>
+            <h3 className="font-display text-xl md:text-2xl font-medium text-white mb-2">See it in action — right here.</h3>
             <p className="text-sm text-white/40 leading-relaxed max-w-md mx-auto">
-              See the chat icon in the bottom-right corner? That&apos;s a Golum chatbot running live on this page. Click it and ask anything — that&apos;s exactly what your visitors will experience.
+              That chat icon in the bottom-right? It&apos;s Golum, live on this page. Open it, ask anything — that&apos;s exactly what your visitors will get.
             </p>
           </div>
         </div>
@@ -1173,11 +1173,11 @@ export default function LandingPage() {
       <section id="contact" className="py-24 md:py-32 px-6">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">Contact</p>
-          <h2 data-reveal="up" className="font-display text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
-            Questions? We&apos;re here.
+          <h2 data-reveal="up" className="font-display text-3xl md:text-5xl font-semibold text-white mb-5 tracking-tight">
+            Talk to a real human.
           </h2>
           <p className="text-base md:text-lg text-white/40 max-w-lg mx-auto mb-14 leading-relaxed">
-            Need help setting up? Have a question? Reach out — we respond fast.
+            Setup question? Custom build? Pricing chat? Drop a note — we usually reply within a few hours.
           </p>
 
           {contactSent ? (
@@ -1187,7 +1187,7 @@ export default function LandingPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="font-display text-xl font-semibold text-white mb-2">Message sent!</h3>
+              <h3 className="font-display text-xl font-medium text-white mb-2">Message sent!</h3>
               <p className="text-sm text-white/40">We&apos;ll get back to you shortly. Check your email for a confirmation.</p>
             </div>
           ) : (
@@ -1275,11 +1275,11 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
             <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-4">FAQ</p>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
-              Got questions? We&apos;ve got answers.
+            <h2 className="font-display text-3xl md:text-5xl font-semibold text-white mb-5 tracking-tight">
+              Everything you wanted to ask.
             </h2>
             <p className="text-base md:text-lg text-white/40">
-              Everything you need to know before you get started
+              The honest answers — before you sign up.
             </p>
           </div>
 
@@ -1303,28 +1303,28 @@ export default function LandingPage() {
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-32 bg-white/[0.06] blur-[60px]" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-20 bg-white/[0.03] blur-[40px]" />
 
-            <h2 className="font-display text-2xl md:text-4xl font-bold mb-5 text-white relative tracking-tight">
-              Your visitors have questions.
+            <h2 className="font-display text-2xl md:text-4xl font-semibold mb-5 text-white relative tracking-tight">
+              Every unanswered visitor
               <br />
-              <span className="text-white/60">Let your website answer them.</span>
+              <span className="text-white/60">is a lost customer.</span>
             </h2>
             <p className="text-white/40 mb-10 max-w-lg mx-auto relative leading-relaxed">
-              Every unanswered question is a lost customer. Add Golum to your website in 5 minutes and let the chatbot handle it.
+              Stop missing them. In the time it takes to read this, you could have a chatbot live on your site capturing leads.
             </p>
             <Link
               href="/register"
               className="relative inline-flex px-8 py-3.5 bg-white text-[#080816] font-semibold rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)] hover:scale-[1.02] active:scale-[0.98]"
             >
-              Get Started
+              Start Free in 5 Minutes
             </Link>
-            <p className="mt-5 text-sm text-white/20 relative">Free to get started. Upgrade anytime.</p>
+            <p className="mt-5 text-sm text-white/20 relative">Free forever plan. No credit card. No risk.</p>
 
             {/* Custom work CTA */}
             <div className="mt-10 pt-8 border-t border-white/[0.06] relative">
               <p className="text-sm text-white/50">
-                <span className="font-medium text-white/70">Need something custom?</span>{' '}
-                We build AI chatbots and agents tailored to your business.{' '}
-                <a href="#contact" className="text-white underline underline-offset-4 decoration-white/30 hover:decoration-white/60 transition-all">Talk to us &rarr;</a>
+                <span className="font-medium text-white/70">Need a custom AI build?</span>{' '}
+                We design bespoke chatbots, agents, and automations for ambitious teams.{' '}
+                <a href="#contact" className="text-white underline underline-offset-4 decoration-white/30 hover:decoration-white/60 transition-all">Let&apos;s talk &rarr;</a>
               </p>
             </div>
           </div>
@@ -1400,7 +1400,7 @@ function TimelineStep({ number, title, description, isLast }: { number: string; 
 
       {/* Right: content */}
       <div className={`pt-2 ${isLast ? 'pb-0' : 'pb-12 md:pb-16'}`}>
-        <h3 className="font-display text-xl md:text-2xl font-semibold text-white mb-2 group-hover:text-white/90 transition-colors duration-300">{title}</h3>
+        <h3 className="font-display text-xl md:text-2xl font-medium text-white mb-2 group-hover:text-white/90 transition-colors duration-300">{title}</h3>
         <p className="text-sm md:text-base text-white/40 leading-relaxed max-w-md">{description}</p>
       </div>
     </div>
